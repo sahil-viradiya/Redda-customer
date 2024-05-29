@@ -6,6 +6,8 @@ import 'package:redda_customer/screens/auth/forgot_password/forgot_password_scre
 import 'package:redda_customer/screens/auth/otp/otp_screen.dart';
 import 'package:redda_customer/screens/auth/resate_password/resate_password_screen.dart';
 import 'package:redda_customer/screens/auth/signIn/signIn_Screen.dart';
+import 'package:redda_customer/screens/home/home_binding.dart';
+import 'package:redda_customer/screens/home/home_screen.dart';
 
 class AppRoutes {
   static String SPLASHSCREEN = '/splash_screen';
@@ -15,8 +17,9 @@ class AppRoutes {
   static String FORGOTOTP = '/forgot_otp';
   static String RESATEPASSWORD = '/resate_password';
   static String SIGNUPSCREEN = '/create_account';
-  static String OTPSCREEN = '/otp_screen';
   static String initialRoute = '/login_screen';
+  static String OTPSCREEN = '/otp_screen';
+  static String HOMESCREEN = '/home_screen';
 
   static List<GetPage> pages = [
     // GetPage(
@@ -29,38 +32,44 @@ class AppRoutes {
     GetPage(
       name: initialRoute,
       page: () => SignInScreen(),
-      bindings: [
+      bindings: const [
         // SplashBinding(),
       ],
     ),GetPage(
       name: FORGOTPASSWORD,
       page: () => ForgotPasswordScreen(),
-      bindings: [
+      bindings: const [
         // SplashBinding(),
       ],
     ),GetPage(
       name: FORGOTOTP,
       page: () => ForgotOtpScreen(),
-      bindings: [
+      bindings: const [
         // SplashBinding(),
       ],
     ),GetPage(
       name: RESATEPASSWORD,
       page: () => ResetPasswordScreen(),
-      bindings: [
+      bindings: const [
         // SplashBinding(),
       ],
     ),GetPage(
       name: SIGNUPSCREEN,
       page: () => SignUpScreen(),
-      bindings: [
+      bindings: const [
         // SplashBinding(),
       ],
     ),GetPage(
       name: OTPSCREEN,
       page: () => OtpScreen(),
-      bindings: [
+      bindings: const [
         // SplashBinding(),
+      ],
+    ),GetPage(
+      name: HOMESCREEN,
+      page: () => const HomeScreen(),
+      bindings: [
+        HomeBinding(),
       ],
     ),
 

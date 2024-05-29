@@ -6,6 +6,7 @@ const Color black = Color(0xFF000000);
 const Color lableColor = Color(0xFFA5A5A5);
 const Color hintColor = Color(0xFF3B3B3B);
 const Color grey = Color(0xFF888688);
+const Color darkgrey = Color(0xFF3C3C3C);
 const Color litegrey = Color(0xFFB9B9B9);
 const Color liteHint = Color(0xFFC0C5C9);
 const Color blueShade = Color(0xFF5969F5);

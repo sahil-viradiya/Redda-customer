@@ -51,6 +51,11 @@ class Styles {
     fontSize: 15,
     fontFamily: FontFamily.primary,
     fontWeight: FontWeight.w700,
+  ); static TextStyle boldDarkGrey60012 = TextStyle(
+    color: darkGrey,
+    fontSize: 12,
+    fontFamily: FontFamily.primary,
+    fontWeight: FontWeight.w600,
   );
   static TextStyle boldBlue615 = TextStyle(
     color: primary,

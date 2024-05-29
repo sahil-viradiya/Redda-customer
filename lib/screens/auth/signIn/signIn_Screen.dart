@@ -1,4 +1,3 @@
-
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,8 +15,8 @@ import 'package:redda_customer/widget/custom_button.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
-  final _formKey = GlobalKey<FormState>();
 
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,274 +24,266 @@ class SignInScreen extends StatelessWidget {
       context,
     );
     return Scaffold(
-      backgroundColor: primaryWhite,
-      appBar: Appbar(),
-      body:Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MySize.getScaledSizeWidth(25)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Gap(MySize.size30!),
-                Text(
-                  'Welcome Back',
-                  style: Styles.boldBlue720,
-                ),
-                Gap(MySize.size20!),
-                Text(
-                  'Welcome to Genie! We are here to help with your work requirements',
-                  style: Styles.noramalBlack411,
-                  textAlign: TextAlign.center,
-                ),
-                Gap(MySize.size30!),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: MySize.size30,
-                        width: MySize.size78,
-                        decoration: BoxDecoration(
-                          color: primary,
-                          borderRadius: BorderRadius.circular(3.0),
-                        ),
-                        child: Text(
-                          'Sign In',
-                          textAlign: TextAlign.center,
-                          style: Styles.boldWhite615,
-                        ),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                              MySize.getScaledSizeWidth(16)),
-                          child: Container(
-                            height: MySize.size28,
-                            width: MySize.size1,
-                            color: black,
-                          )),
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.SIGNUPSCREEN);
-                        },
-                        child: Text(
-                          'Sign Up',
-                          textAlign: TextAlign.center,
-                          style: Styles.noramalBlack615,
-                        ),
-                      ),
-                    ]),
-                Gap(MySize.size30!),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child:
-                  Text("Username",style: Styles.boldBlack614,textAlign: TextAlign.left,),
-
-                ),
-                Gap(MySize.size4!),
-
-                CustomTextFormFieldWidget(
-                  validator: ((value) {
-                    return Validator.validateFirstName(value!);
-                  }),
-                  // controller: loginBloc.usernameCon,
-                  hintRpadding: 17.76,
-                  lblTxt:
-                  '',
-                ),
-                Gap(MySize.size12!),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child:
-                  Text("Password",style: Styles.boldBlack614,textAlign: TextAlign.left,),
-
-                ),
-                Gap(MySize.size4!),
-
-                CustomPasswordTextFormFieldWidget(
-                  validator: ((value) {
-                    return Validator.validatePassword(value!);
-                  }),
-                  // controller: loginBloc.passCon,
-                  lblTxt:
-                  '',
-                  obscureText: true,
-                  suffixTap: () {},
-                ),
-                Gap(MySize.size12!),
-// addddddddddddddddddddddddd
-                // DynamicTextFieldRow(),
-                //---------------------------------------check box-----------------------
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                          activeColor: primary,
-                          visualDensity:
-                          const VisualDensity(horizontal: -4),
-                          materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
-                          side: const BorderSide(color: primary),
-                          // value: boolValue,
-                          onChanged: (bool? value) {
-
-                          }, value: false,
-                        ),
-                        Text(
-                          'Remember Me',
-                          style: Styles.normalBlue610,
-                        ),
-                      ],
-                    ),
-                    //-----------------------------------Forgot Password--------------------------
-                    InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.FORGOTPASSWORD);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 28,
-                        // color: Colors.red,
-                        child: Text(
-                          'Forgot password?',
-                          style: Styles.normalBlue610U,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Gap(MySize.size10!),
-                //-------------------------------------sign in button------------------
-                CustomButton(
-
-                    text:
-                    'Sign In',
-                    fun: () {
-                      // context.goNamed(RouteName.bottomBar);
-                      if (_formKey.currentState!.validate()) {
-
-                      }
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => BottomBarScreen()),
-                      // );
-                    }),
-                Gap(MySize.size24!),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.SIGNUPSCREEN);
-
-                  },
-                  child: Text(
-                    'Create an Account',
-                    style: Styles.normalBlue612U,
+        backgroundColor: primaryWhite,
+        appBar: Appbar(),
+        body: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MySize.getScaledSizeWidth(25)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Gap(MySize.size30!),
+                  Text(
+                    'Welcome Back',
+                    style: Styles.boldBlue720,
                   ),
-                ),
-                Gap(MySize.size24!),
-                Row(
-                  children: [
-                    const Expanded(
-                      child: DottedLine(
-                        direction: Axis.horizontal,
-                        alignment: WrapAlignment.center,
-                        //lineLength: double.infinity,
-                        lineThickness: 1.0,
-                        dashLength: 4.0,
-                        dashColor: Colors.black,
-                        dashRadius: 0.0,
-                        dashGapLength: 4.0,
-                        dashGapColor: Colors.transparent,
-                        dashGapRadius: 0.0,
+                  Gap(MySize.size20!),
+                  Text(
+                    'Welcome to Genie! We are here to help with your work requirements',
+                    style: Styles.noramalBlack411,
+                    textAlign: TextAlign.center,
+                  ),
+                  Gap(MySize.size30!),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: MySize.size30,
+                      width: MySize.size78,
+                      decoration: BoxDecoration(
+                        color: primary,
+                        borderRadius: BorderRadius.circular(3.0),
+                      ),
+                      child: Text(
+                        'Sign In',
+                        textAlign: TextAlign.center,
+                        style: Styles.boldWhite615,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MySize.getScaledSizeWidth(16.00)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MySize.getScaledSizeWidth(16)),
+                        child: Container(
+                          height: MySize.size28,
+                          width: MySize.size1,
+                          color: black,
+                        )),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.SIGNUPSCREEN);
+                      },
                       child: Text(
-                        'OR',
-                        style: Styles.noramalBlack416,
+                        'Sign Up',
+                        textAlign: TextAlign.center,
+                        style: Styles.noramalBlack615,
                       ),
                     ),
-                    const Expanded(
-                      child: DottedLine(
-                        direction: Axis.horizontal,
-                        alignment: WrapAlignment.center,
-                        //lineLength: double.infinity,
-                        lineThickness: 1.0,
-                        dashLength: 4.0,
-                        dashColor: Colors.black,
-                        dashRadius: 0.0,
-                        dashGapLength: 4.0,
-                        dashGapColor: Colors.transparent,
-                        dashGapRadius: 0.0,
-                      ),
-                    ),
-                  ],
-                ),
-                Gap(MySize.size10!),
-                Container(
-                  alignment: Alignment.center,
-                  height: MySize.size50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3.0),
-                    border: Border.all(
-                      color: primary,
+                  ]),
+                  Gap(MySize.size30!),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Username",
+                      style: Styles.boldBlack614,
+                      textAlign: TextAlign.left,
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Gap(MySize.size4!),
+
+                  CustomTextFormFieldWidget(
+                    controller: TextEditingController(text: "sahil"),
+                    validator: ((value) {
+                      return Validator.validateFirstName(value!);
+                    }),
+                    // controller: loginBloc.usernameCon,
+                    hintRpadding: 17.76,
+                    lblTxt: '',
+                  ),
+                  Gap(MySize.size12!),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Password",
+                      style: Styles.boldBlack614,
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  Gap(MySize.size4!),
+
+                  CustomPasswordTextFormFieldWidget(
+                    controller: TextEditingController(text: "123456789"),
+                    validator: ((value) {
+                      return Validator.validatePassword(value!);
+                    }),
+                    // controller: loginBloc.passCon,
+                    lblTxt: '',
+                    obscureText: true,
+                    suffixTap: () {},
+                  ),
+                  Gap(MySize.size12!),
+                  //---------------------------------------check box-----------------------
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SvgPicture.asset(
-                        AppImage.FACEBOOK,
-                        fit: BoxFit.fill,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Checkbox(
+                            activeColor: primary,
+                            visualDensity: const VisualDensity(horizontal: -4),
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            side: const BorderSide(color: primary),
+                            // value: boolValue,
+                            onChanged: (bool? value) {},
+                            value: false,
+                          ),
+                          Text(
+                            'Remember Me',
+                            style: Styles.normalBlue610,
+                          ),
+                        ],
                       ),
-                      Text(
-                        ' Login With Facebook',
-                        style: Styles.boldBlue712,
+                      //-----------------------------------Forgot Password--------------------------
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.FORGOTPASSWORD);
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 28,
+                          // color: Colors.red,
+                          child: Text(
+                            'Forgot password?',
+                            style: Styles.normalBlue610U,
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                ),
-                Gap(MySize.size10!),
-                Container(
-                  alignment: Alignment.center,
-                  height: MySize.size50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3.0),
-                    border: Border.all(
-                      color: primary,
+                  Gap(MySize.size10!),
+                  //-------------------------------------sign in button------------------
+                  CustomButton(
+                      text: 'Sign In',
+                      fun: () {
+                        if (_formKey.currentState!.validate()) {
+                          Get.toNamed(AppRoutes.HOMESCREEN);
+                        }
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => BottomBarScreen()),
+                        // );
+                      }),
+                  Gap(MySize.size24!),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.SIGNUPSCREEN);
+                    },
+                    child: Text(
+                      'Create an Account',
+                      style: Styles.normalBlue612U,
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Gap(MySize.size24!),
+                  Row(
                     children: [
-                      SvgPicture.asset(
-                        AppImage.GOOGLE,
-                        fit: BoxFit.fill,
+                      const Expanded(
+                        child: DottedLine(
+                          direction: Axis.horizontal,
+                          alignment: WrapAlignment.center,
+                          //lineLength: double.infinity,
+                          lineThickness: 1.0,
+                          dashLength: 4.0,
+                          dashColor: Colors.black,
+                          dashRadius: 0.0,
+                          dashGapLength: 4.0,
+                          dashGapColor: Colors.transparent,
+                          dashGapRadius: 0.0,
+                        ),
                       ),
-                      Text(
-                        ' Login With Google',
-                        style: Styles.boldBlue712,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MySize.getScaledSizeWidth(16.00)),
+                        child: Text(
+                          'OR',
+                          style: Styles.noramalBlack416,
+                        ),
+                      ),
+                      const Expanded(
+                        child: DottedLine(
+                          direction: Axis.horizontal,
+                          alignment: WrapAlignment.center,
+                          //lineLength: double.infinity,
+                          lineThickness: 1.0,
+                          dashLength: 4.0,
+                          dashColor: Colors.black,
+                          dashRadius: 0.0,
+                          dashGapLength: 4.0,
+                          dashGapColor: Colors.transparent,
+                          dashGapRadius: 0.0,
+                        ),
                       ),
                     ],
                   ),
-                ),
-                Gap(MySize.size30!),
-              ],
+                  Gap(MySize.size10!),
+                  Container(
+                    alignment: Alignment.center,
+                    height: MySize.size50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3.0),
+                      border: Border.all(
+                        color: primary,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          AppImage.FACEBOOK,
+                          fit: BoxFit.fill,
+                        ),
+                        Text(
+                          ' Login With Facebook',
+                          style: Styles.boldBlue712,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Gap(MySize.size10!),
+                  Container(
+                    alignment: Alignment.center,
+                    height: MySize.size50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3.0),
+                      border: Border.all(
+                        color: primary,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          AppImage.GOOGLE,
+                          fit: BoxFit.fill,
+                        ),
+                        Text(
+                          ' Login With Google',
+                          style: Styles.boldBlue712,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Gap(MySize.size30!),
+                ],
+              ),
             ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }
 

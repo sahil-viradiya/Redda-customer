@@ -94,13 +94,13 @@ appbarSmall1(BuildContext context, String title,
     ),
     title: Text(
       title,
-      style: Styles.boldBlue716,
+      style: Styles.boldBlack716,
     ),
     centerTitle: true,
   );
+
+
 }
-
-
 bottomAppbarSmall(BuildContext context, String title,
     {PreferredSizeWidget? bottom,Color? backgroundColor}) {
   return AppBar(

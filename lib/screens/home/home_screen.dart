@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/style.dart';
+import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/map_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -174,7 +175,9 @@ class HomeScreen extends GetView<HomeController> {
                               height: 32,
                               borderCircular: 7,
                               text: "Set pick up & drop location",
-                              fun: () {},
+                              fun: () {
+                                Get.toNamed(AppRoutes.PICKUPSCREEN);
+                              },
                             ),
                           ],
                         ),

@@ -262,6 +262,7 @@ class CustomTextFormFieldSearch extends StatelessWidget {
     this.enable,
     this.maxLine,
     this.readOnly,
+    this.width,
     this.prefixIcon,
     this.borderRadius,
     this.suffixTap,
@@ -293,7 +294,7 @@ class CustomTextFormFieldSearch extends StatelessWidget {
   final Color? border;
   final GestureTapCallback? suffixTap;
   final TextInputType? keyboardType;
-
+  final double? width;
   final int? minLine;
   final int? maxLine;
 
@@ -302,8 +303,9 @@ class CustomTextFormFieldSearch extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 40,
-          width: MySize.size200!,
+
+          height: 45,
+          width:width?? MySize.size200!,
           child: TextFormField(
             keyboardType: keyboardType ?? TextInputType.text,
             style: const TextStyle(height: 1, color: black),

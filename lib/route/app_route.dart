@@ -1,7 +1,21 @@
 
 import 'package:get/get.dart';
-import 'package:redda_customer/screens/address_details/address_details_binding.dart';
-import 'package:redda_customer/screens/address_details/address_details_screen.dart';
+import 'package:redda_customer/screens/Drop%20Location/checkout/checkout_binding.dart';
+import 'package:redda_customer/screens/Drop%20Location/drop_address_details/drop_address_details_binding.dart';
+import 'package:redda_customer/screens/Drop%20Location/drop_screen/drop_screen.dart';
+import 'package:redda_customer/screens/Drop%20Location/drop_screen/drop_screen_binding.dart';
+import 'package:redda_customer/screens/Drop%20Location/payment/payment_binding.dart';
+import 'package:redda_customer/screens/Drop%20Location/payment/payment_screen.dart';
+import 'package:redda_customer/screens/Drop%20Location/set_drop_location/set_current_drop_location.dart';
+import 'package:redda_customer/screens/Drop%20Location/set_drop_location/set_drop_location_binding.dart';
+import 'package:redda_customer/screens/Pick%20Up%20Location/address_details/address_details_binding.dart';
+import 'package:redda_customer/screens/Pick%20Up%20Location/address_details/address_details_screen.dart';
+import 'package:redda_customer/screens/Pick%20Up%20Location/pick_up/pick_up_binding.dart';
+import 'package:redda_customer/screens/Pick%20Up%20Location/pick_up/pick_up_screen.dart';
+import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location/set_current_location.dart';
+import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location/set_pick_up_location_binding.dart';
+import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location/set_pick_up_location_screen.dart';
+
 import 'package:redda_customer/screens/auth/create_account/sign_up_screen.dart';
 import 'package:redda_customer/screens/auth/forgot_password/forgot_otp_screen.dart';
 import 'package:redda_customer/screens/auth/forgot_password/forgot_password_screen.dart';
@@ -10,11 +24,12 @@ import 'package:redda_customer/screens/auth/resate_password/resate_password_scre
 import 'package:redda_customer/screens/auth/signIn/signIn_Screen.dart';
 import 'package:redda_customer/screens/home/home_binding.dart';
 import 'package:redda_customer/screens/home/home_screen.dart';
-import 'package:redda_customer/screens/pick_up/pick_up_binding.dart';
-import 'package:redda_customer/screens/pick_up/pick_up_screen.dart';
-import 'package:redda_customer/screens/set_pick_up_location/set_current_location.dart';
-import 'package:redda_customer/screens/set_pick_up_location/set_pick_up_location_binding.dart';
-import 'package:redda_customer/screens/set_pick_up_location/set_pick_up_location_screen.dart';
+
+import '../screens/Drop Location/checkout/checkout_screen.dart';
+import '../screens/Drop Location/drop_address_details/drop_address_details_screen.dart';
+import '../screens/Drop Location/pick_or_send_any/pick_or_send_any_binding.dart';
+import '../screens/Drop Location/pick_or_send_any/pick_or_send_any_screen.dart';
+import '../screens/Drop Location/set_drop_location/set_drop_location_screen.dart';
 
 class AppRoutes {
   static String SPLASHSCREEN = '/splash_screen';
@@ -28,9 +43,16 @@ class AppRoutes {
   static String OTPSCREEN = '/otp_screen';
   static String HOMESCREEN = '/home_screen';
   static String PICKUPSCREEN = '/pickUp_screen';
-  static String SETPICKUPLOCATION = '/set_pickUp_location';
   static String SETCURRENTLOCATION = '/set_CURRENT_location';
+  static String SETCURRENTDROPTLOCATION = '/set_CURRENT_drop_location';
+  static String SETPICKUPLOCATION = '/set_pickUp_location';
+  static String SETDROPLOCATION = '/set_drop_location';
   static String ADDRESSDETAILS = '/address_details';
+  static String DROPADDRESSDETAILS = '/drop_address_details';
+  static String DROPSCREEN = '/drop_screen';
+  static String PICKUPORSENDANYTHING = '/pickup_or_send_any';
+  static String CHECKOUT = '/checkout';
+  static String PAYMENT = '/payment';
 
   static List<GetPage> pages = [
     // GetPage(
@@ -45,6 +67,48 @@ class AppRoutes {
       page: () => SignInScreen(),
       bindings: const [
         // SplashBinding(),
+      ],
+    ),   GetPage(
+      name: PICKUPORSENDANYTHING,
+      page: () => const PickOrSendAnyScreen(),
+      bindings:  [
+        PickOrSendAnyBinding(),
+      ],
+    ), GetPage(
+      name: PAYMENT,
+      page: () => const PaymentScreen(),
+      bindings:  [
+        PaymentBinding(),
+      ],
+    ),GetPage(
+      name: CHECKOUT,
+      page: () => const CheckoutScreen(),
+      bindings:  [
+        CheckoutBinding(),
+      ],
+    ),GetPage(
+      name: DROPADDRESSDETAILS,
+      page: () => const DropAddressDetailsScreen(),
+      bindings:  [
+        DropAddressDetailsBinding(),
+      ],
+    ),GetPage(
+      name: SETCURRENTDROPTLOCATION,
+      page: () => const SetCurrentDropLocation(),
+      bindings:  [
+        SetDropLocationBinding(),
+      ],
+    ), GetPage(
+      name: SETDROPLOCATION,
+      page: () => const SetDropLocationScreen(),
+      bindings:  [
+        SetDropLocationBinding(),
+      ],
+    ), GetPage(
+      name: DROPSCREEN,
+      page: () => const DropScreen(),
+      bindings:  [
+        DropScreenBinding(),
       ],
     ),GetPage(
       name: FORGOTPASSWORD,

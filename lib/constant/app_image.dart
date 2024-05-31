@@ -15,6 +15,10 @@ class AppImage {
   static String INFO = "assets/images/svg/info.svg";
   static String LOCATION2 = "assets/images/svg/location2.svg";
   static String RIGHTARROW = "assets/images/svg/rightarrow.svg";
+  static String WALLET = "assets/images/svg/wallet.svg";
+  static String BANK = "assets/images/svg/bank.svg";
+  static String GOOGLEPAY = "assets/images/png/googlePay.png";
+  static String PAYTM = "assets/images/png/paytm.png";
 
 }
 

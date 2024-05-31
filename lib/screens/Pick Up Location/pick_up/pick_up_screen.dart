@@ -49,14 +49,19 @@ class PickUpScreen extends GetView<PickUpController> {
 
             _commonVerticalDivider(),
             // Gap(8),
-
-            _commonContainer(
-              color: Colors.transparent,
-              txt: "Set Drop Location",
-              svgName: AppImage.ORDER,
-              style: Styles.boldBlue614,
-              svgColor: primary,
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(AppRoutes.DROPSCREEN);
+              },
+              child: _commonContainer(
+                color: Colors.transparent,
+                txt: "Set Drop Location",
+                svgName: AppImage.ORDER,
+                style: Styles.boldBlue614,
+                svgColor: primary,
+              ),
             ),
+
             Gap(38),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),

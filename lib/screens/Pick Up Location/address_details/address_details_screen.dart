@@ -11,7 +11,7 @@ import 'package:redda_customer/widget/custom_button.dart';
 import 'address_details_controller.dart';
 
 class AddressDetailsScreen extends GetView<AddressDetailsController> {
-  const AddressDetailsScreen({super.key});
+  const   AddressDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

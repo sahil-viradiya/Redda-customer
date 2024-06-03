@@ -13,7 +13,7 @@ import '../../../constant/app_image.dart';
 import '../../../constant/style.dart';
 
 class PaymentScreen extends GetView<PaymentController> {
-  const PaymentScreen({Key? key}) : super(key: key);
+  const PaymentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +28,12 @@ class PaymentScreen extends GetView<PaymentController> {
         children: [
           ListView(
             children: [
-
-              Divider(),
-              Gap(10),
-
+              const Divider(),
+              const Gap(10),
               Container(
                 margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                 decoration: BoxDecoration(
                   color: white,
                   border: Border.all(color: primary),
@@ -61,7 +60,7 @@ class PaymentScreen extends GetView<PaymentController> {
                       "       check@gmail.com, varachha, Surat,...",
                       style: Styles.lable411,
                     ),
-                    Divider(
+                    const Divider(
                       indent: 20,
                     ),
                     Row(
@@ -85,7 +84,7 @@ class PaymentScreen extends GetView<PaymentController> {
                   ],
                 ),
               ),
-              Gap(14),
+              const Gap(14),
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
@@ -100,7 +99,7 @@ class PaymentScreen extends GetView<PaymentController> {
                       )
                     ],
                   )),
-              Gap(20),
+              const Gap(20),
               Padding(
                 padding: const EdgeInsets.only(left: 14),
                 child: Align(
@@ -110,10 +109,11 @@ class PaymentScreen extends GetView<PaymentController> {
                       style: Styles.boldBlack616,
                     )),
               ),
-              Gap(14),
+              const Gap(14),
               Container(
                 margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                 decoration: BoxDecoration(
                   color: white,
                   border: Border.all(color: primary),
@@ -136,7 +136,7 @@ class PaymentScreen extends GetView<PaymentController> {
                           "Google Pay",
                           style: Styles.boldBlack612,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Radio(
                           activeColor: primary,
                           value: true,
@@ -145,8 +145,7 @@ class PaymentScreen extends GetView<PaymentController> {
                         )
                       ],
                     ),
-
-                    Divider(
+                    const Divider(
                       indent: 20,
                     ),
                     Row(
@@ -163,7 +162,7 @@ class PaymentScreen extends GetView<PaymentController> {
                           "Paytm",
                           style: Styles.boldBlack612,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Radio(
                           activeColor: primary,
                           value: true,
@@ -172,22 +171,21 @@ class PaymentScreen extends GetView<PaymentController> {
                         )
                       ],
                     ),
-                    Divider(
+                    const Divider(
                       indent: 20,
                     ),
                     const Gap(8),
-
                     Padding(
-                      padding: const EdgeInsets.only(left:  8.0),
-                      child: Text("Add New UPI ID",style: Styles.boldBlue612,),
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        "Add New UPI ID",
+                        style: Styles.boldBlue612,
+                      ),
                     )
                   ],
                 ),
               ),
-
-
-
-              Gap(20),
+              const Gap(20),
               Padding(
                 padding: const EdgeInsets.only(left: 14),
                 child: Align(
@@ -197,10 +195,11 @@ class PaymentScreen extends GetView<PaymentController> {
                       style: Styles.boldBlack616,
                     )),
               ),
-              Gap(14),
+              const Gap(14),
               Container(
                 margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                 decoration: BoxDecoration(
                   color: white,
                   border: Border.all(color: primary),
@@ -211,8 +210,8 @@ class PaymentScreen extends GetView<PaymentController> {
                   children: [
                     Row(
                       children: [
-                        Gap(10),
-                        SvgPicture.asset (
+                        const Gap(10),
+                        SvgPicture.asset(
                           AppImage.WALLET,
                           // color: primary,
                           height: 22,
@@ -223,7 +222,7 @@ class PaymentScreen extends GetView<PaymentController> {
                           "Wallets",
                           style: Styles.boldBlack612,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Radio(
                           activeColor: primary,
                           value: true,
@@ -232,14 +231,13 @@ class PaymentScreen extends GetView<PaymentController> {
                         )
                       ],
                     ),
-
-                    Divider(
+                    const Divider(
                       indent: 20,
                     ),
                     Row(
                       children: [
-                        Gap(10),
-                        SvgPicture.asset (
+                        const Gap(10),
+                        SvgPicture.asset(
                           AppImage.BANK,
                           // color: primary,
                           height: 22,
@@ -250,7 +248,7 @@ class PaymentScreen extends GetView<PaymentController> {
                           "Netbabking",
                           style: Styles.boldBlack612,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Radio(
                           activeColor: primary,
                           value: true,
@@ -259,22 +257,20 @@ class PaymentScreen extends GetView<PaymentController> {
                         )
                       ],
                     ),
-
                   ],
                 ),
               ),
-              SizedBox(height: Get.height/2)
-
+              SizedBox(height: Get.height / 2)
             ],
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
             height: 150,
             decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
-                BoxShadow(
+                const BoxShadow(
                   blurRadius: 8,
                   spreadRadius: 4,
                   color: Colors.black12,
@@ -298,10 +294,8 @@ class PaymentScreen extends GetView<PaymentController> {
                     ),
                   ],
                 ),
-                Gap(6),
-
-                Gap(6),
-
+                const Gap(6),
+                const Gap(6),
                 CustomButton(
                   width: Get.width,
                   height: 35,
@@ -314,7 +308,6 @@ class PaymentScreen extends GetView<PaymentController> {
               ],
             ),
           ),
-
         ],
       ),
     );

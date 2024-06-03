@@ -19,6 +19,16 @@ class AppImage {
   static String BANK = "assets/images/svg/bank.svg";
   static String GOOGLEPAY = "assets/images/png/googlePay.png";
   static String PAYTM = "assets/images/png/paytm.png";
+  static String ADDRESS = "assets/images/svg/address.svg";
+  static String LOGOUT = "assets/images/svg/logout.svg";
+  static String USER = "assets/images/svg/user.svg";
+  static String USERDUMMY = "assets/images/png/user-dummy.png";
+  static String RUPAY = "assets/images/png/rupay.png";
+  static String AMERICAN_EXPRESS = "assets/images/png/american-express.png";
+  static String MASTER_CARD = "assets/images/png/master-card.png";
+  static String VISA = "assets/images/png/visa.png";
+  static String MOBIKWIK = "assets/images/png/mobikwik.png";
+
 
 }
 

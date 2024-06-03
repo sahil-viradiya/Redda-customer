@@ -6,14 +6,15 @@ import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/address_details_screen/address_details_screen_controller.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 
-import 'drop_address_details_controller.dart';
 
-class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
-  const DropAddressDetailsScreen({Key? key}) : super(key: key);
+
+class EnterNewAddressDetails extends GetView<PAddressDetailsScreenController> {
+  const EnterNewAddressDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
               Container(
                 height: 160,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+                const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: primary),
@@ -168,9 +169,8 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                   width: double.infinity,
                   height: 35,
                   borderCircular: 7,
-                  text: "Proceed",
+                  text: "Add Address",
                   fun: () {
-                    Get.toNamed(AppRoutes.PICKUPORSENDANYTHING);
 
                   },
                 ),

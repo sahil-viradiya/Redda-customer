@@ -15,6 +15,10 @@ import 'package:redda_customer/screens/Pick%20Up%20Location/pick_up/pick_up_scre
 import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location/set_current_location.dart';
 import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location/set_pick_up_location_binding.dart';
 import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location/set_pick_up_location_screen.dart';
+import 'package:redda_customer/screens/add_new_card/add_new_card_binding.dart';
+import 'package:redda_customer/screens/add_new_card/add_new_card_screen.dart';
+import 'package:redda_customer/screens/address_details_screen/address_details_screen.dart';
+import 'package:redda_customer/screens/address_details_screen/address_details_screen_binding.dart';
 
 import 'package:redda_customer/screens/auth/create_account/sign_up_screen.dart';
 import 'package:redda_customer/screens/auth/forgot_password/forgot_otp_screen.dart';
@@ -24,6 +28,10 @@ import 'package:redda_customer/screens/auth/resate_password/resate_password_scre
 import 'package:redda_customer/screens/auth/signIn/signIn_Screen.dart';
 import 'package:redda_customer/screens/home/home_binding.dart';
 import 'package:redda_customer/screens/home/home_screen.dart';
+import 'package:redda_customer/screens/link_account/link_account_binding.dart';
+import 'package:redda_customer/screens/link_account/link_account_screen.dart';
+import 'package:redda_customer/screens/payment_option/payment_option.dart';
+import 'package:redda_customer/screens/payment_option/payment_option_binding.dart';
 
 import '../screens/Drop Location/checkout/checkout_screen.dart';
 import '../screens/Drop Location/drop_address_details/drop_address_details_screen.dart';
@@ -53,6 +61,10 @@ class AppRoutes {
   static String PICKUPORSENDANYTHING = '/pickup_or_send_any';
   static String CHECKOUT = '/checkout';
   static String PAYMENT = '/payment';
+  static String ADDRESS = '/address';
+  static String PAYMENTOPTION = '/payment_option';
+  static String ADDNEWCARD = '/add_new_card';
+  static String LINKACCOUNTSCREEN = '/link_account_screen';
 
   static List<GetPage> pages = [
     // GetPage(
@@ -67,6 +79,30 @@ class AppRoutes {
       page: () => SignInScreen(),
       bindings: const [
         // SplashBinding(),
+      ],
+    ),GetPage(
+      name: LINKACCOUNTSCREEN,
+      page: () => const LinkAccountScreen(),
+      bindings:  [
+        LinkAccountBinding(),
+      ],
+    ), GetPage(
+      name: PAYMENTOPTION,
+      page: () => const PaymentOptionScreen(),
+      bindings:  [
+        PaymentOptionBinding()
+      ],
+    ),GetPage(
+      name: ADDNEWCARD,
+      page: () => const AddNewCardScreen(),
+      bindings:  [
+        AddNewCardBinding()
+      ],
+    ),  GetPage(
+      name: ADDRESS,
+      page: () => const PAddressDetailsScreen(),
+      bindings:  [
+        PAddressDetailsScreenBinding()
       ],
     ),   GetPage(
       name: PICKUPORSENDANYTHING,

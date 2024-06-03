@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redda_customer/constant/app_color.dart';
+import 'package:redda_customer/constant/font-family.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 
@@ -77,7 +78,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
 
         TextFormField(
           keyboardType: keyboardType ?? TextInputType.text,
-          style: const TextStyle(height: 1, color: black),
+          style:  TextStyle(height: 1, color: black,fontFamily: FontFamily.primary1,fontSize: 14,fontWeight: FontWeight.w400),
           textCapitalization: isCapital == null
               ? TextCapitalization.none
               : TextCapitalization.words,

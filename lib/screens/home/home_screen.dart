@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
+import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/widget/custom_button.dart';
@@ -18,13 +19,70 @@ class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: drawer(context),
+        appBar: AppBar(
+          backgroundColor: white,
+
+          forceMaterialTransparency: true,
+         title: Row(
+           children: [
+             Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 //=========================Current Location==============
+
+                 Text(
+                   "Current Location",
+                   style: Styles.lable414,
+                 ),
+                 Row(
+                   children: [
+                     SvgPicture.asset(AppImage.LOCATION),
+                     const Gap(6),
+                     Text(
+                       "Kalupur, Ahmedabad",
+                       style: Styles.boldDarkGrey60012,
+                     ),
+                   ],
+                 ),
+               ],
+             ),
+             Spacer(),
+             Container(
+               decoration: BoxDecoration(
+                 shape: BoxShape.circle,
+                 border: Border.all(
+                   color: Colors.white, // Set the border color
+                   width: 3.0, // Set the border width
+                 ),
+                 boxShadow: [
+                   BoxShadow(
+                     color: Colors.black.withOpacity(0.3),
+                     // Set the shadow color
+                     blurRadius: 10.0,
+                     // Set the shadow blur radius
+                     offset: const Offset(
+                         0, 5), // Set the shadow offset
+                   ),
+                 ],
+               ),
+               child: const CircleAvatar(
+                 radius: 20.0,
+                 backgroundImage: NetworkImage(
+                   'https://picsum.photos/id/237/300/300',
+                 ),
+               ),
+             ),
+           ],
+         ),
+
+        ),
         backgroundColor: Colors.white,
-        body:
-        SafeArea(
+        body: SafeArea(
           child: Container(
             height: Get.height,
             width: Get.width,
-            // color: Colors.cyan,
+            color: Colors.white,
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -32,58 +90,7 @@ class HomeScreen extends GetView<HomeController> {
                   () => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              //=========================Current Location==============
 
-                              Text(
-                                "Current Location",
-                                style: Styles.lable414,
-                              ),
-                              Row(
-                                children: [
-                                  SvgPicture.asset(AppImage.LOCATION),
-                                  const Gap(6),
-                                  Text(
-                                    "Kalupur, Ahmedabad",
-                                    style: Styles.boldDarkGrey60012,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          //=========================Profile Image==============
-                          Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.white, // Set the border color
-                                width: 3.0, // Set the border width
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  // Set the shadow color
-                                  blurRadius: 10.0,
-                                  // Set the shadow blur radius
-                                  offset: const Offset(
-                                      0, 5), // Set the shadow offset
-                                ),
-                              ],
-                            ),
-                            child: const CircleAvatar(
-                              radius: 25.0,
-                              backgroundImage: NetworkImage(
-                                'https://picsum.photos/id/237/300/300',
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       const Gap(10),
                       //=========================Slider==============
 
@@ -203,5 +210,147 @@ class HomeScreen extends GetView<HomeController> {
             ),
           ),
         ));
+  }
+
+  Widget drawer(
+    BuildContext context,
+  ) {
+    return Drawer(
+
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topRight: Radius.circular(16)),
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: MySize.getScaledSizeHeight(22),
+                right: MySize.getScaledSizeHeight(34),
+                top: MySize.getScaledSizeHeight(44),
+                bottom: MySize.getScaledSizeHeight(14),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 250,
+                    child: Row(
+                      children: [
+                        ClipOval(
+                          child: Image.asset(
+                            AppImage.USERDUMMY,
+                            width: MySize.size48,
+                            height: MySize.size48,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Gap(MySize.size14!),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Hello',
+                              style: Styles.boldBlack716,
+                            ),
+                            Text(
+                              "Adiwara Bestari",
+                              style: Styles.lable414,
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Get.back();
+                          },
+                            child: const Icon(
+                          Icons.arrow_back_ios,
+                          size: 16,
+                        ))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              thickness: 1,
+              color: Colors.black12,
+            ),
+            _commonListtile(
+                context: context,
+                icon: AppImage.USER,
+                title: 'Edit Profile',
+                fun: () async {
+                  Navigator.pop(context);
+                  // resate(context);
+                }),
+            _commonListtile(
+                context: context,
+                icon: AppImage.ADDRESS,
+                title: 'Addresses',
+                fun: () async {
+                  Navigator.pop(context);
+                  Get.toNamed(AppRoutes.ADDRESS);
+
+                }),
+            _commonListtile(
+                context: context,
+                icon: AppImage.WALLET,
+                title: 'Payment & Refunds',
+                fun: () async {
+                  Navigator.pop(context);
+                  Get.toNamed(AppRoutes.PAYMENTOPTION);
+
+                  // showErrorMessage(
+                  //   context: context,
+                  //   message: 'Your account has been deleted.',
+                  //   backgroundColor: green,
+                  // );
+                  // resate(context);
+                  // delet(context);
+                }),
+            _commonListtile(
+                context: context,
+                icon: AppImage.LOGOUT,
+                title: 'LogOut',
+                fun: () async {
+                  Navigator.pop(context);
+                  // showErrorMessage(
+                  //   context: context,
+                  //   message: 'Your account has been deleted.',
+                  //   backgroundColor: green,
+                  // );
+                  // resate(context);
+                  // delet(context);
+                }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ListTile _commonListtile(
+      {required BuildContext context,
+      required String title,
+      required String icon,
+      required VoidCallback fun}) {
+    return ListTile(
+      visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+      leading: SvgPicture.asset(
+        icon.toString(),
+        height: MySize.size18,
+        width: MySize.size18,
+        color: Colors.black,
+      ),
+      title: Text(
+        title,
+        style: Styles.boldBlack614,
+      ),
+      onTap: fun,
+    );
   }
 }

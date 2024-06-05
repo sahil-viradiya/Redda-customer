@@ -9,6 +9,7 @@ import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/auth/signIn/signIn_controller.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
@@ -23,6 +24,8 @@ class SignInScreen extends StatelessWidget {
     MySize().init(
       context,
     );
+    final SignInController _controller = Get.put(SignInController(context));
+
     return Scaffold(
         backgroundColor: primaryWhite,
         appBar: Appbar(),

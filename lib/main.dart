@@ -17,7 +17,7 @@ void main() {
   };
 
   final dio = Dio();
-  final dioClient = DioClient('https://sos.notionprojects.tech/', dio);
+  final dioClient = DioClient('https://ride.notionprojects.tech/api/customer/', dio);
 
   runApp(const MyApp());
 }

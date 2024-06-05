@@ -25,7 +25,7 @@ class SetDeliveryLocation extends StatelessWidget {
         "Select delivery Location",
       ),
       body: Stack(
-        alignment: Alignment.bottomCenter,
+          alignment: Alignment.bottomCenter,
 
         children: [
           Container(height: Get.height,),

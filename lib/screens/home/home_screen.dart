@@ -9,6 +9,7 @@ import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/widget/custom_button.dart';
+import 'package:redda_customer/widget/location.dart';
 import 'package:redda_customer/widget/map_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'home_controller.dart';
@@ -196,12 +197,13 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                       const Gap(14),
                       Container(
+                        padding: EdgeInsets.all(4),
                         height: 331,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(color: primary),
                         ),
-                        child: MapWidget(),
+                        child: GetLocationScreen(),
                       )
                     ],
                   ),

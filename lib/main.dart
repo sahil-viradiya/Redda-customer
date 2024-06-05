@@ -1,14 +1,24 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/route/app_route.dart';
 
+import 'Utils/api_client.dart';
+
 
 void main() {
   // if (defaultTargetPlatform == TargetPlatform.android) {
   //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
   // }
+  FlutterError.onError = (FlutterErrorDetails details){
+    print("GLOBAL ERROR: ======> ${details.exception}");
+  };
+
+  final dio = Dio();
+  final dioClient = DioClient('https://sos.notionprojects.tech/', dio);
+
   runApp(const MyApp());
 }
 

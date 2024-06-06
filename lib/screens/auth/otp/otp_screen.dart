@@ -9,19 +9,26 @@ import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/auth/otp/otp_controller.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/otp_widget.dart';
-
 
 class OtpScreen extends StatelessWidget {
   OtpScreen({
     super.key,
   });
+
   final _formKey = GlobalKey<FormState>();
+  final OtpController _controller = Get.put(OtpController());
 
   @override
   Widget build(BuildContext context) {
+    final arguments = Get.arguments;
+
+    // Extract the 'userId' from the arguments
+    final userId = arguments['userId'];
+    log(" id --  ${userId}");
 
     MySize().init(context);
     return WillPopScope(
@@ -62,16 +69,14 @@ class OtpScreen extends StatelessWidget {
                     validator: ((value) {
                       return Validator.validateMobileOtp(value!);
                     }),
-                    // controller: otpBloc.otpController,
+                    controller: _controller.otpCon,
                   ),
                   Gap(MySize.size10!),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () {
-
-                        },
+                        onTap: () {},
                         child: Text(
                           'Resend?',
                           style: Styles.normalBlue612U,
@@ -80,20 +85,22 @@ class OtpScreen extends StatelessWidget {
                     ],
                   ),
                   Gap(MySize.size35!),
-                  CustomButton(
-
-                      text: 'Submit',
-                      fun: () {
-                        // Get.toNamed(AppRoutes.RESATEPASSWORD);
-                        if (_formKey.currentState!.validate()) {
-
-                        }
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => SignUpScreen()),
-                        // );
-                      }),
+                  Obx(() {
+                    return CustomButton(
+                        isLoading: _controller.isLoading.value,
+                        text: 'Submit',
+                        fun: () {
+                          // Get.toNamed(AppRoutes.RESATEPASSWORD);
+                          if (_formKey.currentState!.validate()) {
+                            _controller.verifyOtp(userId: userId.toString());
+                          }
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => SignUpScreen()),
+                          // );
+                        });
+                  }),
                   Gap(MySize.size24!),
                   GestureDetector(
                     onTap: () => Get.toNamed(AppRoutes.initialRoute),
@@ -102,7 +109,6 @@ class OtpScreen extends StatelessWidget {
                       style: Styles.normalBlue612U,
                     ),
                   )
-
                 ],
               ),
             ),

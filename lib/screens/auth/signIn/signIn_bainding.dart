@@ -6,6 +6,6 @@ class SignInBinding extends Bindings {
   void dependencies() {
     // Since context is not available at this point,
     // we initialize the controller later in the view
-    Get.lazyPut<SignInController>(() => SignInController(Get.context!));
+    Get.lazyPut<SignInController>(() => SignInController());
   }
 }

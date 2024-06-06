@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:redda_customer/constant/app_color.dart';
 
 class DioExceptions {
   static void showErrorMessage(BuildContext context, String message) {
@@ -18,7 +19,18 @@ class DioExceptions {
       ),
     );
   }
-
+  static void showMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          message,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: primary,
+      ),
+    );
+  }
   static late String message;
   static int statusCode = -1;
 DioExceptions.fromDioError(
@@ -102,3 +114,4 @@ DioExceptions.fromDioError(
     }
   }
 }
+

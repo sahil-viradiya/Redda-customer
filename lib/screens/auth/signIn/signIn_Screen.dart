@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/validation.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
+import 'package:redda_customer/main.dart';
 import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/screens/auth/signIn/signIn_controller.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
@@ -24,7 +26,7 @@ class SignInScreen extends GetView<SignInController> {
     MySize().init(
       context,
     );
-    final SignInController _controller = Get.put(SignInController(context));
+    final SignInController _controller = Get.put(SignInController());
 
     return Scaffold(
         backgroundColor: primaryWhite,
@@ -88,7 +90,7 @@ class SignInScreen extends GetView<SignInController> {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Username",
+                      "Email",
                       style: Styles.boldBlack614,
                       textAlign: TextAlign.left,
                     ),
@@ -96,9 +98,10 @@ class SignInScreen extends GetView<SignInController> {
                   Gap(MySize.size4!),
 
                   CustomTextFormFieldWidget(
-                    controller: TextEditingController(text: "sahil"),
+                    controller:_controller.emailCon,
+                    keyboardType: TextInputType.emailAddress,
                     validator: ((value) {
-                      return Validator.validateFirstName(value!);
+                      return Validator.validateEmails(value!);
                     }),
                     // controller: loginBloc.usernameCon,
                     hintRpadding: 17.76,
@@ -116,7 +119,7 @@ class SignInScreen extends GetView<SignInController> {
                   Gap(MySize.size4!),
 
                   CustomPasswordTextFormFieldWidget(
-                    controller: TextEditingController(text: "123456789"),
+                    controller: _controller.passCon,
                     validator: ((value) {
                       return Validator.validatePassword(value!);
                     }),
@@ -172,7 +175,9 @@ class SignInScreen extends GetView<SignInController> {
                       text: 'Sign In',
                       fun: () {
                         if (_formKey.currentState!.validate()) {
-                          Get.toNamed(AppRoutes.HOMESCREEN);
+                          debugPrint("TOKEN____________$token");
+                          _controller.signIn();
+                          // Get.toNamed(AppRoutes.HOMESCREEN);
                         }
                         // Navigator.push(
                         //   context,

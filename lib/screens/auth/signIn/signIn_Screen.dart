@@ -14,7 +14,7 @@ import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends GetView<SignInController> {
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();

@@ -8,6 +8,8 @@ import 'package:redda_customer/Utils/api_client.dart';
 import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/api_key.dart';
 
+import '../../../main.dart';
+
 class SignInController extends GetxController {
   final count = 0.obs;
   late BuildContext context;
@@ -24,10 +26,10 @@ class SignInController extends GetxController {
   void onReady() {}
 
   signIn({required BuildContext context}) async {
-    final dio = Dio();
+
 
     try {
-      var response = await DioClient('${Common.baseUrl}register.php', dio);
+      var response = await dioClient.post('${Common.baseUrl}register.php',);
       log('${response}');
     } on DioException catch (e) {
       print("status Code ${e.response?.statusCode}");

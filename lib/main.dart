@@ -16,11 +16,11 @@ void main() {
     print("GLOBAL ERROR: ======> ${details.exception}");
   };
 
-  final dio = Dio();
-  final dioClient = DioClient('https://ride.notionprojects.tech/api/customer/', dio);
 
   runApp(const MyApp());
 }
+final dio = Dio();
+final dioClient = DioClient('https://ride.notionprojects.tech/api/customer/', dio);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return ScreenUtilInit(
       designSize: const Size(360, 700),
       minTextAdapt: true,

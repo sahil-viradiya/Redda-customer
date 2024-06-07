@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/route/app_route.dart';
 
 import 'Utils/api_client.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return ScreenUtilInit(
       designSize: const Size(360, 700),
       minTextAdapt: true,
@@ -58,10 +60,22 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Redda customer',
-          initialRoute: AppRoutes.initialRoute,
+          initialRoute: _getInitialRoute(),
           getPages: AppRoutes.pages,
         ),
       ),
     );
   }
 }
+String _getInitialRoute() {
+  // Replace with your actual token checking logic
+   getToken();
+  log("message=========${token.toString()} ");
+  if (token != null && token.toString().isNotEmpty||token!='') {
+    return AppRoutes.HOMESCREEN; // Home route
+  } else {
+    return AppRoutes.LOGIN; // Login route
+  }
+}
+
+

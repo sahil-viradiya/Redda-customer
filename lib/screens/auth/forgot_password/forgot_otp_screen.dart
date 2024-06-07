@@ -13,16 +13,19 @@ import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/otp_widget.dart';
 
+import 'forgot_password_controller.dart';
 
 class ForgotOtpScreen extends StatelessWidget {
   ForgotOtpScreen({
     super.key,
   });
+
   final _formKey = GlobalKey<FormState>();
+  final ForgotPasswordController _controller =
+      Get.put(ForgotPasswordController());
 
   @override
   Widget build(BuildContext context) {
-
     MySize().init(context);
     return WillPopScope(
       onWillPop: () async {
@@ -59,6 +62,7 @@ class ForgotOtpScreen extends StatelessWidget {
                   ),
                   Gap(MySize.size30!),
                   OTPWidget(
+                    controller: _controller.otpCon,
                     validator: ((value) {
                       return Validator.validateMobileOtp(value!);
                     }),
@@ -68,32 +72,47 @@ class ForgotOtpScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      InkWell(
-                        onTap: () {
-
-                        },
-                        child: Text(
-                       'Resend?',
-                          style: Styles.normalBlue612U,
-                        ),
-                      ),
+                      Obx(() {
+                        return _controller.isResendOtpLoading.value
+                            ? const SizedBox(
+                                height: 10.0,
+                                width: 10.0,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: primary,
+                                ),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  _controller.resendOtp();
+                                },
+                                child: Text(
+                                  'Resend?',
+                                  style: Styles.normalBlue612U,
+                                ),
+                              );
+                      }),
                     ],
                   ),
                   Gap(MySize.size35!),
-                  CustomButton(
-
-                      text: 'Submit',
-                      fun: () {
-                        Get.toNamed(AppRoutes.RESATEPASSWORD);
-                        if (_formKey.currentState!.validate()) {
-
-                        }
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => SignUpScreen()),
-                        // );
-                      }),
+                  Obx(() {
+                    return CustomButton(
+                        isLoading: _controller.isLoading.value,
+                        text: 'Submit',
+                        fun: _controller.isLoading.value != true
+                            ? () {
+                                // Get.toNamed(AppRoutes.RESATEPASSWORD);
+                                if (_formKey.currentState!.validate()) {
+                                  _controller.verifyForgotOtp();
+                                }
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => SignUpScreen()),
+                                // );
+                              }
+                            : () {});
+                  }),
                   Gap(MySize.size24!),
                   GestureDetector(
                     onTap: () => Get.toNamed(AppRoutes.initialRoute),
@@ -102,7 +121,6 @@ class ForgotOtpScreen extends StatelessWidget {
                       style: Styles.normalBlue612U,
                     ),
                   )
-                  
                 ],
               ),
             ),

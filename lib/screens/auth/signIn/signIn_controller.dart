@@ -17,9 +17,9 @@ import '../../../main.dart';
 class SignInController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
-CreateAccountModel model = CreateAccountModel();
-TextEditingController emailCon = TextEditingController();
-TextEditingController passCon = TextEditingController();
+  CreateAccountModel model = CreateAccountModel();
+  TextEditingController emailCon = TextEditingController();
+  TextEditingController passCon = TextEditingController();
 
   @override
   void onInit() {
@@ -32,34 +32,40 @@ TextEditingController passCon = TextEditingController();
 
   Future<dynamic> signIn() async {
     dio.FormData formData = dio.FormData.fromMap({
-      'email':emailCon.text,
-      'password':passCon.text,
+      'email': emailCon.text,
+      'password': passCon.text,
     });
     log('============= Form DAta ${formData.fields}');
     isLoading(true);
     try {
-      var response = await dioClient.post(
+      var response = await dioClient
+          .post(
         '${Config.baseUrl}login.php',
         data: formData,
-      ).then((respo) async{
-        var jsonResponse = jsonDecode(respo);
-        var message = jsonResponse['message'];
-        try {
-          if (jsonResponse['status'] == false) {
-            DioExceptions.showErrorMessage(Get.context!, message);
-            print('Message: $message');
-          } else {
-            DioExceptions.showMessage(Get.context!, message);
-            await SharedPref.saveString(Config.kAuth, jsonResponse['data']['api_token'].toString());
-            // await SharedPref.saveString(Config.status, model.userType);
-            getProfile();
+      )
+          .then(
+        (respo) async {
+          // var respo = jsonDecode(respo);
+          log("================================${respo['data']}===============");
+
+          var message = respo['message'];
+          try {
+            if (respo['status'] == false) {
+              DioExceptions.showErrorMessage(Get.context!, message);
+              print('Message: $message');
+            } else {
+              DioExceptions.showMessage(Get.context!, message);
+              // log("================================${ respo['data']['api_token']}===============");
+              await SharedPref.saveString(
+                  Config.kAuth, respo['data']['api_token'].toString());
+              // await SharedPref.saveString(Config.status, model.userType);
+              getProfile();
+            }
+          } catch (e) {
+            print('Error parsing JSON or accessing message: $e');
           }
-        } catch (e) {
-          print('Error parsing JSON or accessing message: $e');
-        }
-      },);
-
-
+        },
+      );
     } on dio.DioException catch (e) {
       print("status Code ${e.response?.statusCode}");
       print('Error $e');
@@ -71,68 +77,72 @@ TextEditingController passCon = TextEditingController();
     } catch (e) {
       isLoading(false);
       if (kDebugMode) {
-        print("sign up $e");
+        print("sign IN $e");
       }
     } finally {
       isLoading(false);
     }
   }
 
-
-
-
   Future<dynamic> getProfile() async {
-await getToken();
+    await getToken();
 
     isLoading(true);
     try {
-      var response = await dioClient.post(
+      var response = await dioClient
+          .post(
         '${Config.baseUrl}get_customer_profile.php',
-        options: dio.Options( headers: {
-          'Authorization': 'Bearer $token',
-        },),
+        options: dio.Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      )
+          .then(
+        (respo) async {
+          // var respo = jsonDecode(respo);
+          model = CreateAccountModel.fromJson(respo['data']);
 
-      ).then((respo) async{
-        var jsonResponse = jsonDecode(respo);
-         model = CreateAccountModel.fromJson(jsonResponse['data']);
+          // model = respo['data'].map<CreateAccountModel>((json){
+          //   return CreateAccountModel.fromJson(json);
+          // }).toList();
+          print('object=============${model.fullname}');
+          var message = respo['message'];
+          try {
+            if (respo['status'] == false) {
+              DioExceptions.showErrorMessage(Get.context!, message);
+              print('Message: $message');
+            } else {
+              DioExceptions.showMessage(Get.context!, message);
+              log(" id   ${respo['data']['user_id']}");
+              await SharedPref.saveString(Config.userId, respo['data']['user_id'].toString());
 
-        // model = jsonResponse['data'].map<CreateAccountModel>((json){
-        //   return CreateAccountModel.fromJson(json);
-        // }).toList();
-        print('object=============${model.fullname}');
-        var message = jsonResponse['message'];
-        try {
-          if (jsonResponse['status'] == false) {
-            DioExceptions.showErrorMessage(Get.context!, message);
-            print('Message: $message');
-          } else {
-            DioExceptions.showMessage(Get.context!, message);
-            // await SharedPref.saveString(Config.status, model.userType);
-            Get.toNamed(AppRoutes.HOMESCREEN);
+              // await SharedPref.saveString(Config.status, model.userType);
+              Get.toNamed(AppRoutes.HOMESCREEN);
+            }
+          } catch (e) {
+            print('Error parsing JSON or accessing message: $e');
           }
-        } catch (e) {
-          print('Error parsing JSON or accessing message: $e');
-        }
-      },);
-
-
+        },
+      );
     } on dio.DioException catch (e) {
       print("status Code ${e.response?.statusCode}");
       print('Error $e');
       DioExceptions.showErrorMessage(
           Get.context!,
-          DioExceptions.fromDioError(dioError: e, errorFrom: "CREATE ACCOUNT")
+          DioExceptions.fromDioError(dioError: e, errorFrom: "GET PROFILE")
               .errorMessage());
       isLoading(false);
     } catch (e) {
       isLoading(false);
       if (kDebugMode) {
-        print("sign up $e");
+        print("PROFILE IN $e");
       }
     } finally {
       isLoading(false);
     }
   }
+
   @override
   void onClose() {}
 }

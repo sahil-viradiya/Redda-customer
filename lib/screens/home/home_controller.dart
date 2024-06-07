@@ -4,22 +4,23 @@ import 'package:get/get.dart';
 import '../../constant/app_image.dart';
 
 class HomeController extends GetxController {
-    final count = 0.obs;
-    final currentIndex = 0.obs;
-    final List? items=[AppImage.SLIDE,AppImage.SLIDE,AppImage.SLIDE];
+  final count = 0.obs;
+  final currentIndex = 0.obs;
+  final List? items = [AppImage.SLIDE, AppImage.SLIDE, AppImage.SLIDE];
 
+  RxString currentLocation = ''.obs;
+  final CarouselController slideController = CarouselController();
 
-    final CarouselController slideController = CarouselController();
-    @override
-    void onInit() {
+  @override
+  void onInit() {
     super.onInit();
-    }
+  }
 
-    @override
-    void onReady() {}
+  @override
+  void onReady() {}
 
-    @override
-    void onClose() {}
+  @override
+  void onClose() {}
 
-    increment() => count.value++;
+  increment() => count.value++;
 }

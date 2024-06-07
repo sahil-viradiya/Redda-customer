@@ -38,10 +38,10 @@ class OtpController extends GetxController {
         '${Config.baseUrl}verify_register_otp.php',
         data: formData,
       ).then((respo) {
-        var jsonResponse = jsonDecode(respo);
-        var message = jsonResponse['message'];
+        // var respo = jsonDecode(respo);
+        var message = respo['message'];
         try {
-          if (jsonResponse['status'] == false) {
+          if (respo['status'] == false) {
             DioExceptions.showErrorMessage(Get.context!, message);
             print('Message: $message');
           } else {

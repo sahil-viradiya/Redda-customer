@@ -17,8 +17,9 @@ import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location
 import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location/set_pick_up_location_screen.dart';
 import 'package:redda_customer/screens/add_new_card/add_new_card_binding.dart';
 import 'package:redda_customer/screens/add_new_card/add_new_card_screen.dart';
-import 'package:redda_customer/screens/address_details_screen/address_details_screen.dart';
+import 'package:redda_customer/screens/edit_profile/edit_profile.dart';
 import 'package:redda_customer/screens/address_details_screen/address_details_screen_binding.dart';
+import 'package:redda_customer/screens/address_details_screen/no_address_screen.dart';
 
 import 'package:redda_customer/screens/auth/create_account/sign_up_screen.dart';
 import 'package:redda_customer/screens/auth/forgot_password/forgot_otp_screen.dart';
@@ -38,6 +39,7 @@ import '../screens/Drop Location/drop_address_details/drop_address_details_scree
 import '../screens/Drop Location/pick_or_send_any/pick_or_send_any_binding.dart';
 import '../screens/Drop Location/pick_or_send_any/pick_or_send_any_screen.dart';
 import '../screens/Drop Location/set_drop_location/set_drop_location_screen.dart';
+import '../screens/edit_profile/edit_profile_binding.dart';
 
 class AppRoutes {
   static String SPLASHSCREEN = '/splash_screen';
@@ -61,7 +63,8 @@ class AppRoutes {
   static String PICKUPORSENDANYTHING = '/pickup_or_send_any';
   static String CHECKOUT = '/checkout';
   static String PAYMENT = '/payment';
-  static String ADDRESS = '/address';
+  static String EDIT_PROFILE = '/edit_profile';
+  static String NO_ADDRESS = '/no_address';
   static String PAYMENTOPTION = '/payment_option';
   static String ADDNEWCARD = '/add_new_card';
   static String LINKACCOUNTSCREEN = '/link_account_screen';
@@ -99,10 +102,16 @@ class AppRoutes {
         AddNewCardBinding()
       ],
     ),  GetPage(
-      name: ADDRESS,
-      page: () => const PAddressDetailsScreen(),
+      name: EDIT_PROFILE,
+      page: () =>  EditProfile(),
       bindings:  [
-        PAddressDetailsScreenBinding()
+        EditProfileBinding()
+      ],
+    ), GetPage(
+      name: NO_ADDRESS,
+      page: () => const NoAddressScreen(),
+      bindings:  [
+        AddressBinding()
       ],
     ),   GetPage(
       name: PICKUPORSENDANYTHING,
@@ -178,7 +187,7 @@ class AppRoutes {
       ],
     ),GetPage(
       name: HOMESCREEN,
-      page: () => const HomeScreen(),
+      page: () =>  HomeScreen(),
       bindings: [
         HomeBinding(),
       ],

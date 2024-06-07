@@ -13,12 +13,13 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/model/nearby_place.dart';
+import 'package:redda_customer/screens/home/home_controller.dart';
 import 'package:redda_customer/widget/search_location_on_map_screen.dart';
 
 import 'package:http/http.dart' as http;
 
 class GetLocationScreen extends StatefulWidget {
-  const GetLocationScreen({Key? key}) : super(key: key);
+  const GetLocationScreen({super.key});
 
   @override
   State<GetLocationScreen> createState() => _GetLocationScreenState();
@@ -29,6 +30,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
   Completer<GoogleMapController> mapController = Completer();
   Set<Marker> markers = {};
   double? lat, lng;
+  final HomeController homeController = Get.put(HomeController());
 
   //double? lat1,lng1;
 
@@ -44,10 +46,11 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getUserCurrentLocation();
+    getUserCurrentLocation(controller: homeController);
+    setState(() {});
   }
 
-  getUserCurrentLocation() async {
+  getUserCurrentLocation({required HomeController controller}) async {
     try {
       var status = await Permission.locationWhenInUse.request();
 
@@ -84,6 +87,10 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
                 print('latititue${lat}');
                 print('longitude${lng}');
                 getNearByLocations();
+                getAddressFromLatLong(
+                    latitude: lat!,
+                    longitude: lng!,
+                    controller: homeController);
               });
             });
           } catch (e) {
@@ -118,7 +125,9 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
   //Future<void> getAddressFromLatLong(Position position) async {
   Future<void> getAddressFromLatLong(
-      {required double latitude, required double longitude}) async {
+      {required double latitude,
+      required double longitude,
+      required HomeController controller}) async {
     print("latitude=============>:-${latitude}");
     print("longitude==============>:-${longitude}");
     latlng.value = LatLng(latitude, longitude);
@@ -129,9 +138,12 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
     liveAddress.value = "";
     liveAddress.value =
         '${place.locality}, ${place.administrativeArea}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.name}, ${place.thoroughfare}, ${place.subThoroughfare}';
+    setState(() {
+      homeController.currentLocation.value = liveAddress.value;
+    });
     print('liveAddress:- ${liveAddress.value}');
     //if(liveAddress.isNotEmpty && liveAddress.value != ""){
-    Get.back(result: ['', liveAddress.value]);
+    // Get.back(result: ['', liveAddress.value]);
     // }else{
     //   print('Something wrong');
     // }
@@ -148,7 +160,8 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
       liteModeEnabled: false, // Make sure liteModeEnabled is set to false
       rotateGesturesEnabled: true,
       zoomGesturesEnabled: true,
-      webGestureHandling: WebGestureHandling.greedy, // This is for web platforms
+      webGestureHandling:
+          WebGestureHandling.greedy, // This is for web platforms
       scrollGesturesEnabled: true, // Enable scroll gestures
       tiltGesturesEnabled: true, // Enable tilt gestures if needed
       /// If you comment this below line your
@@ -158,24 +171,23 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
       // Listen for map taps.
       gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
         Factory<OneSequenceGestureRecognizer>(
-              () => EagerGestureRecognizer(),
+          () => EagerGestureRecognizer(),
         ),
       ].toSet(),
 
       zoomControlsEnabled: false,
 
-
       initialCameraPosition:
           const CameraPosition(target: LatLng(0.0, 0.0), zoom: 17),
+
       /// if you uncomment below marker and comment the current markers then user cant be seelcted location on map
       //markers: markers,
       markers: <Marker>[
         Marker(
           markerId: const MarkerId('needleNew'),
           position: needlePosition, // Use the updated position here.
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
-
-
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
         ),
       ].toSet(),
     );
@@ -228,7 +240,10 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
   void selectLocationOnMap() async {
     var result = await Get.to(() => const SearchLocationOnMapScreen());
     if (result != null) {
-      getAddressFromLatLong(latitude: result[1], longitude: result[2]);
+      getAddressFromLatLong(
+          latitude: result[1],
+          longitude: result[2],
+          controller: homeController);
       //Get.back(result: ['', result[1], result[2]]);
       debugPrint("Selected " + result.toString());
     }

@@ -62,18 +62,18 @@ class SignUpController extends GetxController {
       );
       print('Response type: ${response.runtimeType}');
 
-      var jsonResponse = jsonDecode(response);
-      var message = jsonResponse['message'];
+      // var response = jsonDecode(response);
+      var message = response['message'];
       try {
-        if (jsonResponse['status'] == false) {
+        if (response['status'] == false) {
           DioExceptions.showErrorMessage(context, message);
           print('Message: $message');
         } else {
           DioExceptions.showMessage(context, message);
-log(" id   ${jsonResponse['data']['user_id']}");
-          await SharedPref.saveString(Config.userId, jsonResponse['data']['user_id'].toString());
+log(" id   ${response['data']['user_id']}");
+          await SharedPref.saveString(Config.userId, response['data']['user_id'].toString());
           Get.toNamed(AppRoutes.OTPSCREEN,arguments: {
-            'userId':jsonResponse['data']['user_id']
+            'userId':response['data']['user_id']
           });
         }
       } catch (e) {
@@ -90,7 +90,7 @@ log(" id   ${jsonResponse['data']['user_id']}");
     } catch (e) {
       isLoading(false);
       if (kDebugMode) {
-        print("sign up $e");
+        print("sign up-- $e");
       }
     } finally {
       isLoading(false);

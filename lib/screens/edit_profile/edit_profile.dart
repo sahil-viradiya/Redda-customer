@@ -5,14 +5,19 @@ import 'package:redda_customer/Utils/validation.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
+import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/screens/address_details_screen/no_address_screen.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
-import 'address_details_screen_controller.dart';
+import '../auth/signIn/signIn_controller.dart';
+import '../address_details_screen/address_details_screen_controller.dart';
+import 'edit_profile_controller.dart';
 
-class PAddressDetailsScreen extends GetView<PAddressDetailsScreenController> {
-  const PAddressDetailsScreen({Key? key}) : super(key: key);
+class EditProfile extends GetView<EditProfileController> {
+  EditProfile({super.key});
+
+  final SignInController _signInController = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class PAddressDetailsScreen extends GetView<PAddressDetailsScreenController> {
 
       appBar: appbarSmall1(
         context,
-        "Enter Address Details",
+        "Edit Profile",
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 0),
@@ -38,7 +43,7 @@ class PAddressDetailsScreen extends GetView<PAddressDetailsScreenController> {
             ),
             Gap(MySize.size6!),
             CustomTextFormFieldWidget(
-              controller: TextEditingController(text: "sahil"),
+              controller: controller.nameCon,
               validator: ((value) {
                 return Validator.validateFirstName(value!);
               }),
@@ -57,7 +62,7 @@ class PAddressDetailsScreen extends GetView<PAddressDetailsScreenController> {
             ),
             Gap(MySize.size6!),
             CustomTextFormFieldWidget(
-              controller: TextEditingController(text: "9725558828"),
+              controller: controller.mobileNo,
               validator: ((value) {
                 return Validator.validateFirstName(value!);
               }),
@@ -76,7 +81,7 @@ class PAddressDetailsScreen extends GetView<PAddressDetailsScreenController> {
             ),
             Gap(MySize.size6!),
             CustomTextFormFieldWidget(
-              controller: TextEditingController(text: "john@gmail.com"),
+              controller: controller.emailCon,
 
               validator: ((value) {
                 return Validator.validateFirstName(value!);
@@ -88,15 +93,18 @@ class PAddressDetailsScreen extends GetView<PAddressDetailsScreenController> {
 
             Gap(MySize.size12!),
 
-            CustomButton(
-              height: 40,
-              borderCircular: 7,
-              width: double.infinity,
-              text: "Update Profile",
-              fun: () {
-                Get.to(NoAddressScreen());
-              },
-            )
+            Obx(() {
+              return CustomButton(
+                isLoading: controller.isLoading.value,
+                height: 40,
+                borderCircular: 7,
+                width: double.infinity,
+                text: "Update Profile",
+                fun: () {
+                  controller.updateProfile();
+                },
+              );
+            })
           ],
         ),
       ),

@@ -13,7 +13,7 @@ import 'package:redda_customer/widget/custom_button.dart';
 
 
 
-class EnterNewAddressDetails extends GetView<PAddressDetailsScreenController> {
+class EnterNewAddressDetails extends GetView<AddressController> {
   const EnterNewAddressDetails({super.key});
 
   @override

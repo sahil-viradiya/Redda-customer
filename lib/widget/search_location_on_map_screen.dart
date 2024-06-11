@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,6 +13,11 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/constant/app_color.dart';
+
+import '../constant/app_image.dart';
+import '../constant/style.dart';
+import 'auth_app_bar_widget.dart';
+import 'custom_button.dart';
 
 class SearchLocationOnMapScreen extends StatefulWidget {
   const SearchLocationOnMapScreen({Key? key}) : super(key: key);
@@ -25,7 +32,8 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
   Set<Marker> markers = {};
   double? lat, lng;
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
-
+  String address='';
+  String cityName='';
   @override
   void initState() {
     super.initState();
@@ -48,9 +56,12 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
             markers.add(Marker(
                 markerId: const MarkerId("newLocation"),
                 position: LatLng(value.latitude, value.longitude)));
+          address =   address;
             lat = value.latitude;
             lng = value.longitude;
           });
+          await           getAddress();
+
         });
       } else {
         Fluttertoast.showToast(msg: "You need to allow location Service");
@@ -64,17 +75,15 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Select Location"),
-
-        // textUtils.poppinsMediumText(
-        //     'Select Location', 22.0, Colors.black, TextAlign.center),
-        centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.blue),
+      backgroundColor: white,
+      appBar: appbarSmall1(
+        context,
+        "Set pick up Location",
       ),
       key: homeScaffoldKey,
       body: Stack(
+        alignment: Alignment.bottomCenter,
+
         children: [
           GoogleMap(
             compassEnabled: false,
@@ -95,33 +104,75 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
               });
             },
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 60, left: 8, right: 8),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    textStyle: const TextStyle(
-                        color: Colors.green,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  onPressed: _handlePressButton,
-                  child: const Text("Search"),
+
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+            // height: 120,
+
+            decoration: BoxDecoration(
+              color: white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                const BoxShadow(
+                  blurRadius: 8,
+                  spreadRadius: 4,
+                  color: Colors.black12,
+                )
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SvgPicture.asset(AppImage.LOCATION2),
+                    Gap(6),
+                    Expanded(
+                      child: Text(
+                        cityName.isNotEmpty ? cityName : "Fetching...",
+
+                        style: Styles.boldBlack612,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _handlePressButton();
+                      },
+                      child: Text(
+                        "Change",
+                        style: Styles.boldBlue612,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+
+                Text(address.toString(),style: Styles.lable414,),
+                Gap(12),
+                CustomButton(
+                  width: Get.width,
+                  height: 35,
+                  borderCircular: 6,
+                  text: "Confirm Location",
+                  fun: () {
+                    getAddress();
+
+                    // Get.to(EnterNewAddressDetails());
+                  },
+                )
+              ],
             ),
           ),
+
           Align(
             alignment: Alignment.topRight,
             child: Padding(
               padding: const EdgeInsets.only(top: 60, right: 10),
               child: SizedBox(
+                
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(0),
                     backgroundColor: primary,
                     textStyle: const TextStyle(
                         color: Colors.green,
@@ -135,24 +186,47 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primary,
-                    textStyle: const TextStyle(
-                        color: red, fontSize: 16, fontWeight: FontWeight.w500),
-                  ),
-                  onPressed: getAddress,
-                  child: const Text("Confirm"),
-                ),
-              ),
-            ),
-          ),
+          
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(bottom: 60, left: 8, right: 8),
+          //     child: SizedBox(
+          //       width: MediaQuery.of(context).size.width,
+          //       child: ElevatedButton(
+          //         style: ElevatedButton.styleFrom(
+          //           backgroundColor: Colors.blue,
+          //           textStyle: const TextStyle(
+          //               color: Colors.green,
+          //               fontSize: 16,
+          //               fontWeight: FontWeight.w500),
+          //         ),
+          //         onPressed: _handlePressButton,
+          //         child: const Text("Search"),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+
+          //=========================================
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: SizedBox(
+          //       width: MediaQuery.of(context).size.width,
+          //       child: ElevatedButton(
+          //         style: ElevatedButton.styleFrom(
+          //           backgroundColor: primary,
+          //           textStyle: const TextStyle(
+          //               color: red, fontSize: 16, fontWeight: FontWeight.w500),
+          //         ),
+          //         onPressed: getAddress,
+          //         child: const Text("Confirm"),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -166,6 +240,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
 
   Future<void> _handlePressButton() async {
     Prediction? p = await PlacesAutocomplete.show(
+
       context: context,
       apiKey: Config.apiKey!,
       onError: onError,
@@ -174,6 +249,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
       types: [""],
       strictbounds: false,
       decoration: InputDecoration(
+
         hintText: 'Search',
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
@@ -207,6 +283,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
           markerId: const MarkerId("newLocation"),
           position: LatLng(lat!, lng!)));
     });
+    await getAddress();
   }
 
   void onError(PlacesAutocompleteResponse response) {
@@ -215,9 +292,23 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
     );
   }
 
-  void getAddress() async {
+   getAddress() async {
     GeoData fetchGeocoder = await Geocoder2.getDataFromCoordinates(
         latitude: lat!, longitude: lng!, googleMapApiKey: Config.apiKey!);
-    Get.back(result: [fetchGeocoder.address, lat.toString(), lng.toString()]);
+    setState(() {
+       address = fetchGeocoder.address;
+       cityName = extractCity(fetchGeocoder.address);
+       print("==========add========${fetchGeocoder.address}");
+    });
+    // Get.back(result: [fetchGeocoder.address]);
+    // Get.back(result: [fetchGeocoder.address, lat.toString(), lng.toString()]);
   }
+  String extractCity(String fullAddress) {
+    List<String> addressParts = fullAddress.split(',');
+    if (addressParts.length >= 2) {
+      return addressParts[addressParts.length - 3].trim();
+    }
+    return "Unknown";
+  }
+
 }

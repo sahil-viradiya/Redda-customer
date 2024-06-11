@@ -16,36 +16,49 @@ class SetPickUpLocationLocation extends GetView<SetPickUpLocationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: appbarSmall1(
         context,
         "Set pick up Location",
       ),
-      body: Column(
-        children: [
-          const Divider(),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.0),
-            child: CustomTextFormFieldSearch(
-              prefixIcon: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.0),
-                child: Icon(Icons.search),
-              ),
-              hintLpadding: 10,
-              width: double.infinity,
-              hintText: "Search for building, area, or street",
-            ),
-          ),
-          const Gap(10),
-          GestureDetector(
-              onTap: () {
-                Get.toNamed(AppRoutes.SETCURRENTLOCATION);
-              },
-              child: _commonContainer(
-                  txt: "Use current Location",
-                  svgName: AppImage.LOCATION2,
-                  style: Styles.boldBlue614,
-                  color: white))
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        child: Column(
+          children: [
+            const Divider(),
+
+            GestureDetector(
+                onTap: () {
+                  // Get.toNamed(AppRoutes.SETCURRENTLOCATION);
+                  controller.selectLocationOnMap();
+
+                },
+                child: _commonContainer(
+                    txt: "Use current Location",
+                    svgName: AppImage.LOCATION2,
+                    style: Styles.boldBlue614,
+                    color: white)),
+            const Gap(10),
+
+             GestureDetector(
+               onTap: () {
+                 Get.toNamed(AppRoutes.ADDRESSDETAILS);
+
+               },
+               child: const CustomTextFormFieldSearch(
+                 // readOnly: true,
+                 enable: false,
+                 // prefixIcon: Padding(
+                 //   padding: EdgeInsets.symmetric(horizontal: 14.0),
+                 //   child: Icon(Icons.search),
+                 // ),
+                 hintLpadding: 10,
+                 width: double.infinity,
+                 hintText: "Enter Manual Location",
+               ),
+             ),
+          ],
+        ),
       ),
     );
   }
@@ -58,7 +71,7 @@ class SetPickUpLocationLocation extends GetView<SetPickUpLocationController> {
       Color? svgColor}) {
     return Container(
       height: 45,
-      margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
+      // margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
       decoration: BoxDecoration(
         border: Border.all(color: primary),

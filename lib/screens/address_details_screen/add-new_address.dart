@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/style.dart';
+import 'package:redda_customer/screens/address_details_screen/enter_new_address_details.dart';
 import 'package:redda_customer/screens/address_details_screen/set_delivery_location.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
+import 'package:redda_customer/widget/custom_button.dart';
 
 class AddNewAddress extends StatelessWidget {
   const AddNewAddress({super.key});
@@ -106,13 +108,24 @@ class AddNewAddress extends StatelessWidget {
                               ),
                             ),
                           ],
-                        )
+                        ),
+
                       ],
                     ),
                   ),
                 ],
               ),
             ),
+            Gap(14),
+            CustomButton(
+              height: 40,
+              borderCircular: 7,
+              width: double.infinity,
+              text: "ADD NEW ADDRESS",
+              fun: () {
+                Get.to(EnterNewAddressDetails());
+              },
+            )
           ],
         ),
       ),

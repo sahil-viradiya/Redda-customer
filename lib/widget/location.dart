@@ -54,13 +54,19 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
     try {
       var status = await Permission.locationWhenInUse.request();
 
+      if (status.isGranted) {
+        homeController.status.value = "Status.granted";
+      } else {
+        homeController.status.value = "Please Enable Location Services";
+      }
+      setState(() {});
       print("location:-${status}");
 
       var accuracy = await Geolocator.getLocationAccuracy();
       bool isLocationServiceEnabled =
           await Geolocator.isLocationServiceEnabled();
 
-      print("${PermissionStatus.granted}");
+      print("Permission ${PermissionStatus.granted}");
 
       if (status == PermissionStatus.granted) {
         if (isLocationServiceEnabled) {
@@ -157,23 +163,26 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
       compassEnabled: true,
       mapToolbarEnabled: true,
       buildingsEnabled: true,
-      liteModeEnabled: false, // Make sure liteModeEnabled is set to false
+      liteModeEnabled: false,
+      // Make sure liteModeEnabled is set to false
       rotateGesturesEnabled: true,
       zoomGesturesEnabled: true,
-      webGestureHandling:
-          WebGestureHandling.greedy, // This is for web platforms
-      scrollGesturesEnabled: true, // Enable scroll gestures
-      tiltGesturesEnabled: true, // Enable tilt gestures if needed
+      webGestureHandling: WebGestureHandling.greedy,
+      // This is for web platforms
+      scrollGesturesEnabled: true,
+      // Enable scroll gestures
+      tiltGesturesEnabled: true,
+      // Enable tilt gestures if needed
       /// If you comment this below line your
       onMapCreated: onMapCreated,
 
       onTap: _handleMapTap,
       // Listen for map taps.
-      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
         Factory<OneSequenceGestureRecognizer>(
           () => EagerGestureRecognizer(),
         ),
-      ].toSet(),
+      },
 
       zoomControlsEnabled: false,
 
@@ -182,14 +191,14 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
       /// if you uncomment below marker and comment the current markers then user cant be seelcted location on map
       //markers: markers,
-      markers: <Marker>[
+      markers: <Marker>{
         Marker(
           markerId: const MarkerId('needleNew'),
           position: needlePosition, // Use the updated position here.
           icon:
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
         ),
-      ].toSet(),
+      },
     );
     //   Scaffold(
     //   backgroundColor: Colors.white,

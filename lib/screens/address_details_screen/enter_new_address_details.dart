@@ -5,13 +5,11 @@ import 'package:redda_customer/Utils/validation.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
-import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/screens/address_details_screen/address_details_screen_controller.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
-
-
+import 'package:redda_customer/widget/location.dart';
 
 class EnterNewAddressDetails extends GetView<AddressController> {
   const EnterNewAddressDetails({super.key});
@@ -26,24 +24,24 @@ class EnterNewAddressDetails extends GetView<AddressController> {
           "Enter Address Details",
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           child: ListView(
             children: [
               Container(
                 height: 160,
-                padding:
-                const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: primary),
                 ),
+                child: const GetLocationScreen(),
               ),
               //=============Address================
-              Gap(18),
+              const Gap(18),
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Enter Address",
+                  "House / Flat / Block No.",
                   style: Styles.boldBlack614,
                   textAlign: TextAlign.left,
                 ),
@@ -55,7 +53,6 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                 validator: ((value) {
                   return Validator.validateLastName(value!);
                 }),
-                // controller: signUpBloc.lnameCon,
                 hintRpadding: 17.76,
               ),
               Gap(MySize.size12!),
@@ -63,7 +60,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Landmark (Optional)",
+                  "Appartment / Road / Area",
                   style: Styles.boldBlack614,
                   textAlign: TextAlign.left,
                 ),
@@ -83,7 +80,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Sender’s Name",
+                  "Direction to reach",
                   style: Styles.boldBlack614,
                   textAlign: TextAlign.left,
                 ),
@@ -92,6 +89,8 @@ class EnterNewAddressDetails extends GetView<AddressController> {
               //=============Sender’s Mobile Number================
 
               CustomTextFormFieldWidget(
+                maxLine: 5,
+                minLine: 5,
                 keyboardType: TextInputType.name,
                 validator: ((value) {
                   return Validator.validateLastName(value!);
@@ -99,24 +98,8 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                 // controller: signUpBloc.lnameCon,
                 hintRpadding: 17.76,
               ),
-              Gap(MySize.size12!),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Sender’s Mobile Number",
-                  style: Styles.boldBlack614,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Gap(MySize.size4!),
-              CustomTextFormFieldWidget(
-                keyboardType: TextInputType.name,
-                validator: ((value) {
-                  return Validator.validateLastName(value!);
-                }),
-                // controller: signUpBloc.lnameCon,
-                hintRpadding: 17.76,
-              ),
+              // Gap(MySize.size!),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -142,20 +125,31 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                   itemCount: 3,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
+                    // controller.selectedIndex.value = index;
                     return Padding(
                       padding: const EdgeInsets.only(right: 10.0),
-                      child: CustomButton(
-                        color: index < 1 ? Colors.white : primary,
-                        height: 24,
-                        borderSide: BorderSide(color: index > 1 ? Colors.white : primary,),
-                        width: Get.width / 3.5,
-                        borderCircular: 5,
-                        text: text[index],
-                        style: index < 1
-                            ? Styles.boldBlue614
-                            : Styles.boldWhite614,
-                        fun: () {},
-                      ),
+                      child: Obx(() {
+                        return CustomButton(
+                          color: controller.selectedIndex.value == index
+                              ? primary
+                              : Colors.white,
+                          height: 24,
+                          borderSide: BorderSide(
+                            color: primary,
+                          ),
+                          width: Get.width / 3.5,
+                          borderCircular: 5,
+                          text: text[index],
+                          style: controller.selectedIndex.value != index
+                              ?
+                          Styles.boldBlack614
+                              :
+                          Styles.boldWhite614,
+                          fun: () {
+                            controller.selectedIndex.value = index;
+                          },
+                        );
+                      }),
                     );
                   },
                 ),
@@ -163,20 +157,16 @@ class EnterNewAddressDetails extends GetView<AddressController> {
               Gap(MySize.size16!),
 
               GestureDetector(
-                onTap: () {
-                },
+                onTap: () {},
                 child: CustomButton(
                   width: double.infinity,
                   height: 35,
                   borderCircular: 7,
                   text: "Add Address",
-                  fun: () {
-
-                  },
+                  fun: () {},
                 ),
               ),
               Gap(MySize.size30!),
-
             ],
           ),
         ));

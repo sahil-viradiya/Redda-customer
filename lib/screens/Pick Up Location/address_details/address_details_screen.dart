@@ -8,6 +8,7 @@ import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
+import 'package:redda_customer/widget/location.dart';
 import 'address_details_controller.dart';
 
 class AddressDetailsScreen extends GetView<AddressDetailsController> {
@@ -22,20 +23,21 @@ class AddressDetailsScreen extends GetView<AddressDetailsController> {
           "Enter Address Details",
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           child: Column(
             children: [
               Container(
                 height: 160,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+                    const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: primary),
                 ),
+                child: const GetLocationScreen(),
               ),
               //=============Address================
-              Gap(18),
+              const Gap(18),
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(

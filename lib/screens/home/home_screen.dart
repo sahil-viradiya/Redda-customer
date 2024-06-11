@@ -328,7 +328,8 @@ class HomeScreen extends GetView<HomeController> {
                 title: 'Addresses',
                 fun: () async {
                   Navigator.pop(context);
-                  Get.toNamed(AppRoutes.NO_ADDRESS);
+                  Get.toNamed(AppRoutes.ADD_ADDRESS);
+                  //Get.toNamed(AppRoutes.NO_ADDRESS);
                 }),
             _commonListtile(
                 context: context,

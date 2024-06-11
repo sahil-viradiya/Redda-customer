@@ -9,10 +9,8 @@ import 'package:dio/dio.dart' as dio;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/network_client.dart';
-import 'package:redda_customer/Utils/pref.dart';
 import 'package:redda_customer/constant/api_key.dart';
-import 'package:redda_customer/model/create_account_model.dart';
-import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/address_details_screen/address_details_screen_model.dart';
 import 'package:redda_customer/screens/auth/signIn/signIn_controller.dart';
 
 import '../../../main.dart';
@@ -20,6 +18,8 @@ import '../../widget/search_location_on_map_screen.dart';
 class AddressController extends GetxController {
   final count = 0.obs;
   final selectedIndex = 0.obs;
+  final addressType = ''.obs;
+  RxBool isLoading = false.obs;
   final SignInController _signInController = Get.put(SignInController());
   Rx<String> liveAddress = ''.obs;
   Rx<LatLng> latlng = const LatLng(0, 0).obs;
@@ -27,12 +27,16 @@ class AddressController extends GetxController {
   TextEditingController houseCon = TextEditingController();
   TextEditingController areaCon = TextEditingController();
   TextEditingController emailCon = TextEditingController();
+  TextEditingController passCon = TextEditingController();
+
+
+  TextEditingController house = TextEditingController();
+  TextEditingController area = TextEditingController();
+  TextEditingController direction = TextEditingController();
 
   @override
   void onInit() {
-    nameCon.text = _signInController.model.fullname ?? "";
-    mobileNo.text = _signInController.model.mobileNo ?? "";
-    emailCon.text = _signInController.model.email ?? "";
+    getAddress();
     super.onInit();
   }
 
@@ -76,20 +80,24 @@ class AddressController extends GetxController {
 
   Future<dynamic> addAddress() async {
     dio.FormData formData = dio.FormData.fromMap({
-      'email': emailCon.text,
-      'password': passCon.text,
+      'name':_signInController.model.fullname,
+      'address':  house.text+area.text+direction.text,
+      'mobile_no': _signInController.model.mobileNo,
+      'address_type': addressType,
     });
     log('============= Form DAta ${formData.fields}');
     isLoading(true);
     try {
       var response = await dioClient
           .post(
-        '${Config.baseUrl}login.php',
+        '${Config.baseUrl}add_user_address.php',
+        options: dio.Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
         data: formData,
-      )
-          .then(
-            (respo) async {
-          // var respo = jsonDecode(respo);
+      ).then((respo) async {
           log("================================${respo['data']}===============");
 
           var message = respo['message'];
@@ -99,11 +107,6 @@ class AddressController extends GetxController {
               print('Message: $message');
             } else {
               DioExceptions.showMessage(Get.context!, message);
-              // log("================================${ respo['data']['api_token']}===============");
-              await SharedPref.saveString(
-                  Config.kAuth, respo['data']['api_token'].toString());
-              // await SharedPref.saveString(Config.status, model.userType);
-              getProfile();
             }
           } catch (e) {
             print('Error parsing JSON or accessing message: $e');
@@ -115,7 +118,7 @@ class AddressController extends GetxController {
       print('Error $e');
       DioExceptions.showErrorMessage(
           Get.context!,
-          DioExceptions.fromDioError(dioError: e, errorFrom: "CREATE ACCOUNT")
+          DioExceptions.fromDioError(dioError: e, errorFrom: "ADD ADDRESS")
               .errorMessage());
       isLoading(false);
     } catch (e) {
@@ -128,9 +131,63 @@ class AddressController extends GetxController {
     }
   }
 
+  GetAddressModel? getAddressModel;
+  Future<GetAddressModel?> getAddress() async {
+    dio.FormData formData = dio.FormData.fromMap({
+      'user_id':_signInController.model.userId,
+    });
+    log('============= Form DAta ${formData.fields}');
+    isLoading(true);
+    try {
+      var response = await dioClient
+          .post(
+        '${Config.baseUrl}get_user_address.php',
+        options: dio.Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+        data: formData,
+      ).then((respo) async {
+          log("================================${respo['data']}===============");
+
+          var message = respo['message'];
+          try {
+            if (respo['status'] == false) {
+              DioExceptions.showErrorMessage(Get.context!, message);
+              print('Message: $message');
+            } else {
+              DioExceptions.showMessage(Get.context!, message);
+              getAddressModel = GetAddressModel.fromMap(respo);
+              print("=======GET ADDRESS===> ${getAddressModel?.data![0].addressType}");
+            }
+          } catch (e) {
+            print('Error parsing JSON or accessing message: $e');
+          }
+        },
+      );
+    } on dio.DioException catch (e) {
+      print("status Code ${e.response?.statusCode}");
+      print('Error $e');
+      DioExceptions.showErrorMessage(
+          Get.context!,
+          DioExceptions.fromDioError(dioError: e, errorFrom: "GET ADDRESS")
+              .errorMessage());
+      isLoading(false);
+    } catch (e) {
+      isLoading(false);
+      if (kDebugMode) {
+        print("GET ADDRESS $e");
+      }
+    } finally {
+      isLoading(false);
+    }
+    return getAddressModel;
+  }
+
+
 
   @override
   void onClose() {}
-
   increment() => count.value++;
 }

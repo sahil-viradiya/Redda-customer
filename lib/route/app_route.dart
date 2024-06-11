@@ -17,6 +17,7 @@ import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location
 import 'package:redda_customer/screens/Pick%20Up%20Location/set_pick_up_location/set_pick_up_location_screen.dart';
 import 'package:redda_customer/screens/add_new_card/add_new_card_binding.dart';
 import 'package:redda_customer/screens/add_new_card/add_new_card_screen.dart';
+import 'package:redda_customer/screens/address_details_screen/add-new_address.dart';
 import 'package:redda_customer/screens/edit_profile/edit_profile.dart';
 import 'package:redda_customer/screens/address_details_screen/address_details_screen_binding.dart';
 import 'package:redda_customer/screens/address_details_screen/no_address_screen.dart';
@@ -65,6 +66,7 @@ class AppRoutes {
   static String PAYMENT = '/payment';
   static String EDIT_PROFILE = '/edit_profile';
   static String NO_ADDRESS = '/no_address';
+  static String ADD_ADDRESS = '/add_address';
   static String PAYMENTOPTION = '/payment_option';
   static String ADDNEWCARD = '/add_new_card';
   static String LINKACCOUNTSCREEN = '/link_account_screen';
@@ -111,7 +113,13 @@ class AppRoutes {
       name: NO_ADDRESS,
       page: () => const NoAddressScreen(),
       bindings:  [
-        AddressBinding()
+        AddAddressBinding()
+      ],
+    ), GetPage(
+      name: ADD_ADDRESS,
+      page: () => const AddNewAddress(),
+      bindings:  [
+        AddAddressBinding()
       ],
     ),   GetPage(
       name: PICKUPORSENDANYTHING,

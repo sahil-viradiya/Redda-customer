@@ -20,11 +20,10 @@ class NoAddressScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 0),
-
         child: Column(
           children: [
-            Divider(),
-            Gap(20),
+            const Divider(),
+            const Gap(20),
             Text(
               "No Any address Added.",
               style: Styles.boldBlack616,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/validation.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/my_size.dart';
@@ -49,6 +50,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
               Gap(MySize.size4!),
 
               CustomTextFormFieldWidget(
+                controller: controller.house,
                 keyboardType: TextInputType.name,
                 validator: ((value) {
                   return Validator.validateLastName(value!);
@@ -67,6 +69,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
               ),
               Gap(MySize.size4!),
               CustomTextFormFieldWidget(
+                controller: controller.area,
                 keyboardType: TextInputType.name,
                 validator: ((value) {
                   return Validator.validateLastName(value!);
@@ -89,6 +92,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
               //=============Sender’s Mobile Number================
 
               CustomTextFormFieldWidget(
+                controller: controller.direction,
                 maxLine: 5,
                 minLine: 5,
                 keyboardType: TextInputType.name,
@@ -134,7 +138,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                               ? primary
                               : Colors.white,
                           height: 24,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: primary,
                           ),
                           width: Get.width / 3.5,
@@ -147,6 +151,8 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                           Styles.boldWhite614,
                           fun: () {
                             controller.selectedIndex.value = index;
+                            controller.addressType.value = text[index];
+                            print("--------------------->${controller.addressType.value}");
                           },
                         );
                       }),
@@ -163,7 +169,10 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                   height: 35,
                   borderCircular: 7,
                   text: "Add Address",
-                  fun: () {},
+                  fun: () {
+                    //getToken();
+                    controller.addAddress();
+                  },
                 ),
               ),
               Gap(MySize.size30!),

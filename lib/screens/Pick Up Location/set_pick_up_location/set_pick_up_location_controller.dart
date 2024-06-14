@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:redda_customer/screens/Pick%20Up%20Location/location_sugetion.dart';
 import 'package:redda_customer/widget/search_location_on_map_screen.dart';
 
 class SetPickUpLocationController extends GetxController {
@@ -9,6 +10,23 @@ class SetPickUpLocationController extends GetxController {
   Rx<String> liveAddress = ''.obs;
   Rx<LatLng> latlng = const LatLng(0, 0).obs;
   var selectedLocation = ''.obs;
+
+  final TextEditingController controller = TextEditingController();
+  final PlacesService placesService = PlacesService();
+  RxList<dynamic> suggestions = <dynamic>[].obs;
+
+  void onSearchChanged() async {
+    if (controller.text.isEmpty) {
+      suggestions.clear();
+      update();
+      return;
+    }
+
+    final fetchedSuggestions = await placesService.getPlaceSuggestions(controller.text);
+    suggestions.assignAll(fetchedSuggestions);
+    update();
+  }
+
 
   @override
   void onInit() {

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/style.dart';
+import 'package:redda_customer/screens/address_details_screen/address_details_screen_model.dart';
 import 'package:redda_customer/screens/address_details_screen/enter_new_address_details.dart';
 import 'package:redda_customer/screens/address_details_screen/set_delivery_location.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
@@ -29,7 +30,7 @@ class AddNewAddress extends GetView<AddressController> {
       body: Obx(
       () => controller.isLoading == true
       ? const Center(child: CircularProgressIndicator(color: primary,)):
-      controller.getAddressModel!.data! ==null?noAddress(context)
+      controller.getAddressModel!.data ==null || controller.getAddressModel!.data!.isEmpty?noAddress(context)
           :  Column(
             children: [
               const Divider(),
@@ -74,24 +75,29 @@ class AddNewAddress extends GetView<AddressController> {
                                   ),
                                 ),
                                 Text(
-                                  controller.getAddressModel!.data![index].address.toString(),
+                                  "${controller.getAddressModel!.data![index].house.toString()}, ${controller.getAddressModel!.data![index].area.toString()}, ${controller.getAddressModel!.data![index].direction.toString()}",
                                   style: Styles.lable411,
                                 ),
-                                Gap(6),
+                                const Gap(6),
                                 Text(
                                   "Mobile Number:  ${controller.getAddressModel!.data![index].mobileNo.toString()}",
                                   style: Styles.lable411,
                                 ),
-                                Gap(6),
+                                const Gap(6),
                                 Row(
                                   children: [
                                     TextButton(
                                       onPressed: () {
-                                        Get.to(const SetDeliveryLocation());
+                                        controller.isEdit=true.obs;
+                                        controller.house.text=controller.getAddressModel!.data![index].house.toString();
+                                        controller.area.text=controller.getAddressModel!.data![index].area.toString();
+                                        controller.direction.text=controller.getAddressModel!.data![index].direction.toString();
+                                        Get.to(const EnterNewAddressDetails());
+                                        //Get.to(const SetDeliveryLocation());
                                       },
                                       style: TextButton.styleFrom(
                                           padding: EdgeInsets.zero,
-                                          minimumSize: Size(40, 35),
+                                          minimumSize: const Size(40, 35),
 
                                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                           alignment: Alignment.centerLeft),
@@ -100,10 +106,15 @@ class AddNewAddress extends GetView<AddressController> {
                                         style: Styles.boldBlue612,
                                       ),
                                     ), TextButton(
-                                      onPressed: () {},
+                                      onPressed: ()async{
+                                        controller.isEdit=false.obs;
+                                        await controller.deleteAddress(controller.getAddressModel!.data![index].id);
+                                        controller.getAddressModel!.data!.removeAt(index);
+                                        controller.update();
+                                      },
                                       style: TextButton.styleFrom(
                                           padding: EdgeInsets.zero,
-                                          minimumSize: Size(54, 0),
+                                          minimumSize: const Size(54, 0),
                                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                           alignment: Alignment.centerLeft),
                                       child: Text(
@@ -114,7 +125,7 @@ class AddNewAddress extends GetView<AddressController> {
                                       onPressed: () {},
                                       style: TextButton.styleFrom(
                                           padding: EdgeInsets.zero,
-                                          minimumSize: Size(35, 35),
+                                          minimumSize: const Size(35, 35),
                                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                           alignment: Alignment.centerLeft),
                                       child: Text(
@@ -173,7 +184,7 @@ Widget noAddress(BuildContext context) {
         children: [
           const Gap(20),
           Text(
-            "No Any address Added.---",
+            "No Any address Added.",
             style: Styles.boldBlack616,
           ),
           Text(
@@ -188,7 +199,8 @@ Widget noAddress(BuildContext context) {
             width: double.infinity,
             text: "ADD NEW ADDRESS",
             fun: () {
-              Get.to(AddNewAddress());
+              Get.to(const EnterNewAddressDetails());
+              //Get.to(const AddNewAddress());
             },
           )
         ],

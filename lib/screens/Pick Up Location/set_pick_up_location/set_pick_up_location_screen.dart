@@ -1,3 +1,4 @@
+import 'package:animation_list/animation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -40,23 +41,99 @@ class SetPickUpLocationLocation extends GetView<SetPickUpLocationController> {
                     color: white)),
             const Gap(10),
 
-             GestureDetector(
-               onTap: () {
-                 Get.toNamed(AppRoutes.ADDRESSDETAILS);
-
+             CustomTextFormFieldSearch(
+               controller: controller.controller,
+               // readOnly: true,
+               enable: true,
+               // prefixIcon: Padding(
+               //   padding: EdgeInsets.symmetric(horizontal: 14.0),
+               //   child: Icon(Icons.search),
+               // ),
+               hintLpadding: 10,
+               width: double.infinity,
+               hintText: "Enter Manual Location",
+               onchanged: (p0) {
+                 controller.onSearchChanged();
                },
-               child: const CustomTextFormFieldSearch(
-                 // readOnly: true,
-                 enable: false,
-                 // prefixIcon: Padding(
-                 //   padding: EdgeInsets.symmetric(horizontal: 14.0),
-                 //   child: Icon(Icons.search),
-                 // ),
-                 hintLpadding: 10,
-                 width: double.infinity,
-                 hintText: "Enter Manual Location",
-               ),
              ),
+            Expanded(
+              child: Obx(() => AnimationList(children: List.generate(controller.suggestions.length, (index) {
+                var address = controller.suggestions[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                  child: Column(
+                    children: [
+
+                      const Gap(4),
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: primary),
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18.0, vertical: 18),
+                              child: SvgPicture.asset(
+                                AppImage.LOCATION,
+                                height: 14,
+                                width: 14,
+                                color: primary,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 18,left: 0,bottom: 18,top: 18,
+                                    ),
+                                child: Text(
+                                  controller.suggestions[index]['description'],
+                                  style: Styles.boldBlack612,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Gap(8),
+                      /*CustomButton(
+                      height: 40,
+                      borderCircular: 7,
+                      width: double.infinity,
+                      text: "ADD NEW ADDRESS",
+                      fun: () {
+                        Get.to(const EnterNewAddressDetails());
+                      },
+                    )*/
+                    ],
+                  ),
+                );
+              }),),)
+            ),
+          /*  Expanded(
+              child: Obx(() => Card(
+                elevation: 5,
+                child: ListView.builder(
+                  itemCount: controller.suggestions.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Text(controller.suggestions[index]['description']),
+                          onTap: () {
+                            // Handle place selection
+                          },
+                        ),
+                        Divider(color: primary,),
+                      ],
+                    );
+                  },
+                ),
+              ),),
+            ),*/
           ],
         ),
       ),

@@ -13,6 +13,7 @@ import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/location.dart';
 
 class EnterNewAddressDetails extends GetView<AddressController> {
+
   const EnterNewAddressDetails({super.key});
 
   @override

@@ -23,8 +23,7 @@ class SearchLocationOnMapScreen extends StatefulWidget {
   const SearchLocationOnMapScreen({Key? key}) : super(key: key);
 
   @override
-  State<SearchLocationOnMapScreen> createState() =>
-      _SearchLocationOnMapScreenState();
+  State<SearchLocationOnMapScreen> createState() => _SearchLocationOnMapScreenState();
 }
 
 class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
@@ -53,9 +52,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
                 CameraPosition(
                     target: LatLng(value.latitude, value.longitude),
                     zoom: 17)));
-            markers.add(Marker(
-                markerId: const MarkerId("newLocation"),
-                position: LatLng(value.latitude, value.longitude)));
+            markers.add(Marker(markerId: const MarkerId("newLocation"), position: LatLng(value.latitude, value.longitude)));
           address =   address;
             lat = value.latitude;
             lng = value.longitude;

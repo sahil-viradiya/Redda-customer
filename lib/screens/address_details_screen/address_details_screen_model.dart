@@ -35,14 +35,18 @@ class GetAddressModel {
 class Datum {
   int? id;
   String? name;
-  String? address;
+  String? house;
+  String? area;
+  String? direction;
   int? mobileNo;
   String? addressType;
 
   Datum({
     this.id,
     this.name,
-    this.address,
+    this.house,
+    this.area,
+    this.direction,
     this.mobileNo,
     this.addressType,
   });
@@ -50,7 +54,9 @@ class Datum {
   factory Datum.fromMap(Map<String, dynamic> json) => Datum(
     id: json["id"],
     name: json["name"],
-    address: json["address"],
+    house: json["house"],
+    area: json["area"],
+    direction: json["direction"],
     mobileNo: json["mobile_no"],
     addressType: json["address_type"],
   );
@@ -58,7 +64,9 @@ class Datum {
   Map<String, dynamic> toMap() => {
     "id": id,
     "name": name,
-    "address": address,
+    "house": house,
+    "area": area,
+    "direction": direction,
     "mobile_no": mobileNo,
     "address_type": addressType,
   };

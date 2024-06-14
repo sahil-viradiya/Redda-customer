@@ -13,6 +13,7 @@ import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/Pick%20Up%20Location/seach_location.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/location.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -346,6 +347,17 @@ class HomeScreen extends GetView<HomeController> {
                   // );
                   // resate(context);
                   // delet(context);
+                }),_commonListtile(
+                context: context,
+                icon: AppImage.WALLET,
+                title: 'Search',
+                fun: () async {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchPlaceScreen()),
+                  );
+
                 }),
             _commonListtile(
                 context: context,

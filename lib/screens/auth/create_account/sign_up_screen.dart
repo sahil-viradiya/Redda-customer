@@ -57,7 +57,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gap(MySize.size20!),
                   Text(
-                    'Welcome to Genie! We are here to help with your work requirements',
+                    'Welcome to Redda! We are here to help with your work requirements',
                     style: Styles.noramalBlack411,
                     textAlign: TextAlign.center,
                   ),

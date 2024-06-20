@@ -16,20 +16,21 @@ import 'package:redda_customer/constant/app_color.dart';
 
 import '../constant/app_image.dart';
 import '../constant/style.dart';
+import '../route/app_route.dart';
 import '../screens/Pick Up Location/address_details/address_details_controller.dart';
 import '../screens/Pick Up Location/address_details/address_details_screen.dart';
 import '../screens/address_details_screen/enter_new_address_details.dart';
 import 'auth_app_bar_widget.dart';
 import 'custom_button.dart';
 
-class SearchLocationOnMapScreen extends StatefulWidget {
-  const SearchLocationOnMapScreen({Key? key}) : super(key: key);
+class SearchLocationOnMapForDropScreen extends StatefulWidget {
+  const SearchLocationOnMapForDropScreen({Key? key}) : super(key: key);
 
   @override
-  State<SearchLocationOnMapScreen> createState() => _SearchLocationOnMapScreenState();
+  State<SearchLocationOnMapForDropScreen> createState() => _SearchLocationOnMapForDropScreenState();
 }
 
-class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
+class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapForDropScreen> {
   Completer<GoogleMapController> mapController = Completer();
 
   Set<Marker> markers = {};
@@ -79,7 +80,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
       backgroundColor: white,
       appBar: appbarSmall1(
         context,
-        "Set pick up Location",
+        "Set Drop Location",
       ),
       key: homeScaffoldKey,
       body: Stack(
@@ -157,7 +158,8 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
                   text: "Confirm Location",
                   fun: ()  async{
                      await getAddress();
-                    Get.to( AddressDetailsScreen());
+                     Get.toNamed(AppRoutes.DROPADDRESSDETAILS);
+
                   },
                 )
               ],

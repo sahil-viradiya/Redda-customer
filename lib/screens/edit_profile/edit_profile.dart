@@ -17,12 +17,10 @@ import 'edit_profile_controller.dart';
 class EditProfile extends GetView<EditProfileController> {
   EditProfile({super.key});
 
-  final SignInController _signInController = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(backgroundColor: white,
-
       appBar: appbarSmall1(
         context,
         "Edit Profile",

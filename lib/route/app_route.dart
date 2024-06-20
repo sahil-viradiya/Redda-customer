@@ -219,7 +219,7 @@ class AppRoutes {
       ],
     ),GetPage(
       name: ADDRESSDETAILS,
-      page: () => const AddressDetailsScreen(),
+      page: () =>  AddressDetailsScreen(),
       bindings: [
         AddressDetailsBinding(),
       ],

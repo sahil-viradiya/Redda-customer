@@ -12,7 +12,9 @@ import 'package:redda_customer/widget/location.dart';
 import 'address_details_controller.dart';
 
 class AddressDetailsScreen extends GetView<AddressDetailsController> {
-  const   AddressDetailsScreen({super.key});
+     AddressDetailsScreen({super.key});
+
+  final AddressDetailsController addressController = Get.put(AddressDetailsController());
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class AddressDetailsScreen extends GetView<AddressDetailsController> {
               Gap(MySize.size4!),
 
               CustomTextFormFieldWidget(
+                controller: addressController.emailCon,
                 keyboardType: TextInputType.name,
                 validator: ((value) {
                   return Validator.validateLastName(value!);
@@ -68,6 +71,7 @@ class AddressDetailsScreen extends GetView<AddressDetailsController> {
               ),
               Gap(MySize.size4!),
               CustomTextFormFieldWidget(
+                controller: addressController.landCon,
                 keyboardType: TextInputType.name,
                 validator: ((value) {
                   return Validator.validateLastName(value!);
@@ -90,6 +94,7 @@ class AddressDetailsScreen extends GetView<AddressDetailsController> {
               //=============Sender’s Mobile Number================
 
               CustomTextFormFieldWidget(
+                controller: addressController.nameCon,
                 keyboardType: TextInputType.name,
                 validator: ((value) {
                   return Validator.validateLastName(value!);
@@ -108,6 +113,7 @@ class AddressDetailsScreen extends GetView<AddressDetailsController> {
               ),
               Gap(MySize.size4!),
               CustomTextFormFieldWidget(
+                controller: addressController.mobileNo,
                 keyboardType: TextInputType.name,
                 validator: ((value) {
                   return Validator.validateLastName(value!);
@@ -139,7 +145,14 @@ class AddressDetailsScreen extends GetView<AddressDetailsController> {
                 height: 35,
                 borderCircular: 7,
                 text: "Proceed",
-                fun: () {},
+                fun: () {
+                  // controller.addAddress();
+                  print(controller.nameCon.text);
+                  print(controller.mobileNo.text);
+                  print(controller.emailCon.text);
+                  print(controller.landCon.text);
+
+                },
               )
             ],
           ),

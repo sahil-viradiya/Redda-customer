@@ -10,6 +10,7 @@ import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 
+import '../../../widget/location.dart';
 import 'drop_address_details_controller.dart';
 
 class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
@@ -31,11 +32,12 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
               Container(
                 height: 160,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+                const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: primary),
                 ),
+                child: const GetLocationScreen(),
               ),
               //=============Address================
               Gap(18),

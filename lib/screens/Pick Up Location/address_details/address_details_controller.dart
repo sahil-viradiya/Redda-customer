@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:get/get_rx/get_rx.dart';
 import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/Utils/pref.dart';
@@ -13,17 +14,22 @@ import 'package:redda_customer/model/create_account_model.dart';
 import 'package:redda_customer/route/app_route.dart';
 
 import '../../../main.dart';
+import '../../auth/signIn/signIn_controller.dart';
 class AddressDetailsController extends GetxController {
     final count = 0.obs;
     RxBool isLoading = false.obs;
+    var latCon = ''.obs;
+    var longCon = ''.obs;
 
     TextEditingController nameCon = TextEditingController();
     TextEditingController mobileNo = TextEditingController();
     TextEditingController emailCon = TextEditingController();
+    TextEditingController landCon = TextEditingController();
     TextEditingController addressCon = TextEditingController();
 
     @override
     void onInit() {
+
     super.onInit();
     }
 
@@ -36,6 +42,8 @@ class AddressDetailsController extends GetxController {
             'name': emailCon.text,
             'address': addressCon.text,
             'mobile_no':mobileNo.text,
+            'email':emailCon.text,
+
             // 'address_type':
         });
         log('============= Form DAta ${formData.fields}');

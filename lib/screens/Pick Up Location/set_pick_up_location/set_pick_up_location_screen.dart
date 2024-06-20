@@ -32,6 +32,7 @@ class SetPickUpLocationLocation extends GetView<SetPickUpLocationController> {
                 onTap: () {
                   // Get.toNamed(AppRoutes.SETCURRENTLOCATION);
                   controller.selectLocationOnMap();
+                  print("select pickup");
 
                 },
                 child: _commonContainer(

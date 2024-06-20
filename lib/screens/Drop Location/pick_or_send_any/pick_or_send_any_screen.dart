@@ -8,6 +8,8 @@ import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import '../../../constant/app_image.dart';
 import '../../../constant/style.dart';
+import '../../../widget/location.dart';
+import '../../../widget/poly_line.dart';
 import 'pick_or_send_any_controller.dart';
 
 class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
@@ -167,37 +169,50 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     )
                   ],
                 )),
-            Expanded(
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Container(
-                // height: 225,
+                height: 230,
                 width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: primary),
                 ),
-                child: Column(
-                  children: [
-                    // _commonRow(
-                    //     image: AppImage.INVENTORY,
-                    //     txt: "Avoid sending expensive or fraglie items "),
-                    // const Gap(14),
-                    // _commonRow(
-                    //     image: AppImage.BOX,
-                    //     txt: "Items should fit in a backpack"),
-                    // const Gap(14),
-                    // _commonRow(
-                    //     image: AppImage.NODRINKS,
-                    //     txt: "No alcohol, illegal or restricted items"),
-                    // const Gap(14),
-                    // _commonRow(
-                    //     image: AppImage.WATCH,
-                    //     txt: "Avoid sending expensive or fraglie items"),
-                  ],
-                ),
+                child: const GetLocationPolyLineScreen(),
               ),
             ),
+            // Expanded(
+            //   child: Container(
+            //     // height: 225,
+            //     width: double.infinity,
+            //     margin: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            //     padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(15),
+            //       border: Border.all(color: primary),
+            //     ),
+            //     child: Column(
+            //       children: [
+            //         // _commonRow(
+            //         //     image: AppImage.INVENTORY,
+            //         //     txt: "Avoid sending expensive or fraglie items "),
+            //         // const Gap(14),
+            //         // _commonRow(
+            //         //     image: AppImage.BOX,
+            //         //     txt: "Items should fit in a backpack"),
+            //         // const Gap(14),
+            //         // _commonRow(
+            //         //     image: AppImage.NODRINKS,
+            //         //     txt: "No alcohol, illegal or restricted items"),
+            //         // const Gap(14),
+            //         // _commonRow(
+            //         //     image: AppImage.WATCH,
+            //         //     txt: "Avoid sending expensive or fraglie items"),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Spacer(),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),

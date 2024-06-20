@@ -8,7 +8,9 @@ import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
+import 'package:redda_customer/widget/search_location_on_map_for_drop_screen.dart';
 
+import '../../../widget/search_location_on_map_screen.dart';
 import 'set_drop_location_controller.dart';
 
 
@@ -26,22 +28,29 @@ class SetDropLocationScreen extends GetView<SetDropLocationController> {
         body: Column(
             children: [
                 const Divider(),
-                const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14.0),
-                    child: CustomTextFormFieldSearch(
-                        prefixIcon: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 14.0),
-                            child: Icon(Icons.search),
-                        ),
-                        hintLpadding: 10,
-                        width: double.infinity,
-                        hintText: "Search for building, area, or street",
-                    ),
+                GestureDetector(
+                    onTap: (){
+                        Get.to(() => const SearchLocationOnMapScreen());
+                    },
+                  child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 14.0),
+                      child: CustomTextFormFieldSearch(
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.0),
+                              child: Icon(Icons.search),
+                          ),
+                          hintLpadding: 10,
+                          width: double.infinity,
+                          hintText: "Search for building, area, or street",
+                      ),
+                  ),
                 ),
                 const Gap(10),
                 GestureDetector(
                     onTap: () {
-                        Get.toNamed(AppRoutes.SETCURRENTDROPTLOCATION);
+
+                        Get.to(() => const SearchLocationOnMapForDropScreen());
+
                     },
                     child: _commonContainer(
                         txt: "Use current Location",

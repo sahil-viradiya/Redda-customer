@@ -27,17 +27,20 @@ class SearchLocationOnMapForDropScreen extends StatefulWidget {
   const SearchLocationOnMapForDropScreen({Key? key}) : super(key: key);
 
   @override
-  State<SearchLocationOnMapForDropScreen> createState() => _SearchLocationOnMapForDropScreenState();
+  State<SearchLocationOnMapForDropScreen> createState() =>
+      _SearchLocationOnMapForDropScreenState();
 }
 
-class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapForDropScreen> {
+class _SearchLocationOnMapForDropScreenState
+    extends State<SearchLocationOnMapForDropScreen> {
   Completer<GoogleMapController> mapController = Completer();
 
   Set<Marker> markers = {};
   double? lat, lng;
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
-  String address='';
-  String cityName='';
+  String address = '';
+  String cityName = '';
+
   @override
   void initState() {
     super.initState();
@@ -57,13 +60,14 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
                 CameraPosition(
                     target: LatLng(value.latitude, value.longitude),
                     zoom: 17)));
-            markers.add(Marker(markerId: const MarkerId("newLocation"), position: LatLng(value.latitude, value.longitude)));
-          address =   address;
+            markers.add(Marker(
+                markerId: const MarkerId("newLocation"),
+                position: LatLng(value.latitude, value.longitude)));
+            address = address;
             lat = value.latitude;
             lng = value.longitude;
           });
           await getAddress();
-
         });
       } else {
         Fluttertoast.showToast(msg: "You need to allow location Service");
@@ -85,7 +89,6 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
       key: homeScaffoldKey,
       body: Stack(
         alignment: Alignment.bottomCenter,
-
         children: [
           GoogleMap(
             compassEnabled: false,
@@ -129,11 +132,10 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
                 Row(
                   children: [
                     SvgPicture.asset(AppImage.LOCATION2),
-                    Gap(6),
+                    const Gap(6),
                     Expanded(
                       child: Text(
                         cityName.isNotEmpty ? cityName : "Fetching...",
-
                         style: Styles.boldBlack612,
                       ),
                     ),
@@ -148,19 +150,21 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
                     ),
                   ],
                 ),
-
-                Text(address.toString(),style: Styles.lable414,),
-                Gap(12),
+                Text(
+                  address.toString(),
+                  style: Styles.lable414,
+                ),
+                const Gap(12),
                 CustomButton(
                   width: Get.width,
                   height: 35,
                   borderCircular: 6,
                   text: "Confirm Location",
-                  fun: ()  async{
-                     await getAddress();
-                     Get.toNamed(AppRoutes.DROPADDRESSDETAILS);
-
-                  },
+                  fun: lat!=null? () async {
+                    await getAddress();
+                    Get.toNamed(AppRoutes.DROPADDRESSDETAILS,
+                        arguments: [lat.toString(), lng.toString()]);
+                  }:(){},
                 )
               ],
             ),
@@ -171,10 +175,9 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
             child: Padding(
               padding: const EdgeInsets.only(top: 60, right: 10),
               child: SizedBox(
-                
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(0),
+                    padding: const EdgeInsets.all(0),
                     backgroundColor: primary,
                     textStyle: const TextStyle(
                         color: Colors.green,
@@ -188,7 +191,7 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
               ),
             ),
           ),
-          
+
           // Align(
           //   alignment: Alignment.bottomCenter,
           //   child: Padding(
@@ -242,7 +245,6 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
 
   Future<void> _handlePressButton() async {
     Prediction? p = await PlacesAutocomplete.show(
-
       context: context,
       apiKey: Config.apiKey!,
       onError: onError,
@@ -251,7 +253,6 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
       types: [""],
       strictbounds: false,
       decoration: InputDecoration(
-
         hintText: 'Search',
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
@@ -294,20 +295,18 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
     );
   }
 
-   getAddress() async {
+  getAddress() async {
     GeoData fetchGeocoder = await Geocoder2.getDataFromCoordinates(
         latitude: lat!, longitude: lng!, googleMapApiKey: Config.apiKey!);
     setState(() {
-       address = fetchGeocoder.address;
-       cityName = extractCity(fetchGeocoder.address);
-       print("==========add========${fetchGeocoder.address}");
-
-
-
+      address = fetchGeocoder.address;
+      cityName = extractCity(fetchGeocoder.address);
+      print("==========add========${fetchGeocoder.address}");
     });
     // Get.back(result: [fetchGeocoder.address]);
     // Get.back(result: [fetchGeocoder.address, lat.toString(), lng.toString()]);
   }
+
   String extractCity(String fullAddress) {
     List<String> addressParts = fullAddress.split(',');
     if (addressParts.length >= 2) {
@@ -315,5 +314,4 @@ class _SearchLocationOnMapForDropScreenState extends State<SearchLocationOnMapFo
     }
     return "Unknown";
   }
-
 }

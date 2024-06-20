@@ -141,7 +141,7 @@ class AppRoutes {
       ],
     ),GetPage(
       name: DROPADDRESSDETAILS,
-      page: () => const DropAddressDetailsScreen(),
+      page: () =>  DropAddressDetailsScreen(),
       bindings:  [
         DropAddressDetailsBinding(),
       ],

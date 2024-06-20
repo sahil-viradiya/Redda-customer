@@ -13,6 +13,7 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/constant/app_color.dart';
+import 'package:redda_customer/route/app_route.dart';
 
 import '../constant/app_image.dart';
 import '../constant/style.dart';
@@ -23,7 +24,7 @@ import 'auth_app_bar_widget.dart';
 import 'custom_button.dart';
 
 class SearchLocationOnMapScreen extends StatefulWidget {
-  const SearchLocationOnMapScreen({Key? key}) : super(key: key);
+  const SearchLocationOnMapScreen({super.key});
 
   @override
   State<SearchLocationOnMapScreen> createState() => _SearchLocationOnMapScreenState();
@@ -157,7 +158,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
                   text: "Confirm Location",
                   fun: ()  async{
                      await getAddress();
-                    Get.to( AddressDetailsScreen());
+                    Get.toNamed( AppRoutes.ADDRESSDETAILS,arguments: [lat,lng]);
                   },
                 )
               ],

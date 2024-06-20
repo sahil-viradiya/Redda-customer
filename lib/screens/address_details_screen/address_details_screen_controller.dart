@@ -147,6 +147,8 @@ class AddressController extends GetxController {
   }
 
   Future<GetAddressModel?> getAddress() async {
+    await getToken();
+log("get address===================$token");
     dio.FormData formData = dio.FormData.fromMap({
       'user_id':_signInController.model.userId,
     });

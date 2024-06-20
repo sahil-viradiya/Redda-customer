@@ -14,172 +14,197 @@ import '../../../widget/location.dart';
 import 'drop_address_details_controller.dart';
 
 class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
-  const DropAddressDetailsScreen({Key? key}) : super(key: key);
+  DropAddressDetailsScreen({super.key});
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     List text = ["Home", "Work", "Other"];
+    final List<dynamic>? arguments = Get.arguments;
+    controller.dropLat.value = arguments?[0] ?? 0;
+    controller.dropLng.value = arguments?[1] ?? 0;
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(
           context,
-          "Enter Address Details",
+          "${controller.dropLng.value} Enter Address Details",
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          child: ListView(
-            children: [
-              Container(
-                height: 160,
-                padding:
-                const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: primary),
-                ),
-                child: const GetLocationScreen(),
-              ),
-              //=============Address================
-              Gap(18),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Enter Address",
-                  style: Styles.boldBlack614,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Gap(MySize.size4!),
-
-              CustomTextFormFieldWidget(
-                keyboardType: TextInputType.name,
-                validator: ((value) {
-                  return Validator.validateLastName(value!);
-                }),
-                // controller: signUpBloc.lnameCon,
-                hintRpadding: 17.76,
-              ),
-              Gap(MySize.size12!),
-              //=============Landmark================
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Landmark (Optional)",
-                  style: Styles.boldBlack614,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Gap(MySize.size4!),
-              CustomTextFormFieldWidget(
-                keyboardType: TextInputType.name,
-                validator: ((value) {
-                  return Validator.validateLastName(value!);
-                }),
-                // controller: signUpBloc.lnameCon,
-                hintRpadding: 17.76,
-              ),
-              //=============Sender's Name================
-
-              Gap(MySize.size12!),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Sender’s Name",
-                  style: Styles.boldBlack614,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Gap(MySize.size4!),
-              //=============Sender’s Mobile Number================
-
-              CustomTextFormFieldWidget(
-                keyboardType: TextInputType.name,
-                validator: ((value) {
-                  return Validator.validateLastName(value!);
-                }),
-                // controller: signUpBloc.lnameCon,
-                hintRpadding: 17.76,
-              ),
-              Gap(MySize.size12!),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Sender’s Mobile Number",
-                  style: Styles.boldBlack614,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Gap(MySize.size4!),
-              CustomTextFormFieldWidget(
-                keyboardType: TextInputType.name,
-                validator: ((value) {
-                  return Validator.validateLastName(value!);
-                }),
-                // controller: signUpBloc.lnameCon,
-                hintRpadding: 17.76,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Checkbox(
-                    activeColor: primary,
-                    visualDensity: const VisualDensity(horizontal: -4),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    side: const BorderSide(color: primary),
-                    value: true,
-                    onChanged: (bool? value) {},
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            child: ListView(
+              children: [
+                Container(
+                  height: 160,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: primary),
                   ),
-                  Text(
-                    ' Add to Saved Address ',
-                    style: Styles.hint610,
+                  child: const GetLocationScreen(),
+                ),
+                //=============Address================
+                Gap(18),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Enter Address",
+                    style: Styles.boldBlack614,
+                    textAlign: TextAlign.left,
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 34,
-                // width:
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: CustomButton(
-                        color: index < 1 ? Colors.white : primary,
-                        height: 24,
-                        borderSide: BorderSide(color: index > 1 ? Colors.white : primary,),
-                        width: Get.width / 3.5,
-                        borderCircular: 5,
-                        text: text[index],
-                        style: index < 1
-                            ? Styles.boldBlue614
-                            : Styles.boldWhite614,
-                        fun: () {},
-                      ),
-                    );
-                  },
                 ),
-              ),
-              Gap(MySize.size16!),
+                Gap(MySize.size4!),
 
-              GestureDetector(
-                onTap: () {
-                },
-                child: CustomButton(
-                  width: double.infinity,
-                  height: 35,
-                  borderCircular: 7,
-                  text: "Proceed",
-                  fun: () {
-                    Get.toNamed(AppRoutes.PICKUPORSENDANYTHING);
-
-                  },
+                CustomTextFormFieldWidget(
+                  keyboardType: TextInputType.name,
+                  validator: ((value) {
+                    return Validator.validateAddress(value!);
+                  }),
+                  controller: controller.dropAddCon,
+                  hintRpadding: 17.76,
                 ),
-              ),
-              Gap(MySize.size30!),
+                Gap(MySize.size12!),
+                //=============Landmark================
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Landmark (Optional)",
+                    style: Styles.boldBlack614,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Gap(MySize.size4!),
+                CustomTextFormFieldWidget(
+                  keyboardType: TextInputType.name,
+                  controller: controller.dropLandCon,
+                  hintRpadding: 17.76,
+                ),
+                //=============Sender's Name================
 
-            ],
+                Gap(MySize.size12!),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Reciver’s Name",
+                    style: Styles.boldBlack614,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Gap(MySize.size4!),
+                //=============Sender’s Mobile Number================
+
+                CustomTextFormFieldWidget(
+                  keyboardType: TextInputType.name,
+                  validator: ((value) {
+                    return Validator.senderName(value!);
+                  }),
+                  controller: controller.dropSenderCon,
+                  hintRpadding: 17.76,
+                ),
+                Gap(MySize.size12!),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Reciver’s Mobile Number",
+                    style: Styles.boldBlack614,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Gap(MySize.size4!),
+                CustomTextFormFieldWidget(
+                  keyboardType: TextInputType.number,
+                  validator: ((value) {
+                    return Validator.validateMobile(value!);
+                  }),
+                  controller: controller.dropMobileCon,
+                  hintRpadding: 17.76,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      activeColor: primary,
+                      visualDensity: const VisualDensity(horizontal: -4),
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      side: const BorderSide(color: primary),
+                      value: true,
+                      onChanged: (bool? value) {},
+                    ),
+                    Text(
+                      ' Add to Saved Address ',
+                      style: Styles.hint610,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 34,
+                  // width:
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 3,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      // controller.selectedIndex.value = index;
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: Obx(() {
+                          return CustomButton(
+                            color: controller.selectedIndex.value == index
+                                ? primary
+                                : Colors.white,
+                            height: 24,
+                            borderSide: const BorderSide(
+                              color: primary,
+                            ),
+                            width: Get.width / 3.5,
+                            borderCircular: 5,
+                            text: text[index],
+                            style: controller.selectedIndex.value != index
+                                ?
+                            Styles.boldBlack614
+                                :
+                            Styles.boldWhite614,
+                            fun: () {
+                              controller.selectedIndex.value = index;
+                              controller.addressType.value = text[index];
+                              print("--------------------->${controller.addressType.value}");
+                            },
+                          );
+                        }),
+                      );
+                    },
+                  ),
+                ),
+                Gap(MySize.size16!),
+
+                GestureDetector(
+                  onTap: () {},
+                  child: CustomButton(
+                    width: double.infinity,
+                    height: 35,
+                    borderCircular: 7,
+                    text: "Proceed",
+                    fun: () {
+                      if (_formKey.currentState!.validate()) {
+                        Get.toNamed(AppRoutes.PICKUPORSENDANYTHING, arguments: {
+                          'dropAdd': controller.dropAddCon.text,
+                          'dropLand': controller.dropLandCon.text,
+                          'dropSend': controller.dropSenderCon.text,
+                          'dropMobile': controller.dropMobileCon.text,
+                          'dropLat': controller.dropLat.value,
+                          'dropLng': controller.dropLng.value,
+                          'addresStatus' : controller.addressType.value
+                        });
+                      }
+                    },
+                  ),
+                ),
+                Gap(MySize.size30!),
+              ],
+            ),
           ),
         ));
   }

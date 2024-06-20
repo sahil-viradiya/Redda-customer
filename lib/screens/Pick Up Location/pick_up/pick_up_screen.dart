@@ -24,7 +24,7 @@ class PickUpScreen extends GetView<PickUpController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Divider(),
-            Gap(16),
+            const Gap(16),
             GestureDetector(
               onTap: () {
                 Get.toNamed(AppRoutes.SETPICKUPLOCATION);
@@ -37,15 +37,15 @@ class PickUpScreen extends GetView<PickUpController> {
             ),
 
             _commonVerticalDivider(),
-            Gap(8),
+            const Gap(8),
             _commonVerticalDivider(),
-            Gap(8),
+            const Gap(8),
 
             _commonVerticalDivider(),
-            Gap(8), _commonVerticalDivider(),
-            Gap(8),
+            const Gap(8), _commonVerticalDivider(),
+            const Gap(8),
             _commonVerticalDivider(),
-            Gap(8),
+            const Gap(8),
 
             _commonVerticalDivider(),
             // Gap(8),
@@ -62,7 +62,7 @@ class PickUpScreen extends GetView<PickUpController> {
               ),
             ),
 
-            Gap(38),
+            const Gap(38),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
@@ -71,7 +71,7 @@ class PickUpScreen extends GetView<PickUpController> {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
@@ -97,16 +97,17 @@ class PickUpScreen extends GetView<PickUpController> {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                 // height: 50,
                 decoration: BoxDecoration(
                   color: white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 8,
                       spreadRadius: 4,
@@ -121,16 +122,16 @@ class PickUpScreen extends GetView<PickUpController> {
                       "Delivery Charges",
                       style: Styles.lable414,
                     ),
-                    Gap(6),
+                    const Gap(6),
                     Row(
                       children: [
                         SvgPicture.asset(AppImage.HEAT),
-                        Gap(6),
+                        const Gap(6),
                         Text(
                           "Starting at \$50 for first 2 kms",
                           style: Styles.boldBlack614,
                         ),
-                        Gap(12),
+                        const Gap(12),
                         SvgPicture.asset(AppImage.INFO),
                       ],
                     )

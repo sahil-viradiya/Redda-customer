@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:animation_list/animation_list.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -9,6 +12,8 @@ import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
+import 'package:redda_customer/widget/custom_button.dart';
+import '../address_details/address_details_screen.dart';
 import 'set_pick_up_location_controller.dart';
 
 class SetPickUpLocationLocation extends GetView<SetPickUpLocationController> {
@@ -27,13 +32,28 @@ class SetPickUpLocationLocation extends GetView<SetPickUpLocationController> {
         child: Column(
           children: [
             const Divider(),
-
+            CustomTextFormFieldSearch(
+              controller: controller.locationController,
+              // readOnly: true,
+              enable: true,
+              // prefixIcon: Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 14.0),
+              //   child: Icon(Icons.search),
+              // ),
+              hintLpadding: 10,
+              width: double.infinity,
+              hintText: "Search for building, area, or street",
+              onchanged: (p0) {
+                controller.onSearchChanged();
+              },
+            ),
             GestureDetector(
                 onTap: () {
                   // Get.toNamed(AppRoutes.SETCURRENTLOCATION);
                   controller.selectLocationOnMap();
-                  print("select pickup");
-
+                  if (kDebugMode) {
+                    print("select pickup");
+                  }
                 },
                 child: _commonContainer(
                     txt: "Use current Location",
@@ -41,100 +61,87 @@ class SetPickUpLocationLocation extends GetView<SetPickUpLocationController> {
                     style: Styles.boldBlue614,
                     color: white)),
             const Gap(10),
-
-             CustomTextFormFieldSearch(
-               controller: controller.controller,
-               // readOnly: true,
-               enable: true,
-               // prefixIcon: Padding(
-               //   padding: EdgeInsets.symmetric(horizontal: 14.0),
-               //   child: Icon(Icons.search),
-               // ),
-               hintLpadding: 10,
-               width: double.infinity,
-               hintText: "Enter Manual Location",
-               onchanged: (p0) {
-                 controller.onSearchChanged();
-               },
-             ),
             Expanded(
-              child: Obx(() => AnimationList(children: List.generate(controller.suggestions.length, (index) {
-                var address = controller.suggestions[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                  child: Column(
-                    children: [
-
-                      const Gap(4),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: primary),
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 18.0, vertical: 18),
-                              child: SvgPicture.asset(
-                                AppImage.LOCATION,
-                                height: 14,
-                                width: 14,
-                                color: primary,
-                              ),
+                child: Obx(
+              () => AnimationList(
+                children: List.generate(controller.suggestions.length, (index) {
+                  var address = controller.suggestions[index];
+                  return GestureDetector(
+                    onTap: () {
+                      log("selected location index ${controller.suggestions[index]['place_id']}");
+                      controller.getLatLong(
+                          controller.suggestions[index]['place_id']);
+                      controller.locationController.text =
+                          controller.suggestions[index]['description'];
+                      controller.suggestions.clear();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                      child: Column(
+                        children: [
+                          const Gap(4),
+                          Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: primary),
+                              borderRadius: BorderRadius.circular(7),
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 18,left: 0,bottom: 18,top: 18,
-                                    ),
-                                child: Text(
-                                  controller.suggestions[index]['description'],
-                                  style: Styles.boldBlack612,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18.0, vertical: 18),
+                                  child: SvgPicture.asset(
+                                    AppImage.LOCATION,
+                                    height: 14,
+                                    width: 14,
+                                    color: primary,
+                                  ),
                                 ),
-                              ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: 18,
+                                      left: 0,
+                                      bottom: 18,
+                                      top: 18,
+                                    ),
+                                    child: Text(
+                                      controller.suggestions[index]
+                                          ['description'],
+                                      style: Styles.boldBlack612,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          const Gap(8),
+                        ],
                       ),
-                      const Gap(8),
-                      /*CustomButton(
-                      height: 40,
-                      borderCircular: 7,
-                      width: double.infinity,
-                      text: "ADD NEW ADDRESS",
-                      fun: () {
-                        Get.to(const EnterNewAddressDetails());
-                      },
-                    )*/
-                    ],
-                  ),
-                );
-              }),),)
+                    ),
+                  );
+                }),
+              ),
+            )),
+            CustomButton(
+              width: Get.width,
+              // height: 35,
+              borderCircular: 6,
+              text: "Confirm Location",
+              fun: () async {
+                // await getAddress();
+                Get.toNamed(AppRoutes.ADDRESSDETAILS, arguments: [
+                  controller.selectedPlaceLat.value,
+                  controller.selectedPlaceLng.value,
+
+
+                ]);
+              },
             ),
-          /*  Expanded(
-              child: Obx(() => Card(
-                elevation: 5,
-                child: ListView.builder(
-                  itemCount: controller.suggestions.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text(controller.suggestions[index]['description']),
-                          onTap: () {
-                            // Handle place selection
-                          },
-                        ),
-                        Divider(color: primary,),
-                      ],
-                    );
-                  },
-                ),
-              ),),
-            ),*/
+            const Gap(30),
           ],
         ),
       ),

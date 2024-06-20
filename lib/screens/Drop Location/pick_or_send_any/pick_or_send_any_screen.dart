@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/Drop%20Location/drop_screen/drop_screen_controller.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import '../../../constant/app_image.dart';
@@ -13,10 +16,14 @@ import '../../../widget/poly_line.dart';
 import 'pick_or_send_any_controller.dart';
 
 class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
-  const PickOrSendAnyScreen({Key? key}) : super(key: key);
+  const PickOrSendAnyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final dropScreenCon = Get.put(DropScreenController());
+
+    final data = Get.arguments;
+    // log("final location ${arguments}");
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(
@@ -48,7 +55,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                       ),
                       const Gap(10),
                       Text(
-                        "Pick up from check@gmail.com...",
+                        "Pick up from ${dropScreenCon.pickLoc.value}",
                         style: Styles.boldBlack612,
                       ),
                       Spacer(),
@@ -67,14 +74,14 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     ],
                   ),
                   Text(
-                    "       check@gmail.com, varachha, Surat,...",
+                    "       ${dropScreenCon.pickLoc.value}",
                     style: Styles.lable411,
                   ),
                   Divider(
                     indent: 20,
                   ),
                   Text(
-                    "      John Cane... (+1 98756 23698)",
+                    "      ${dropScreenCon.pickName.value} ${dropScreenCon.pickNumber.value}",
                     style: Styles.lable411,
                   )
                 ],
@@ -113,7 +120,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                       ),
                       const Gap(10),
                       Text(
-                        "Deliver to Home",
+                        "Deliver to Home ",
                         style: Styles.boldBlack612,
                       ),
                       Spacer(),
@@ -132,14 +139,14 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     ],
                   ),
                   Text(
-                    "       95, Palladium Society, Katargam...",
+                    "       ${data?['dropAdd'] ?? ""}",
                     style: Styles.lable411,
                   ),
                   Divider(
                     indent: 20,
                   ),
                   Text(
-                    "      John Cane... (+1 98756 23698)",
+                    "      ${data?['dropSend'] ?? ""} ${data?['dropMobile'] ?? ""}",
                     style: Styles.lable411,
                   )
                 ],
@@ -179,40 +186,15 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: primary),
                 ),
-                child: const GetLocationPolyLineScreen(),
+                child: GetLocationPolyLineScreen(
+                  dropLat: double.parse(  data['dropLat'] ?? 0.0),
+                  dropLng: double.parse( data['dropLng'] ?? 0.0),
+                  pickLat: /*23.062786791571362*/dropScreenCon.pickLat.value,
+                  pickLng:/*72.5502485519334*/dropScreenCon.pickLng.value,
+                ),
               ),
             ),
-            // Expanded(
-            //   child: Container(
-            //     // height: 225,
-            //     width: double.infinity,
-            //     margin: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            //     padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(15),
-            //       border: Border.all(color: primary),
-            //     ),
-            //     child: Column(
-            //       children: [
-            //         // _commonRow(
-            //         //     image: AppImage.INVENTORY,
-            //         //     txt: "Avoid sending expensive or fraglie items "),
-            //         // const Gap(14),
-            //         // _commonRow(
-            //         //     image: AppImage.BOX,
-            //         //     txt: "Items should fit in a backpack"),
-            //         // const Gap(14),
-            //         // _commonRow(
-            //         //     image: AppImage.NODRINKS,
-            //         //     txt: "No alcohol, illegal or restricted items"),
-            //         // const Gap(14),
-            //         // _commonRow(
-            //         //     image: AppImage.WATCH,
-            //         //     txt: "Avoid sending expensive or fraglie items"),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+
             Spacer(),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
@@ -241,7 +223,6 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     style: Styles.lable414,
                   ),
                   Gap(6),
-
                   CustomButton(
                     width: Get.width,
                     height: 35,
@@ -257,5 +238,4 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
           ],
         ));
   }
-
 }

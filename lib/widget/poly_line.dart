@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -20,7 +22,11 @@ import 'package:http/http.dart' as http;
 
 
 class GetLocationPolyLineScreen extends StatefulWidget {
-  const GetLocationPolyLineScreen({super.key});
+   GetLocationPolyLineScreen({super.key,required this.dropLat,required this.dropLng,required this.pickLat,required this.pickLng});
+   final  dropLat;
+   final  dropLng;
+   final  pickLat;
+   final  pickLng;
 
   @override
   State<GetLocationPolyLineScreen> createState() => _GetLocationPolyLineScreenState();
@@ -41,25 +47,32 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
   RxString liveAddress = ''.obs;
 
   // Static pickup and drop locations
-  LatLng pickupLocation = LatLng(21.023630, 71.442347);
-  LatLng dropLocation = LatLng(21.09208, 71.76804);
+  late LatLng dropLocation;
+  late LatLng pickupLocation;
 
   @override
   void initState() {
     super.initState();
-    getUserCurrentLocation(controller: homeController);
+    // getUserCurrentLocation(controller: homeController);
+    log("latttttttttttddttttttttt ${widget.dropLat.runtimeType}");
+    log("latttttttttttttttttttt ${widget.pickLng.runtimeType}");
+    pickupLocation = LatLng(widget.pickLat is double ? widget.pickLat : double.parse(widget.pickLat.toString()),
+        widget.pickLng is double ? widget.pickLng : double.parse(widget.pickLng.toString()));
+    dropLocation = LatLng(widget.dropLat is double ? widget.dropLat : double.parse(widget.dropLat.toString()),
+        widget.dropLng is double ? widget.dropLng : double.parse(widget.dropLng.toString()));
+
     setMarkersAndPolyline();
   }
 
   void setMarkersAndPolyline() async {
     markers.add(Marker(
       markerId: const MarkerId('pickup'),
-      position: pickupLocation,
+      position: dropLocation,
       infoWindow: const InfoWindow(title: 'Pickup Location'),
     ));
     markers.add(Marker(
       markerId: const MarkerId('drop'),
-      position: dropLocation,
+      position: pickupLocation,
       infoWindow: const InfoWindow(title: 'Drop Location'),
     ));
 
@@ -74,6 +87,7 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
       polylines.add(Polyline(
         polylineId: const PolylineId('route'),
         points: polylineCoordinates,
+        startCap: Cap.buttCap,
         color: Colors.blue,
         width: 5,
       ));
@@ -215,7 +229,7 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-      myLocationEnabled: false,
+      myLocationEnabled: true,
       myLocationButtonEnabled: true,
       compassEnabled: true,
       mapToolbarEnabled: true,
@@ -234,6 +248,7 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
       zoomControlsEnabled: false,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0), zoom: 17),
       markers: markers,
+
       polylines: polylines,
     );
   }

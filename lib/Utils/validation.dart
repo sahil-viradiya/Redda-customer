@@ -38,6 +38,11 @@ class Validator {
       return "Please enter First Name";
     }
     return null;
+  } static String? senderName(String value) {
+    if (value.isEmpty) {
+      return "Please enter Name";
+    }
+    return null;
   }
   static String? validateUserName(String value) {
     if (value.isEmpty) {
@@ -53,6 +58,11 @@ class Validator {
   }
 
   static String? validateLastName(String value) {
+    if (value.isEmpty) {
+      return "Please enter Last Name";
+    }
+    return null;
+  }static String? address(String value) {
     if (value.isEmpty) {
       return "Please enter Last Name";
     }

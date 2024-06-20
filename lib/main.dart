@@ -17,9 +17,9 @@ import 'constant/api_key.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  FlutterError.onError = (FlutterErrorDetails details) {
-    print("GLOBAL ERROR: ======> ${details.exception}");
-  };
+  // FlutterError.onError = (FlutterErrorDetails details) {
+  //   print("GLOBAL ERROR: ======> ${details.exception}");
+  // };
 
   // Check location permissions and services
 

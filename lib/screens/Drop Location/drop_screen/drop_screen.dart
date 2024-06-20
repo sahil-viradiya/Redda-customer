@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -14,6 +16,18 @@ class DropScreen extends GetView<DropScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    final arguments = Get.arguments;
+    if (arguments != null) {
+
+      controller.pickLoc.value = arguments['address']??"";
+      controller.pickLand.value = arguments['landmark']??"";
+      controller.pickName.value = arguments['senderName']??"";
+      controller.pickNumber.value = arguments['senderMo']??"";
+      controller.pickLat.value = arguments['lat']??"";
+      controller.pickLng.value = arguments['lng']??"";
+      // log("all pick value =====***==== ${controller.pickUpLocationList}");
+    }
+
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(
@@ -37,6 +51,7 @@ class DropScreen extends GetView<DropScreenController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Gap(10),
                       SvgPicture.asset(
@@ -44,34 +59,40 @@ class DropScreen extends GetView<DropScreenController> {
                         color: primary,
                       ),
                       const Gap(10),
-                      Text(
-                        "Pick up from check@gmail.com...",
-                        style: Styles.boldBlack612,
-                      ),
-                      Spacer(),
-                      TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          minimumSize: Size(50, 20),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
+                      Expanded(
                         child: Text(
-                          "Change",
-                          style: Styles.boldBlue612,
+                          "Pick up from ${controller.pickLoc.value}",
+                          overflow: TextOverflow.ellipsis,
+                          style: Styles.boldBlack612,
+                        ),
+                      ),
+                      // Spacer(),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(50, 20),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          child: Text(
+                            "Change",
+                            style: Styles.boldBlue612,
+                          ),
                         ),
                       )
                     ],
                   ),
                   Text(
-                    "       check@gmail.com, varachha, Surat,...",
+                    "       ${controller.pickLoc.value}",
                     style: Styles.lable411,
                   ),
                   Divider(
                     indent: 20,
                   ),
                   Text(
-                    "      John Cane... (+1 98756 23698)",
+                    "      ${controller.pickName.value} ${controller.pickNumber.value}",
                     style: Styles.lable411,
                   )
                 ],
@@ -93,7 +114,6 @@ class DropScreen extends GetView<DropScreenController> {
             GestureDetector(
               onTap: () {
                 Get.toNamed(AppRoutes.SETDROPLOCATION);
-
               },
               child: _commonContainer(
                 color: primary,

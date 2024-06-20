@@ -24,11 +24,11 @@ class SetCurrentLocation extends GetView<SetPickUpLocationController> {
         children: [
           const Divider(),
            Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.0),
+            padding: const EdgeInsets.symmetric(horizontal: 14.0),
             child: GestureDetector(
               onTap: () {
               },
-              child: CustomTextFormFieldSearch(
+              child: const CustomTextFormFieldSearch(
                 enable: false,
                 prefixIcon: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14.0),
@@ -40,66 +40,7 @@ class SetCurrentLocation extends GetView<SetPickUpLocationController> {
               ),
             ),
           ),
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 14.0),
-          //   child: Text(
-          //     "Top result in Surat",
-          //     style: Styles.boldBlack716,
-          //   ),
-          // ),
-          // Expanded(
-          //   child: AnimatedList(
-          //     initialItemCount: 25,
-          //     shrinkWrap: true,
-          //     itemBuilder: (context, index, animation) {
-          //       return FadeTransition(
-          //         opacity: animation,
-          //         child: GestureDetector(
-          //           onTap: () {
-          //              Get.toNamed(AppRoutes.ADDRESSDETAILS);
-          //           },
-          //           child: Container(
-          //             margin: EdgeInsets.symmetric(horizontal: 14,vertical: 8),
-          //             padding: EdgeInsets.all(14),
-          //             decoration: ShapeDecoration.fromBoxDecoration(
-          //               BoxDecoration(
-          //                 border: Border.all(color: primary),
-          //                 color: white,
-          //                 borderRadius: BorderRadius.all(
-          //                   Radius.circular(10),
-          //                 ),
-          //               ),
-          //             ),
-          //             child: Column(
-          //               crossAxisAlignment: CrossAxisAlignment.start,
-          //               mainAxisAlignment: MainAxisAlignment.start,
-          //               children: [
-          //                 Row(
-          //                   children: [
-          //                     SvgPicture.asset(AppImage.LOCATION,color: primary,height: 14,width: 10,),
-          //                     Gap(8),
-          //                     Text(
-          //                       "Ahmedabad",
-          //                       style: Styles.boldBlack616,
-          //                     ),
-          //                   ],
-          //                 ),
-          //                 Padding(
-          //                   padding: const EdgeInsets.only(left: 18.0),
-          //                   child: Text(
-          //                     "Ahmedabad, Gujrat, India",
-          //                     style: Styles.lable414,
-          //                   ),
-          //                 ),
-          //
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // )
+
         ],
       ),
     );

@@ -11,6 +11,7 @@ import 'package:redda_customer/Utils/pref.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/model/create_account_model.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../main.dart';
 
@@ -18,17 +19,32 @@ class SignInController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
   CreateAccountModel model = CreateAccountModel();
+
   TextEditingController emailCon = TextEditingController();
   TextEditingController passCon = TextEditingController();
 
   @override
   void onInit() {
-    // signIn(context: context);
+    loadUserData();
     super.onInit();
   }
 
   @override
   void onReady() {}
+
+  Future<void> loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userData = prefs.getString('userData');
+    if (userData != null) {
+      model = CreateAccountModel.fromJson(jsonDecode(userData));
+      // Update your UI if needed
+    }
+  }
+
+  Future<void> _saveUserData(CreateAccountModel model) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userData', jsonEncode(model.toJson()));
+  }
 
   Future<dynamic> signIn() async {
     dio.FormData formData = dio.FormData.fromMap({
@@ -102,11 +118,12 @@ class SignInController extends GetxController {
         (respo) async {
           // var respo = jsonDecode(respo);
           model = CreateAccountModel.fromJson(respo['data']);
+          _saveUserData(model);
 
           // model = respo['data'].map<CreateAccountModel>((json){
           //   return CreateAccountModel.fromJson(json);
           // }).toList();
-          print('object=============${model.fullname}');
+          print('object=============${model?.fullname}');
           var message = respo['message'];
           try {
             if (respo['status'] == false) {
@@ -115,7 +132,8 @@ class SignInController extends GetxController {
             } else {
               DioExceptions.showMessage(Get.context!, message);
               log(" id   ${respo['data']['user_id']}");
-              await SharedPref.saveString(Config.userId, respo['data']['user_id'].toString());
+              await SharedPref.saveString(
+                  Config.userId, respo['data']['user_id'].toString());
 
               // await SharedPref.saveString(Config.status, model.userType);
               Get.toNamed(AppRoutes.HOMESCREEN);

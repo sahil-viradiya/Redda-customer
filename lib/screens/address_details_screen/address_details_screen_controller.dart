@@ -22,13 +22,14 @@ class AddressController extends GetxController {
 
   final count = 0.obs;
   final selectedIndex = 0.obs;
-  final addressType = ''.obs;
+  final addressType = 'home'.obs;
   final SignInController _signInController = Get.put(SignInController());
 
   var selectedLocation = ''.obs;
 
   RxBool isLoading = false.obs;
   RxBool isEdit = false.obs;
+  RxBool addToSave = false.obs;
   Rx<String> liveAddress = ''.obs;
   Rx<LatLng> latlng = const LatLng(0, 0).obs;
 
@@ -89,15 +90,15 @@ class AddressController extends GetxController {
 
   Future<dynamic> addAddress() async {
     dio.FormData formData = dio.FormData.fromMap({
-      'name':_signInController.model.fullname,
+      'name':_signInController.model?.fullname,
       'house':house.text,
       'area':area.text,
       'direction':direction.text,
-      'mobile_no': _signInController.model.mobileNo,
+      'mobile_no': _signInController.model?.mobileNo,
       'address_type': addressType,
     });
     log('============= Form DAta ${formData.fields}');
-    log('============= FULL NAME===> ${_signInController.model.fullname}');
+    log('============= FULL NAME===> ${_signInController.model?.fullname}');
     isLoading(true);
     try {
       var response = await dioClient
@@ -120,7 +121,7 @@ class AddressController extends GetxController {
             } else {
               DioExceptions.showMessage(Get.context!, message);
               Get.delete<AddressController>();
-              Get.toNamed(AppRoutes.ADD_ADDRESS);
+              Get.back();
 
             }
           } catch (e) {
@@ -148,12 +149,13 @@ class AddressController extends GetxController {
 
   Future<GetAddressModel?> getAddress() async {
     await getToken();
+    isLoading(true);
+
 log("get address===================$token");
     dio.FormData formData = dio.FormData.fromMap({
-      'user_id':_signInController.model.userId,
+      'user_id':_signInController.model?.userId,
     });
     log('============= Form DAta ${formData.fields}');
-    isLoading(true);
     try {
       var response = await dioClient
           .post(
@@ -176,6 +178,7 @@ log("get address===================$token");
               DioExceptions.showMessage(Get.context!, message);
               getAddressModel = GetAddressModel.fromMap(respo);
               print("=======GET ADDRESS===> ${getAddressModel?.data![0].addressType}");
+              isLoading(false);
             }
           } catch (e) {
             print('Error parsing JSON or accessing message: $e');
@@ -227,6 +230,7 @@ log("get address===================$token");
               print('Message: $message');
             } else {
               DioExceptions.showMessage(Get.context!, message);
+
             }
           } catch (e) {
             print('Error parsing JSON or accessing message: $e');
@@ -252,17 +256,18 @@ log("get address===================$token");
     return getAddressModel;
   }
 
-  Future<dynamic> updateAddress(String name,String) async {
+  Future<dynamic> updateAddress({required String id}) async {
     dio.FormData formData = dio.FormData.fromMap({
-      'name':_signInController.model.fullname,
+      'name':_signInController.model?.fullname,
       'house':house.text,
       'area':area.text,
+      "address_id": id.toString(),
       'direction':direction.text,
-      'mobile_no': _signInController.model.mobileNo,
+      'mobile_no': _signInController.model?.mobileNo,
       'address_type': addressType,
     });
     log('============= Form DAta ${formData.fields}');
-    log('============= FULL NAME===> ${_signInController.model.fullname}');
+    log('============= FULL NAME===> ${_signInController.model?.fullname}');
     isLoading(true);
     try {
       var response = await dioClient
@@ -284,6 +289,7 @@ log("get address===================$token");
             print('Message: $message');
           } else {
             DioExceptions.showMessage(Get.context!, message);
+            Get.back();
           }
         } catch (e) {
           print('Error parsing JSON or accessing message: $e');

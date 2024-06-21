@@ -15,6 +15,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/constant/app_color.dart';
+import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/model/nearby_place.dart';
 import 'package:redda_customer/screens/home/home_controller.dart';
 import 'package:redda_customer/widget/search_location_on_map_screen.dart';
@@ -45,7 +46,7 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
   Rx<LatLng> latlng = const LatLng(0, 0).obs;
   RxString markerId = ''.obs;
   RxString liveAddress = ''.obs;
-
+var icon;
   // Static pickup and drop locations
   late LatLng dropLocation;
   late LatLng pickupLocation;
@@ -53,6 +54,7 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
   @override
   void initState() {
     super.initState();
+    getIcons();
     // getUserCurrentLocation(controller: homeController);
     log("latttttttttttddttttttttt ${widget.dropLat.runtimeType}");
     log("latttttttttttttttttttt ${widget.pickLng.runtimeType}");
@@ -61,17 +63,29 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
     dropLocation = LatLng(widget.dropLat is double ? widget.dropLat : double.parse(widget.dropLat.toString()),
         widget.dropLng is double ? widget.dropLng : double.parse(widget.dropLng.toString()));
 
+  }
+  getIcons() async {
+    var icon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(devicePixelRatio: 3),
+        "assets/images/png/location-marker.png");
+    setState(() {
+      this.icon = icon;
+    });
     setMarkersAndPolyline();
+
   }
 
   void setMarkersAndPolyline() async {
     markers.add(Marker(
       markerId: const MarkerId('pickup'),
       position: dropLocation,
+      icon: icon,
+
       infoWindow: const InfoWindow(title: 'Pickup Location'),
     ));
     markers.add(Marker(
       markerId: const MarkerId('drop'),
+      icon: icon,
       position: pickupLocation,
       infoWindow: const InfoWindow(title: 'Drop Location'),
     ));
@@ -88,7 +102,11 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
         polylineId: const PolylineId('route'),
         points: polylineCoordinates,
         startCap: Cap.buttCap,
-        color: Colors.blue,
+        color: primary,
+        jointType: JointType.round,
+
+        patterns: [PatternItem.dot, PatternItem.gap(10)],
+
         width: 5,
       ));
 
@@ -264,6 +282,7 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
       markers.add(Marker(
         markerId: const MarkerId('tappedLocation'),
         position: tappedPoint,
+        icon: icon
       ));
       print('Lat: $lat');
       print('Lng: $lng');

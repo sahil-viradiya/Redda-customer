@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class DropAddressDetailsController extends GetxController {
   final count = 0.obs;
   final selectedIndex = 0.obs;
-  final addressType = ''.obs;
+  final addressType = 'home'.obs;
 
   TextEditingController dropAddCon = TextEditingController();
   TextEditingController dropLandCon = TextEditingController();
   TextEditingController dropSenderCon = TextEditingController();
   TextEditingController dropMobileCon = TextEditingController();
-  var dropLat = '0'.obs;
-  var dropLng = '0'.obs;
+  RxDouble dropLat = 0.0.obs;
+  RxDouble dropLng = 0.0.obs;
 
   @override
   void onInit() {

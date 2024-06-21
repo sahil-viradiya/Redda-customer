@@ -13,12 +13,15 @@ import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/location.dart';
 
 class EnterNewAddressDetails extends GetView<AddressController> {
-
   const EnterNewAddressDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
     List text = ["Home", "Work", "Other"];
+    final data = Get.arguments as Map<String, dynamic>?;
+
+    bool isEdit = data?['isEdit'] ?? false;
+    var id = data?['addressId'] ?? 0;
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(
@@ -96,6 +99,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                 controller: controller.direction,
                 maxLine: 5,
                 minLine: 5,
+                hintTpadding: 16,
                 keyboardType: TextInputType.name,
                 validator: ((value) {
                   return Validator.validateLastName(value!);
@@ -108,14 +112,18 @@ class EnterNewAddressDetails extends GetView<AddressController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Checkbox(
-                    activeColor: primary,
-                    visualDensity: const VisualDensity(horizontal: -4),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    side: const BorderSide(color: primary),
-                    value: true,
-                    onChanged: (bool? value) {},
-                  ),
+                  Obx(() {
+                    return Checkbox(
+                      activeColor: primary,
+                      visualDensity: const VisualDensity(horizontal: -4),
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      side: const BorderSide(color: primary),
+                      value: controller.addToSave.value,
+                      onChanged: (bool? value) {
+                        controller.addToSave(value);
+                      },
+                    );
+                  }),
                   Text(
                     ' Add to Saved Address ',
                     style: Styles.hint610,
@@ -146,14 +154,14 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                           borderCircular: 5,
                           text: text[index],
                           style: controller.selectedIndex.value != index
-                              ?
-                          Styles.boldBlack614
-                              :
-                          Styles.boldWhite614,
+                              ? Styles.boldBlack614
+                              : Styles.boldWhite614,
                           fun: () {
                             controller.selectedIndex.value = index;
                             controller.addressType.value = text[index];
-                            print("--------------------->${controller.addressType.value}");
+                            print(
+                                "--------------------->${controller.addressType
+                                    .value}");
                           },
                         );
                       }),
@@ -169,10 +177,15 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                   width: double.infinity,
                   height: 35,
                   borderCircular: 7,
-                  text: "Add Address",
+                  text:
+                  isEdit ? "Update Address" : "Add Address",
                   fun: () {
                     //getToken();
-                    controller.addAddress();
+                    if (isEdit == true) {
+                      controller.updateAddress(id: id.toString());
+                    } else {
+                      controller.addAddress();
+                    }
                   },
                 ),
               ),

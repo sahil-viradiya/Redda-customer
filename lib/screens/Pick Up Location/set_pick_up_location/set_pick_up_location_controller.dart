@@ -15,8 +15,8 @@ import '../../../Utils/network_client.dart';
 class SetPickUpLocationController extends GetxController {
   final count = 0.obs;
   Rx<String> liveAddress = ''.obs;
-  var selectedPlaceLat = '0'.obs;
-  var selectedPlaceLng = '0'.obs;
+  RxDouble selectedPlaceLat = 0.0.obs;
+  RxDouble selectedPlaceLng = 0.0.obs;
   Rx<LatLng> latlng = const LatLng(0, 0).obs;
   var selectedLocation = ''.obs;
 
@@ -51,9 +51,9 @@ class SetPickUpLocationController extends GetxController {
       var response = await dioClient.get(
           "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=${placesService.apiKey}");
       selectedPlaceLat.value =
-          response['result']['geometry']['location']['lat'].toString();
+          double.parse(response['result']['geometry']['location']['lat']);
       selectedPlaceLng.value =
-          response['result']['geometry']['location']['lng'].toString();
+          double.parse(response['result']['geometry']['location']['lng']);
       log("lat long=====>   ${response['result']['geometry']['location']['lat']}");
       // final String url =
       //     'https://maps.googleapis.com/maps/api/place/autocomplete/json?place_id=$placeId&key=$apiKey';

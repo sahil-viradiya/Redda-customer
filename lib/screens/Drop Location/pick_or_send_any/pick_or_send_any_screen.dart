@@ -34,7 +34,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Divider(),
-            Gap(16),
+            const Gap(16),
             Container(
               margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
@@ -58,12 +58,12 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                         "Pick up from ${dropScreenCon.pickLoc.value}",
                         style: Styles.boldBlack612,
                       ),
-                      Spacer(),
+                      const Spacer(),
                       TextButton(
                         onPressed: () {},
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
-                          minimumSize: Size(50, 20),
+                          minimumSize: const Size(50, 20),
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         child: Text(
@@ -77,20 +77,21 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     "       ${dropScreenCon.pickLoc.value}",
                     style: Styles.lable411,
                   ),
-                  Divider(
+                  const Divider(
                     indent: 20,
                   ),
                   Text(
-                    "      ${dropScreenCon.pickName.value} ${dropScreenCon.pickNumber.value}",
+                    "      ${dropScreenCon.pickName.value} ${dropScreenCon
+                        .pickNumber.value}",
                     style: Styles.lable411,
                   )
                 ],
               ),
             ),
             // _commonVerticalDivider(),
-            Gap(8),
+            const Gap(8),
             // _commonVerticalDivider(),
-            Gap(8),
+            const Gap(8),
             //
             // _commonVerticalDivider(),
             // Gap(8), _commonVerticalDivider(),
@@ -114,6 +115,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                   Row(
                     children: [
                       // Gap(10),
+
                       SvgPicture.asset(
                         AppImage.ORDER,
                         color: primary,
@@ -123,12 +125,12 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                         "Deliver to Home ",
                         style: Styles.boldBlack612,
                       ),
-                      Spacer(),
+                      const Spacer(),
                       TextButton(
                         onPressed: () {},
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
-                          minimumSize: Size(50, 20),
+                          minimumSize: const Size(50, 20),
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         child: Text(
@@ -142,17 +144,18 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     "       ${data?['dropAdd'] ?? ""}",
                     style: Styles.lable411,
                   ),
-                  Divider(
+                  const Divider(
                     indent: 20,
                   ),
                   Text(
-                    "      ${data?['dropSend'] ?? ""} ${data?['dropMobile'] ?? ""}",
+                    "      ${data?['dropSend'] ?? ""} ${data?['dropMobile'] ??
+                        ""}",
                     style: Styles.lable411,
                   )
                 ],
               ),
             ),
-            Gap(38),
+            const Gap(38),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
@@ -165,7 +168,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                       " 7 Kms",
                       style: Styles.boldBlack614,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Text(
                       "Dlivery in -",
                       style: Styles.lable614,
@@ -187,22 +190,22 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                   border: Border.all(color: primary),
                 ),
                 child: GetLocationPolyLineScreen(
-                  dropLat: double.parse(  data['dropLat'] ?? 0.0),
-                  dropLng: double.parse( data['dropLng'] ?? 0.0),
+                  dropLat: double.parse(data['dropLat'] ?? 0.0),
+                  dropLng: double.parse(data['dropLng'] ?? 0.0),
                   pickLat: /*23.062786791571362*/dropScreenCon.pickLat.value,
-                  pickLng:/*72.5502485519334*/dropScreenCon.pickLng.value,
+                  pickLng: /*72.5502485519334*/dropScreenCon.pickLng.value,
                 ),
               ),
             ),
 
-            Spacer(),
+            const Spacer(),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
               height: 125,
               decoration: BoxDecoration(
                 color: white,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 8,
                     spreadRadius: 4,
@@ -217,21 +220,24 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     "Estimated Pick up in 12 mins",
                     style: Styles.boldBlack614,
                   ),
-                  Gap(6),
+                  const Gap(6),
                   Text(
                     "7.0 kms | Delivery in 40-45 mins",
                     style: Styles.lable414,
                   ),
-                  Gap(6),
-                  CustomButton(
-                    width: Get.width,
-                    height: 35,
-                    borderCircular: 6,
-                    text: "Checkout",
-                    fun: () {
-                      Get.toNamed(AppRoutes.CHECKOUT);
-                    },
-                  )
+                  const Gap(6),
+                  Obx(() {
+                    return CustomButton(
+                      isLoading: controller.isLoading.value,
+                      width: Get.width,
+                      height: 35,
+                      borderCircular: 6,
+                      text: "Checkout",
+                      fun: () {
+                        controller.ride();
+                      },
+                    );
+                  })
                 ],
               ),
             )

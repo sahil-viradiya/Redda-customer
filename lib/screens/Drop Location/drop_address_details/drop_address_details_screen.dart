@@ -22,8 +22,8 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
   Widget build(BuildContext context) {
     List text = ["Home", "Work", "Other"];
     final List<dynamic>? arguments = Get.arguments;
-    controller.dropLat.value = arguments?[0] ?? 0;
-    controller.dropLng.value = arguments?[1] ?? 0;
+    controller.dropLat.value = double.tryParse(arguments?[0]?.toString() ?? '0.0') ?? 0.0;
+    controller.dropLng.value = double.tryParse(arguments?[1]?.toString() ?? '0.0') ?? 0.0;
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(
@@ -194,8 +194,8 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                           'dropLand': controller.dropLandCon.text,
                           'dropSend': controller.dropSenderCon.text,
                           'dropMobile': controller.dropMobileCon.text,
-                          'dropLat': controller.dropLat.value,
-                          'dropLng': controller.dropLng.value,
+                          'dropLat': controller.dropLat.value.toString(),
+                          'dropLng': controller.dropLng.value.toString(),
                           'addresStatus' : controller.addressType.value
                         });
                       }

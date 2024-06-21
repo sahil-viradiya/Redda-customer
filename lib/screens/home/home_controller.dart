@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constant/app_image.dart';
+import '../../model/create_account_model.dart';
+import '../auth/signIn/signIn_controller.dart';
 
 class HomeController extends GetxController {
   final count = 0.obs;
@@ -16,9 +18,11 @@ class HomeController extends GetxController {
   void rebuildLocationWidget() {
     locationWidgetKey.value = UniqueKey(); // Assign a new key to force rebuild
   }
+  SignInController _signInController =SignInController();
 
   @override
   void onInit() {
+    _signInController.loadUserData();
     super.onInit();
   }
 

@@ -4,29 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import '../../../constant/app_image.dart';
 import '../../../constant/style.dart';
+import '../../Pick Up Location/set_pick_up_location/set_pick_up_location_controller.dart';
 import 'drop_screen_controller.dart';
+var _con =Get.put(SetPickUpLocationController());
 
 class DropScreen extends GetView<DropScreenController> {
   const DropScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final arguments = Get.arguments;
-    if (arguments != null) {
 
-      controller.pickLoc.value = arguments['address']??"";
-      controller.pickLand.value = arguments['landmark']??"";
-      controller.pickName.value = arguments['senderName']??"";
-      controller.pickNumber.value = arguments['senderMo']??"";
-      controller.pickLat.value = arguments['lat']??"";
-      controller.pickLng.value = arguments['lng']??"";
-      // log("all pick value =====***==== ${controller.pickUpLocationList}");
-    }
 
     return Scaffold(
         backgroundColor: white,
@@ -70,7 +63,9 @@ class DropScreen extends GetView<DropScreenController> {
                       Align(
                         alignment: Alignment.topRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _con.selectLocationOnMap();
+                          },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                             minimumSize: Size(50, 20),
@@ -113,7 +108,13 @@ class DropScreen extends GetView<DropScreenController> {
             // Gap(8),
             GestureDetector(
               onTap: () {
+                if(controller.pickLoc.value.isNotEmpty){
+
                 Get.toNamed(AppRoutes.SETDROPLOCATION);
+                }else{
+                  DioExceptions.showMessage(Get.context!, "please Enter PickUp Location");
+
+                }
               },
               child: _commonContainer(
                 color: primary,

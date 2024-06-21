@@ -28,9 +28,9 @@ class EditProfileController extends GetxController {
 
   @override
   void onInit() {
-    nameCon.text = _signInController.model.fullname ?? "";
-    mobileNo.text = _signInController.model.mobileNo ?? "";
-    emailCon.text = _signInController.model.email ?? "";
+    nameCon.text = _signInController.model?.fullname ?? "";
+    mobileNo.text = _signInController.model?.mobileNo ?? "";
+    emailCon.text = _signInController.model?.email ?? "";
     super.onInit();
   }
 

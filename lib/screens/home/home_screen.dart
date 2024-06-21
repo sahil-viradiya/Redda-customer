@@ -291,7 +291,7 @@ class HomeScreen extends GetView<HomeController> {
                               style: Styles.boldBlack716,
                             ),
                             Text(
-                              _signInController.model.fullname ?? "",
+                              _signInController.model?.fullname ?? "",
                               style: Styles.lable414,
                             ),
                           ],

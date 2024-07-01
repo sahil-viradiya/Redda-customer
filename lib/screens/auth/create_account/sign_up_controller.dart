@@ -70,11 +70,11 @@ class SignUpController extends GetxController {
           print('Message: $message');
         } else {
           DioExceptions.showMessage(context, message);
-log(" id   ${response['data']['user_id']}");
-          await SharedPref.saveString(Config.userId, response['data']['user_id'].toString());
-          Get.toNamed(AppRoutes.OTPSCREEN,arguments: {
-            'userId':response['data']['user_id']
-          });
+          log(" id   ${response['data']['user_id']}");
+          await SharedPref.saveString(
+              Config.userId, response['data']['user_id'].toString());
+          Get.toNamed(AppRoutes.OTPSCREEN,
+              arguments: {'userId': response['data']['user_id']});
         }
       } catch (e) {
         print('Error parsing JSON or accessing message: $e');

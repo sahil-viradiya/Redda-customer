@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -10,8 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/api_key.dart';
-import 'package:redda_customer/route/app_route.dart';
-import 'package:redda_customer/screens/address_details_screen/add-new_address.dart';
 import 'package:redda_customer/screens/address_details_screen/address_details_screen_model.dart';
 import 'package:redda_customer/screens/auth/signIn/signIn_controller.dart';
 
@@ -88,64 +85,64 @@ class AddressController extends GetxController {
 
 
 
-  Future<dynamic> addAddress() async {
-    dio.FormData formData = dio.FormData.fromMap({
-      'name':_signInController.model?.fullname,
-      'house':house.text,
-      'area':area.text,
-      'direction':direction.text,
-      'mobile_no': _signInController.model?.mobileNo,
-      'address_type': addressType,
-    });
-    log('============= Form DAta ${formData.fields}');
-    log('============= FULL NAME===> ${_signInController.model?.fullname}');
-    isLoading(true);
-    try {
-      var response = await dioClient
-          .post(
-        '${Config.baseUrl}add_user_address.php',
-        options: dio.Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        ),
-        data: formData,
-      ).then((respo) async {
-          log("================================${respo['data']}===============");
+    Future<dynamic> addAddress() async {
+      dio.FormData formData = dio.FormData.fromMap({
+        'name':_signInController.model?.fullname,
+        'house':house.text,
+        'area':area.text,
+        'direction':direction.text,
+        'mobile_no': _signInController.model?.mobileNo,
+        'address_type': addressType,
+      });
+      log('============= Form DAta ${formData.fields}');
+      log('============= FULL NAME===> ${_signInController.model?.fullname}');
+      isLoading(true);
+      try {
+        var response = await dioClient
+            .post(
+          '${Config.baseUrl}add_user_address.php',
+          options: dio.Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+            },
+          ),
+          data: formData,
+        ).then((respo) async {
+            log("================================${respo['data']}===============");
 
-          var message = respo['message'];
-          try {
-            if (respo['status'] == false) {
-              DioExceptions.showErrorMessage(Get.context!, message);
-              print('Message: $message');
-            } else {
-              DioExceptions.showMessage(Get.context!, message);
-              Get.delete<AddressController>();
-              Get.back();
+            var message = respo['message'];
+            try {
+              if (respo['status'] == false) {
+                DioExceptions.showErrorMessage(Get.context!, message);
+                print('Message: $message');
+              } else {
+                DioExceptions.showMessage(Get.context!, message);
+                Get.delete<AddressController>();
+                Get.back();
 
+              }
+            } catch (e) {
+              print('Error parsing JSON or accessing message: $e');
             }
-          } catch (e) {
-            print('Error parsing JSON or accessing message: $e');
-          }
-        },
-      );
-    } on dio.DioException catch (e) {
-      print("status Code ${e.response?.statusCode}");
-      print('Error $e');
-      DioExceptions.showErrorMessage(
-          Get.context!,
-          DioExceptions.fromDioError(dioError: e, errorFrom: "ADD ADDRESS")
-              .errorMessage());
-      isLoading(false);
-    } catch (e) {
-      isLoading(false);
-      if (kDebugMode) {
-        print("sign IN $e");
+          },
+        );
+      } on dio.DioException catch (e) {
+        print("status Code ${e.response?.statusCode}");
+        print('Error $e');
+        DioExceptions.showErrorMessage(
+            Get.context!,
+            DioExceptions.fromDioError(dioError: e, errorFrom: "ADD ADDRESS")
+                .errorMessage());
+        isLoading(false);
+      } catch (e) {
+        isLoading(false);
+        if (kDebugMode) {
+          print("sign IN $e");
+        }
+      } finally {
+        isLoading(false);
       }
-    } finally {
-      isLoading(false);
     }
-  }
 
   Future<GetAddressModel?> getAddress() async {
     await getToken();

@@ -46,20 +46,20 @@ class CheckoutScreen extends GetView<CheckoutController> {
                           "Check",
                           style: Styles.boldBlack612,
                         ),
-                        Gap(6),
+                        const Gap(6),
 
                         SvgPicture.asset(
                           AppImage.RIGHTARROW,
                           height: 6,
                           width: 5,
                         ),
-                        Gap(6),
+                        const Gap(6),
 
                         Text(
                           "Home",
                           style: Styles.boldBlack612,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           "Pick UP In",
                           style: Styles.boldBlue12,
@@ -75,21 +75,21 @@ class CheckoutScreen extends GetView<CheckoutController> {
                           style: Styles.lable612,
                         ),
 
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           "12 MINS",
                           style: Styles.boldBlue712,
                         ),
                       ],
                     ),
-                    Gap(24),
-                    CustomTextFormFieldWidget(
+                    const Gap(24),
+                    const CustomTextFormFieldWidget(
                       hintText: "Instruction for delivery partner",
                     )
                   ],
                 ),
               ),
-              Gap(16),
+              const Gap(16),
 
               Padding(
                 padding: const EdgeInsets.only(left: 14),
@@ -100,7 +100,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                       style: Styles.boldBlack616,
                     )),
               ),
-              Gap(16),
+              const Gap(16),
 
               Container(
                 margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
@@ -122,14 +122,14 @@ class CheckoutScreen extends GetView<CheckoutController> {
                           style: Styles.noramalBlack416,
                         ),
 
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           "\$125",
                           style: Styles.noramalBlack416,
                         ),
                       ],
                     ),
-                    Divider(),
+                    const Divider(),
                     Row(
                       children: [
                         // Gap(10),
@@ -139,7 +139,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                           style: Styles.boldBlack612,
                         ),
 
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           "\$125",
                           style: Styles.noramalBlack416,
@@ -149,7 +149,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                   ],
                 ),
               ),
-              Gap(16),
+              const Gap(16),
 
               Padding(
                 padding: const EdgeInsets.only(left: 14),
@@ -160,7 +160,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                       style: Styles.boldBlack616,
                     )),
               ),
-              Gap(16),
+              const Gap(16),
               Container(
                 margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
                 padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
@@ -184,7 +184,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                         ),
                       ],
                     ),
-                    Gap(10),
+                    const Gap(10),
                     Text(
                       "Read Policy",
                       style: Styles.boldBlue715,
@@ -199,12 +199,12 @@ class CheckoutScreen extends GetView<CheckoutController> {
             ],
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
             height: 150,
             decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   blurRadius: 8,
                   spreadRadius: 4,
@@ -229,15 +229,15 @@ class CheckoutScreen extends GetView<CheckoutController> {
                     ),
                   ],
                 ),
-                Gap(6),
+                const Gap(6),
 
-                Gap(6),
+                const Gap(6),
 
                 CustomButton(
                   width: Get.width,
                   height: 35,
                   borderCircular: 6,
-                  text: "Checkout",
+                  text: "Make Payment | \$125",
                   fun: () {
                     Get.toNamed(AppRoutes.PAYMENT);
                   },

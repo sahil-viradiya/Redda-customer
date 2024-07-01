@@ -21,9 +21,22 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
   @override
   Widget build(BuildContext context) {
     List text = ["Home", "Work", "Other"];
-    final List<dynamic>? arguments = Get.arguments;
-    controller.dropLat.value = double.tryParse(arguments?[0]?.toString() ?? '0.0') ?? 0.0;
-    controller.dropLng.value = double.tryParse(arguments?[1]?.toString() ?? '0.0') ?? 0.0;
+// final arguments = Get.arguments;
+//     if (arguments is List<dynamic>) {
+//       controller.dropLat.value =
+//           double.tryParse(arguments[0]?.toString() ?? '0.0') ?? 0.0;
+//       controller.dropLng.value =
+//           double.tryParse(arguments[1]?.toString() ?? '0.0') ?? 0.0;
+//     } else if (arguments is Map<String, String>) {
+//       controller.dropLat.value =
+//           double.tryParse(arguments?['dropLat'] ?? '0.0') ?? 0.0;
+//       controller.dropLng.value =
+//           double.tryParse(arguments?['dropLng'] ?? '0.0') ?? 0.0;
+//     } else {
+//       // Handle the case when arguments are not in the expected format
+//       controller.dropLat.value = 0.0;
+//       controller.dropLng.value = 0.0;
+//     }
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(
@@ -163,14 +176,13 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                             borderCircular: 5,
                             text: text[index],
                             style: controller.selectedIndex.value != index
-                                ?
-                            Styles.boldBlack614
-                                :
-                            Styles.boldWhite614,
+                                ? Styles.boldBlack614
+                                : Styles.boldWhite614,
                             fun: () {
                               controller.selectedIndex.value = index;
                               controller.addressType.value = text[index];
-                              print("--------------------->${controller.addressType.value}");
+                              print(
+                                  "--------------------->${controller.addressType.value}");
                             },
                           );
                         }),
@@ -196,7 +208,7 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                           'dropMobile': controller.dropMobileCon.text,
                           'dropLat': controller.dropLat.value.toString(),
                           'dropLng': controller.dropLng.value.toString(),
-                          'addresStatus' : controller.addressType.value
+                          'addresStatus': controller.addressType.value
                         });
                       }
                     },

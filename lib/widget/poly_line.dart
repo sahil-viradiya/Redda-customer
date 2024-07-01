@@ -17,6 +17,7 @@ import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/model/nearby_place.dart';
+import 'package:redda_customer/screens/Drop%20Location/pick_or_send_any/pick_or_send_any_controller.dart';
 import 'package:redda_customer/screens/home/home_controller.dart';
 import 'package:redda_customer/widget/search_location_on_map_screen.dart';
 import 'package:http/http.dart' as http;
@@ -33,6 +34,7 @@ class GetLocationPolyLineScreen extends StatefulWidget {
   State<GetLocationPolyLineScreen> createState() => _GetLocationPolyLineScreenState();
 }
 
+  final PickOrSendAnyController pickupController = Get.put(PickOrSendAnyController());
 class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
   Rx<NearByPlaces> nearByPlaces = NearByPlaces().obs;
   Completer<GoogleMapController> mapController = Completer();
@@ -62,14 +64,15 @@ var icon;
         widget.pickLng is double ? widget.pickLng : double.parse(widget.pickLng.toString()));
     dropLocation = LatLng(widget.dropLat is double ? widget.dropLat : double.parse(widget.dropLat.toString()),
         widget.dropLng is double ? widget.dropLng : double.parse(widget.dropLng.toString()));
-
-  }
+     }
   getIcons() async {
     var icon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(devicePixelRatio: 3),
         "assets/images/png/location-marker.png");
     setState(() {
       this.icon = icon;
+      
+
     });
     setMarkersAndPolyline();
 
@@ -246,7 +249,7 @@ var icon;
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
+      return GoogleMap(
       myLocationEnabled: true,
       myLocationButtonEnabled: true,
       compassEnabled: true,
@@ -310,5 +313,39 @@ var icon;
     setState(() {
       mapController.complete(controller);
     });
+  }
+}
+
+
+class DistanceCalculator {
+  static const double averageSpeedKmPerHour = 20.0; // Average speed in km/h
+
+  static double calculateDistance(double startLat, double startLng, double endLat, double endLng) {
+    return Geolocator.distanceBetween(startLat, startLng, endLat, endLng) / 1000; // Distance in km
+  }
+
+  static String estimateTime(double distance) {
+    final double timeInHours = distance / averageSpeedKmPerHour;
+    final int minutes = (timeInHours * 60).round();
+    final Duration duration = Duration(minutes: minutes);
+
+    // Format duration as hours and minutes
+    final String formattedDuration = _formatDuration(duration);
+    return formattedDuration;
+  }
+
+  static String _formatDuration(Duration duration) {
+    final int hours = duration.inHours;
+    final int minutes = duration.inMinutes.remainder(60);
+    final List<String> parts = [];
+
+    if (hours > 0) {
+      parts.add('$hours ${hours == 1 ? "hour" : "hours"}');
+    }
+    if (minutes > 0) {
+      parts.add('$minutes ${minutes == 1 ? "minute" : "minutes"}');
+    }
+
+    return parts.join(' ');
   }
 }

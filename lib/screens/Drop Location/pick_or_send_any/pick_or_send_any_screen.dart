@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -11,7 +9,6 @@ import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import '../../../constant/app_image.dart';
 import '../../../constant/style.dart';
-import '../../../widget/location.dart';
 import '../../../widget/poly_line.dart';
 import 'pick_or_send_any_controller.dart';
 
@@ -22,7 +19,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
   Widget build(BuildContext context) {
     final dropScreenCon = Get.put(DropScreenController());
 
-    final data = Get.arguments;
+    final data = Get.arguments ?? {};
     // log("final location ${arguments}");
     return Scaffold(
         backgroundColor: white,
@@ -81,8 +78,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     indent: 20,
                   ),
                   Text(
-                    "      ${dropScreenCon.pickName.value} ${dropScreenCon
-                        .pickNumber.value}",
+                    "      ${dropScreenCon.pickName.value} ${dropScreenCon.pickNumber.value}",
                     style: Styles.lable411,
                   )
                 ],
@@ -148,8 +144,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     indent: 20,
                   ),
                   Text(
-                    "      ${data?['dropSend'] ?? ""} ${data?['dropMobile'] ??
-                        ""}",
+                    "      ${data?['dropSend'] ?? ""} ${data?['dropMobile'] ?? ""}",
                     style: Styles.lable411,
                   )
                 ],
@@ -158,27 +153,27 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
             const Gap(38),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Distance -",
-                      style: Styles.lable614,
-                    ),
-                    Text(
-                      " 7 Kms",
-                      style: Styles.boldBlack614,
-                    ),
-                    const Spacer(),
-                    Text(
-                      "Dlivery in -",
-                      style: Styles.lable614,
-                    ),
-                    Text(
-                      " 40-45 mins",
-                      style: Styles.boldBlack614,
-                    )
-                  ],
-                )),
+                child: Obx(() => Row(
+                      children: [
+                        Text(
+                          "Distance -",
+                          style: Styles.lable614,
+                        ),
+                        Text(
+                          " ${controller.distance.value.toStringAsFixed(2)} km", //distance.toStringAsFixed(2)} km
+                          style: Styles.boldBlack614,
+                        ),
+                        const Spacer(),
+                        Text(
+                          "Dlivery in -",
+                          style: Styles.lable614,
+                        ),
+                        Text(
+                          " ${controller.estimatedTime.value}",
+                          style: Styles.boldBlack614,
+                        )
+                      ],
+                    ))),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
@@ -190,10 +185,14 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                   border: Border.all(color: primary),
                 ),
                 child: GetLocationPolyLineScreen(
-                  dropLat: double.parse(data['dropLat'] ?? 0.0),
-                  dropLng: double.parse(data['dropLng'] ?? 0.0),
-                  pickLat: /*23.062786791571362*/dropScreenCon.pickLat.value,
-                  pickLng: /*72.5502485519334*/dropScreenCon.pickLng.value,
+                  dropLat:
+                      double.tryParse(data['dropLat']?.toString() ?? '0.0') ??
+                          0.0,
+                  dropLng:
+                      double.tryParse(data['dropLng']?.toString() ?? '0.0') ??
+                          0.0,
+                  pickLat: dropScreenCon.pickLat.value.toDouble(),
+                  pickLng: dropScreenCon.pickLng.value.toDouble(),
                 ),
               ),
             ),
@@ -234,7 +233,10 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                       borderCircular: 6,
                       text: "Checkout",
                       fun: () {
-                        controller.ride();
+                                       Get.toNamed(AppRoutes.CHECKOUT);
+
+                        list.add([controller.addressStatus.value,controller.estimatedTime.value,controller.distance.value]);
+                        // controller.ride();
                       },
                     );
                   })

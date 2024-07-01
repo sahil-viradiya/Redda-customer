@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/network_client.dart';
+import 'package:redda_customer/Utils/pref.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/route/app_route.dart';
 
@@ -51,6 +52,8 @@ class ForgotPasswordController extends GetxController {
               DioExceptions.showErrorMessage(Get.context!, message);
               print('Message: $message');
             } else {
+              await SharedPref.saveString(
+                  Config.userId, respo['data']['user_id'].toString());
               DioExceptions.showMessage(Get.context!, message);
 
               // await SharedPref.saveString(Config.status, model.userType);
@@ -78,7 +81,6 @@ class ForgotPasswordController extends GetxController {
       isLoading(false);
     }
   }
-
 
 
   Future<dynamic> verifyForgotOtp() async {

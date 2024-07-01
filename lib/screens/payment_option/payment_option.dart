@@ -12,7 +12,7 @@ import 'package:redda_customer/widget/custom_button.dart';
 import 'payment_option_controller.dart';
 
 class PaymentOptionScreen extends GetView<PaymentOptionController> {
-  const PaymentOptionScreen({Key? key}) : super(key: key);
+  const PaymentOptionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

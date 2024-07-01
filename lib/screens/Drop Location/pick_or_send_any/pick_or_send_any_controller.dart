@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:get/get_rx/get_rx.dart';
 
 import '../../../Utils/constant.dart';
 import '../../../Utils/network_client.dart';
@@ -10,7 +11,7 @@ import '../../../constant/api_key.dart';
 import '../../../main.dart';
 import '../../../route/app_route.dart';
 import '../drop_screen/drop_screen_controller.dart';
-
+List list = [];
 class PickOrSendAnyController extends GetxController {
   final count = 0.obs;
   var dropAdd = ''.obs;
@@ -18,6 +19,8 @@ class PickOrSendAnyController extends GetxController {
   var dropReviver = ''.obs;
   var dropMobile = ''.obs;
   var dropLat = 0.0.obs;
+  RxDouble distance = 0.0.obs;
+  var estimatedTime = ''.obs;
   var dropLng = 0.0.obs;
   var addressStatus = ''.obs;
   RxBool isLoading = false.obs;
@@ -54,8 +57,9 @@ class PickOrSendAnyController extends GetxController {
       'receiver_name': dropReviver.value,
       'receiver_mobile_no': dropMobile.value,
       'address_type': addressStatus.value,
+      'item_details':"table"
     });
-    log('============= Form DAta ${formData.fields}');
+    log('============= Form DAta ${list}');
     isLoading(true);
     try {
       var response = await dioClient

@@ -28,7 +28,7 @@ void main() async {
 
   // Run the app with the retrieved token
   runApp(MyApp(token));
-  Future.delayed(Duration(milliseconds: 500), () {
+  Future.delayed(const Duration(milliseconds: 500), () {
     checkLocationPermission();
   });
 }
@@ -36,7 +36,7 @@ void main() async {
 
 final dio = Dio();
 final dioClient =
-    DioClient('https://ride.notionprojects.tech/api/customer/', dio);
+    DioClient('https://ride.notionprojects.tech/api/rider/', dio);
 class MyApp extends StatelessWidget {
   final String? token;
 

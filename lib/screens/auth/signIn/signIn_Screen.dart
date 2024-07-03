@@ -9,7 +9,6 @@ import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
-import 'package:redda_customer/main.dart';
 import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/screens/auth/signIn/signIn_controller.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
@@ -26,7 +25,7 @@ class SignInScreen extends GetView<SignInController> {
     MySize().init(
       context,
     );
-    final SignInController _controller = Get.put(SignInController());
+    final SignInController controller = Get.put(SignInController());
 
     return WillPopScope(
       onWillPop: () async {
@@ -102,7 +101,7 @@ class SignInScreen extends GetView<SignInController> {
                     Gap(MySize.size4!),
 
                     CustomTextFormFieldWidget(
-                      controller: _controller.emailCon,
+                      controller: controller.emailCon,
                       keyboardType: TextInputType.emailAddress,
                       validator: ((value) {
                         return Validator.validateEmails(value!);
@@ -123,7 +122,7 @@ class SignInScreen extends GetView<SignInController> {
                     Gap(MySize.size4!),
 
                     CustomPasswordTextFormFieldWidget(
-                      controller: _controller.passCon,
+                      controller: controller.passCon,
                       validator: ((value) {
                         return Validator.validatePassword(value!);
                       }),
@@ -178,12 +177,12 @@ class SignInScreen extends GetView<SignInController> {
                     //-------------------------------------sign in button------------------
                     Obx(() {
                       return CustomButton(
-                          isLoading: _controller.isLoading.value,
+                          isLoading: controller.isLoading.value,
                           text: 'Sign In',
                           fun: () {
                             if (_formKey.currentState!.validate()) {
                               debugPrint("TOKEN____________$token");
-                              _controller.signIn();
+                              controller.signIn();
                               // Get.toNamed(AppRoutes.HOMESCREEN);
                             }
                             // Navigator.push(
@@ -305,6 +304,8 @@ class SignInScreen extends GetView<SignInController> {
 }
 
 class DynamicTextFieldRow extends StatefulWidget {
+  const DynamicTextFieldRow({super.key});
+
   @override
   _DynamicTextFieldRowState createState() => _DynamicTextFieldRowState();
 }
@@ -340,12 +341,12 @@ class _DynamicTextFieldRowState extends State<DynamicTextFieldRow> {
               color: Colors.blue,
               borderRadius: BorderRadius.circular(2),
             ),
-            child: Icon(Icons.add, color: Colors.white, size: 12),
+            child: const Icon(Icons.add, color: Colors.white, size: 12),
           ),
         ),
-        SizedBox(width: 5),
+        const SizedBox(width: 5),
         Text(textFieldCount.toString()),
-        SizedBox(width: 5),
+        const SizedBox(width: 5),
         InkWell(
           onTap: removeTextField,
           child: Container(
@@ -355,10 +356,10 @@ class _DynamicTextFieldRowState extends State<DynamicTextFieldRow> {
               color: Colors.blue,
               borderRadius: BorderRadius.circular(2),
             ),
-            child: Icon(Icons.remove, color: Colors.white, size: 12),
+            child: const Icon(Icons.remove, color: Colors.white, size: 12),
           ),
         ),
-        SizedBox(width: 12),
+        const SizedBox(width: 12),
         Expanded(
           child: ListView.builder(
             shrinkWrap: true,

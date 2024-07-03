@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -16,10 +15,6 @@ class OtpController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
   TextEditingController otpCon = TextEditingController();
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {}

@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -17,7 +16,6 @@ import 'package:redda_customer/screens/Pick%20Up%20Location/seach_location.dart'
 import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/location.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../main.dart';
 import '../auth/signIn/signIn_controller.dart';
 import 'home_controller.dart';
 
@@ -236,7 +234,7 @@ class HomeScreen extends GetView<HomeController> {
                         ),
                         ElevatedButton(
                           onPressed: controller.rebuildLocationWidget,
-                          child: Text('Rebuild GetLocationScreen'),
+                          child: const Text('Rebuild GetLocationScreen'),
                         ),
                       ],
                     ),
@@ -291,7 +289,7 @@ class HomeScreen extends GetView<HomeController> {
                               style: Styles.boldBlack716,
                             ),
                             Text(
-                              _signInController.model?.fullname ?? "",
+                              _signInController.model.fullname ?? "",
                               style: Styles.lable414,
                             ),
                           ],
@@ -355,7 +353,7 @@ class HomeScreen extends GetView<HomeController> {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SearchPlaceScreen()),
+                    MaterialPageRoute(builder: (context) => const SearchPlaceScreen()),
                   );
 
                 }),

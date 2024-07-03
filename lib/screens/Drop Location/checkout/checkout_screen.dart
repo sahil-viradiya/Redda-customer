@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/Drop%20Location/drop_address_details/drop_address_details_controller.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
@@ -16,6 +17,8 @@ class CheckoutScreen extends GetView<CheckoutController> {
 
   @override
   Widget build(BuildContext context) {
+    final DropAddressDetailsController dropAddScreenCon = Get.find();
+
     return Scaffold(
       backgroundColor: white,
       appBar: appbarSmall1(
@@ -29,7 +32,8 @@ class CheckoutScreen extends GetView<CheckoutController> {
             children: [
               Container(
                 margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
                 decoration: BoxDecoration(
                   color: white,
                   border: Border.all(color: primary),
@@ -56,7 +60,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                         const Gap(6),
 
                         Text(
-                          "Home",
+                          "${dropAddScreenCon.rideDetailsModel.value.addressType}",
                           style: Styles.boldBlack612,
                         ),
                         const Spacer(),
@@ -71,13 +75,13 @@ class CheckoutScreen extends GetView<CheckoutController> {
                         // Gap(10),
 
                         Text(
-                          "7.0 kms | Delivery in 40-45 mins",
+                          "${dropAddScreenCon.tempRideMdel.value.totalDistance} kms | Delivery in ${dropAddScreenCon.tempRideMdel.value.totalTime} mins",
                           style: Styles.lable612,
                         ),
 
                         const Spacer(),
                         Text(
-                          "12 MINS",
+                          "${dropAddScreenCon.tempRideMdel.value.totalTime}",
                           style: Styles.boldBlue712,
                         ),
                       ],
@@ -104,7 +108,8 @@ class CheckoutScreen extends GetView<CheckoutController> {
 
               Container(
                 margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
                 decoration: BoxDecoration(
                   color: white,
                   border: Border.all(color: primary),
@@ -118,13 +123,13 @@ class CheckoutScreen extends GetView<CheckoutController> {
                         // Gap(10),
 
                         Text(
-                          "Delivery Fee for 7 kms",
+                          "Delivery Fee for ${dropAddScreenCon.tempRideMdel.value.totalDistance} kms",
                           style: Styles.noramalBlack416,
                         ),
 
                         const Spacer(),
                         Text(
-                          "\$125",
+                          "\$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
                           style: Styles.noramalBlack416,
                         ),
                       ],
@@ -141,7 +146,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
 
                         const Spacer(),
                         Text(
-                          "\$125",
+                          "\$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
                           style: Styles.noramalBlack416,
                         ),
                       ],
@@ -163,7 +168,8 @@ class CheckoutScreen extends GetView<CheckoutController> {
               const Gap(16),
               Container(
                 margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
                 decoration: BoxDecoration(
                   color: white,
                   border: Border.all(color: primary),
@@ -190,12 +196,10 @@ class CheckoutScreen extends GetView<CheckoutController> {
                       style: Styles.boldBlue715,
                     ),
                   ],
-
                 ),
               ),
               // Spacer(),
-              SizedBox(height: Get.height/2)
-
+              SizedBox(height: Get.height / 2)
             ],
           ),
           Container(
@@ -230,14 +234,12 @@ class CheckoutScreen extends GetView<CheckoutController> {
                   ],
                 ),
                 const Gap(6),
-
                 const Gap(6),
-
                 CustomButton(
                   width: Get.width,
                   height: 35,
                   borderCircular: 6,
-                  text: "Make Payment | \$125",
+                  text: "Make Payment | \$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
                   fun: () {
                     Get.toNamed(AppRoutes.PAYMENT);
                   },
@@ -245,7 +247,6 @@ class CheckoutScreen extends GetView<CheckoutController> {
               ],
             ),
           ),
-
         ],
       ),
     );

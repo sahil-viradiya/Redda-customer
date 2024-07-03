@@ -17,9 +17,6 @@ import 'package:redda_customer/route/app_route.dart';
 
 import '../constant/app_image.dart';
 import '../constant/style.dart';
-import '../screens/Pick Up Location/address_details/address_details_controller.dart';
-import '../screens/Pick Up Location/address_details/address_details_screen.dart';
-import '../screens/address_details_screen/enter_new_address_details.dart';
 import 'auth_app_bar_widget.dart';
 import 'custom_button.dart';
 
@@ -114,8 +111,8 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
             decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                const BoxShadow(
+              boxShadow: const [
+                BoxShadow(
                   blurRadius: 8,
                   spreadRadius: 4,
                   color: Colors.black12,
@@ -129,7 +126,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
                 Row(
                   children: [
                     SvgPicture.asset(AppImage.LOCATION2),
-                    Gap(6),
+                    const Gap(6),
                     Expanded(
                       child: Text(
                         cityName.isNotEmpty ? cityName : "Fetching...",
@@ -150,7 +147,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
                 ),
 
                 Text(address.toString(),style: Styles.lable414,),
-                Gap(12),
+                const Gap(12),
                 CustomButton(
                   width: Get.width,
                   height: 35,
@@ -173,7 +170,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
                 
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(0),
+                    padding: const EdgeInsets.all(0),
                     backgroundColor: primary,
                     textStyle: const TextStyle(
                         color: Colors.green,
@@ -268,12 +265,12 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
   }
 
   Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
-    GoogleMapsPlaces _places = GoogleMapsPlaces(
+    GoogleMapsPlaces places = GoogleMapsPlaces(
       apiKey: Config.apiKey!,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
     );
     PlacesDetailsResponse detail =
-        await _places.getDetailsByPlaceId(p.placeId.toString());
+        await places.getDetailsByPlaceId(p.placeId.toString());
     lat = detail.result.geometry!.location.lat;
     lng = detail.result.geometry!.location.lng;
     final GoogleMapController controller = await mapController.future;

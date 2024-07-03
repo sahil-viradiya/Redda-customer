@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
-import 'package:redda_customer/pages/wallet/wallet_view.dart';
-import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/Drop%20Location/drop_address_details/drop_address_details_controller.dart';
 import 'package:redda_customer/screens/Drop%20Location/payment/payment_controller.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
@@ -18,6 +16,8 @@ class PaymentScreen extends GetView<PaymentController> {
 
   @override
   Widget build(BuildContext context) {
+    final DropAddressDetailsController dropAddScreenCon = Get.find();
+
     return Scaffold(
       backgroundColor: white,
       appBar: appbarSmall1(
@@ -52,13 +52,13 @@ class PaymentScreen extends GetView<PaymentController> {
                             ),
                             const Gap(10),
                             Text(
-                              "Pick up from check@gmail.com...",
+                              "Pick up from ",//${dropAddScreenCon.rideDetailsModel.value.pickUpAddress}",
                               style: Styles.boldBlack612,
                             ),
                           ],
                         ),
                         Text(
-                          "       check@gmail.com, varachha, Surat,...",
+                          "       ${dropAddScreenCon.rideDetailsModel.value.pickUpAddress}",
                           style: Styles.lable411,
                         ),
                         const Divider(
@@ -73,13 +73,13 @@ class PaymentScreen extends GetView<PaymentController> {
                             ),
                             const Gap(10),
                             Text(
-                              "Deliver to Home",
+                              "Deliver to ${dropAddScreenCon.rideDetailsModel.value.addressType}",
                               style: Styles.boldBlack612,
                             ),
                           ],
                         ),
                         Text(
-                          "       95, Palladium Society, Katargam...",
+                          "       ${dropAddScreenCon.rideDetailsModel.value.reciverAddress}",
                           style: Styles.lable411,
                         ),
                       ],
@@ -95,7 +95,7 @@ class PaymentScreen extends GetView<PaymentController> {
                             style: Styles.lable614,
                           ),
                           Text(
-                            " 40-45 mins",
+                            " ${dropAddScreenCon.tempRideMdel.value.totalTime} mins",
                             style: Styles.boldBlack614,
                           )
                         ],
@@ -274,8 +274,8 @@ class PaymentScreen extends GetView<PaymentController> {
             decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                const BoxShadow(
+              boxShadow: const [
+                BoxShadow(
                   blurRadius: 8,
                   spreadRadius: 4,
                   color: Colors.black12,
@@ -305,9 +305,9 @@ class PaymentScreen extends GetView<PaymentController> {
                   width: Get.width,
                   height: 35,
                   borderCircular: 6,
-                  text: "Make Payment | \$125",
+                  text: "Make Payment | \$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
                   fun: () {
-         controller.openCheckout();
+         controller.openCheckout(rs:dropAddScreenCon.tempRideMdel.value.totalCharges.toString() );
                   },
                 )
               ],

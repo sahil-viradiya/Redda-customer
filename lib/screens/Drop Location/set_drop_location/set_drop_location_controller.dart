@@ -17,10 +17,6 @@ class SetDropLocationController extends GetxController {
   var selectedDropLng = '0'.obs;
   RxList<dynamic> suggestions = <dynamic>[].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {}
@@ -35,7 +31,7 @@ class SetDropLocationController extends GetxController {
     final fetchedSuggestions =
         await placesService.getPlaceSuggestions(locationController.text);
     suggestions.assignAll(fetchedSuggestions);
-    log("====================Location List========================${suggestions}");
+    log("====================Location List========================$suggestions");
     update();
   }
 

@@ -123,7 +123,7 @@ class SignInController extends GetxController {
           // model = respo['data'].map<CreateAccountModel>((json){
           //   return CreateAccountModel.fromJson(json);
           // }).toList();
-          print('object=============${model?.fullname}');
+          print('object=============${model.fullname}');
           var message = respo['message'];
           try {
             if (respo['status'] == false) {

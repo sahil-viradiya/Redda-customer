@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +14,7 @@ import 'drop_screen_controller.dart';
 var _con =Get.put(SetPickUpLocationController());
 
 class DropScreen extends GetView<DropScreenController> {
-  const DropScreen({Key? key}) : super(key: key);
+  const DropScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,7 @@ class DropScreen extends GetView<DropScreenController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Divider(),
-            Gap(16),
+            const Gap(16),
             Container(
               margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
@@ -68,7 +67,7 @@ class DropScreen extends GetView<DropScreenController> {
                           },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
-                            minimumSize: Size(50, 20),
+                            minimumSize: const Size(50, 20),
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
                           child: Text(
@@ -83,7 +82,7 @@ class DropScreen extends GetView<DropScreenController> {
                     "       ${controller.pickLoc.value}",
                     style: Styles.lable411,
                   ),
-                  Divider(
+                  const Divider(
                     indent: 20,
                   ),
                   Text(
@@ -94,9 +93,9 @@ class DropScreen extends GetView<DropScreenController> {
               ),
             ),
             // _commonVerticalDivider(),
-            Gap(8),
+            const Gap(8),
             // _commonVerticalDivider(),
-            Gap(8),
+            const Gap(8),
             //
             // _commonVerticalDivider(),
             // Gap(8), _commonVerticalDivider(),
@@ -125,7 +124,7 @@ class DropScreen extends GetView<DropScreenController> {
               ),
             ),
 
-            Gap(38),
+            const Gap(38),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
@@ -134,7 +133,7 @@ class DropScreen extends GetView<DropScreenController> {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
@@ -160,16 +159,16 @@ class DropScreen extends GetView<DropScreenController> {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                 // height: 50,
                 decoration: BoxDecoration(
                   color: white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 8,
                       spreadRadius: 4,
@@ -184,16 +183,16 @@ class DropScreen extends GetView<DropScreenController> {
                       "Delivery Charges",
                       style: Styles.lable414,
                     ),
-                    Gap(6),
+                    const Gap(6),
                     Row(
                       children: [
                         SvgPicture.asset(AppImage.HEAT),
-                        Gap(6),
+                        const Gap(6),
                         Text(
                           "Starting at \$50 for first 2 kms",
                           style: Styles.boldBlack614,
                         ),
-                        Gap(12),
+                        const Gap(12),
                         SvgPicture.asset(AppImage.INFO),
                       ],
                     )

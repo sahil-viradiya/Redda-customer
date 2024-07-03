@@ -6,6 +6,7 @@ import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/Drop%20Location/drop_screen/drop_screen_controller.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
@@ -46,7 +47,7 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
         body: Form(
           key: _formKey,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             child: ListView(
               children: [
                 Container(
@@ -60,7 +61,7 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                   child: const GetLocationScreen(),
                 ),
                 //=============Address================
-                Gap(18),
+                const Gap(18),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
@@ -128,7 +129,7 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                 ),
                 Gap(MySize.size4!),
                 CustomTextFormFieldWidget(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
                   validator: ((value) {
                     return Validator.validateMobile(value!);
                   }),
@@ -192,28 +193,50 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                 ),
                 Gap(MySize.size16!),
 
-                GestureDetector(
-                  onTap: () {},
-                  child: CustomButton(
-                    width: double.infinity,
-                    height: 35,
-                    borderCircular: 7,
-                    text: "Proceed",
-                    fun: () {
-                      if (_formKey.currentState!.validate()) {
-                        Get.toNamed(AppRoutes.PICKUPORSENDANYTHING, arguments: {
-                          'dropAdd': controller.dropAddCon.text,
-                          'dropLand': controller.dropLandCon.text,
-                          'dropSend': controller.dropSenderCon.text,
-                          'dropMobile': controller.dropMobileCon.text,
-                          'dropLat': controller.dropLat.value.toString(),
-                          'dropLng': controller.dropLng.value.toString(),
-                          'addresStatus': controller.addressType.value
-                        });
-                      }
-                    },
-                  ),
-                ),
+                Obx(() => CustomButton(
+                      isLoading: controller.isLoading.value,
+                      width: double.infinity,
+                      height: 35,
+                      borderCircular: 7,
+                      text: "Proceed",
+                      fun: () {
+                        if (_formKey.currentState!.validate()) {
+                          DropScreenController dropScreenCon = Get.find();
+
+                          controller
+                              .tempRide(
+                                  pickLat: dropScreenCon.pickLat.value,
+                                  pickLng: dropScreenCon.pickLng.value,
+                                  pickUpAddress: dropScreenCon.pickLoc.value,
+                                  senderLandMark: dropScreenCon.pickLand.value,
+                                  senderName: dropScreenCon.pickName.value,
+                                  senderMobileNo:
+                                      dropScreenCon.pickNumber.value,
+                                  dropLat: controller.dropLat.value,
+                                  dropLng: controller.dropLng.value,
+                                  reciverAddress: controller.dropAddCon.text,
+                                  reciverLandmark: controller.dropLandCon.text,
+                                  reciverName: controller.dropSenderCon.text,
+                                  reciverMobileNo:
+                                      controller.dropMobileCon.text,
+                                  addressType: controller.addressType.value)
+                              .then((val) {
+                            Get.toNamed(AppRoutes.PICKUPORSENDANYTHING,
+                                arguments: {
+                                  'dropAdd': controller.dropAddCon.text,
+                                  'dropLand': controller.dropLandCon.text,
+                                  'dropSend': controller.dropSenderCon.text,
+                                  'dropMobile': controller.dropMobileCon.text,
+                                  'dropLat':
+                                      controller.dropLat.value.toString(),
+                                  'dropLng':
+                                      controller.dropLng.value.toString(),
+                                  'addresStatus': controller.addressType.value
+                                });
+                          });
+                        }
+                      },
+                    )),
                 Gap(MySize.size30!),
               ],
             ),

@@ -1,20 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart' as dio;
-import 'package:get/get_rx/get_rx.dart';
-import 'package:redda_customer/Utils/constant.dart';
-import 'package:redda_customer/Utils/network_client.dart';
-import 'package:redda_customer/Utils/pref.dart';
-import 'package:redda_customer/constant/api_key.dart';
-import 'package:redda_customer/model/create_account_model.dart';
-import 'package:redda_customer/route/app_route.dart';
 
-import '../../../main.dart';
-import '../../auth/signIn/signIn_controller.dart';
 class AddressDetailsController extends GetxController {
     final count = 0.obs;
     RxBool isLoading = false.obs;
@@ -26,11 +13,6 @@ class AddressDetailsController extends GetxController {
     TextEditingController landCon = TextEditingController();
     TextEditingController addressCon = TextEditingController();
 
-    @override
-    void onInit() {
-
-    super.onInit();
-    }
 
     @override
     void onReady() {}

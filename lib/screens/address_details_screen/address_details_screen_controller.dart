@@ -87,15 +87,15 @@ class AddressController extends GetxController {
 
     Future<dynamic> addAddress() async {
       dio.FormData formData = dio.FormData.fromMap({
-        'name':_signInController.model?.fullname,
+        'name':_signInController.model.fullname,
         'house':house.text,
         'area':area.text,
         'direction':direction.text,
-        'mobile_no': _signInController.model?.mobileNo,
+        'mobile_no': _signInController.model.mobileNo,
         'address_type': addressType,
       });
       log('============= Form DAta ${formData.fields}');
-      log('============= FULL NAME===> ${_signInController.model?.fullname}');
+      log('============= FULL NAME===> ${_signInController.model.fullname}');
       isLoading(true);
       try {
         var response = await dioClient
@@ -150,7 +150,7 @@ class AddressController extends GetxController {
 
 log("get address===================$token");
     dio.FormData formData = dio.FormData.fromMap({
-      'user_id':_signInController.model?.userId,
+      'user_id':_signInController.model.userId,
     });
     log('============= Form DAta ${formData.fields}');
     try {
@@ -202,7 +202,7 @@ log("get address===================$token");
   }
 
   Future<dynamic> deleteAddress(var addressId) async {
-    print("--------------->>>>${addressId}");
+    print("--------------->>>>$addressId");
     dio.FormData formData = dio.FormData.fromMap({
       'address_id':addressId,
     });
@@ -255,16 +255,16 @@ log("get address===================$token");
 
   Future<dynamic> updateAddress({required String id}) async {
     dio.FormData formData = dio.FormData.fromMap({
-      'name':_signInController.model?.fullname,
+      'name':_signInController.model.fullname,
       'house':house.text,
       'area':area.text,
       "address_id": id.toString(),
       'direction':direction.text,
-      'mobile_no': _signInController.model?.mobileNo,
+      'mobile_no': _signInController.model.mobileNo,
       'address_type': addressType,
     });
     log('============= Form DAta ${formData.fields}');
-    log('============= FULL NAME===> ${_signInController.model?.fullname}');
+    log('============= FULL NAME===> ${_signInController.model.fullname}');
     isLoading(true);
     try {
       var response = await dioClient

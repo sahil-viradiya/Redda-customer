@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:redda_customer/Utils/validation.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/my_size.dart';
@@ -28,7 +27,7 @@ class OtpScreen extends StatelessWidget {
 
     // Extract the 'userId' from the arguments
     final userId = arguments['userId'];
-    log(" id --  ${userId}");
+    log(" id --  $userId");
 
     MySize().init(context);
     return WillPopScope(

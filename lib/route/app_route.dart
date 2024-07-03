@@ -105,7 +105,7 @@ class AppRoutes {
       ],
     ),  GetPage(
       name: EDIT_PROFILE,
-      page: () =>  EditProfile(),
+      page: () =>  const EditProfile(),
       bindings:  [
         EditProfileBinding()
       ],

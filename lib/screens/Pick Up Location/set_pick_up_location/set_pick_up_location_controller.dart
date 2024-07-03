@@ -34,14 +34,10 @@ class SetPickUpLocationController extends GetxController {
     final fetchedSuggestions =
         await placesService.getPlaceSuggestions(locationController.text);
     suggestions.assignAll(fetchedSuggestions);
-    log("====================Location List========================${suggestions}");
+    log("====================Location List========================$suggestions");
     update();
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {}

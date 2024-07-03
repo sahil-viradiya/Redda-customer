@@ -9,18 +9,23 @@ import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/main.dart';
+import 'package:redda_customer/screens/Drop%20Location/drop_address_details/drop_address_details_controller.dart';
+
 class PaymentController extends GetxController {
-    final count = 0.obs;
-    var selectedRadio = 0.obs;
+  final count = 0.obs;
+  var selectedRadio = 0.obs;
   late Razorpay _razorpay;
   RxBool isLoading = false.obs;
 
   final _amountController = TextEditingController(text: '125');
+  final DropAddressDetailsController dropAddScreenCon = Get.find();
+
   // Method to change the selected radio value
   void changeRadio(int value) {
     selectedRadio.value = value;
   }
-    @override
+
+  @override
   void onInit() {
     super.onInit();
     _razorpay = Razorpay();
@@ -28,12 +33,13 @@ class PaymentController extends GetxController {
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
-void openCheckout() async {
+
+  void openCheckout({required String rs}) async {
     var options = {
       'key': 'rzp_test_GcZZFDPP0jHtC4',
-      'amount': (double.parse(_amountController.text) * 100)
-          .toInt(), // Razorpay uses paise
+      'amount': (double.parse(rs) * 100).toInt(), // Razorpay uses paise
       'name': 'Redda',
+
       'description': 'Add Money to Wallet',
       'prefill': {
         'contact': '9725558828',
@@ -50,17 +56,20 @@ void openCheckout() async {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     print("Payment Success: ${response.paymentId}-----${response.data}");
+    if (response.paymentId != null) {
+      tempRide(rideId: dropAddScreenCon.tempRideMdel.value.rideId.toString());
+    }
     // updateWallte(paymentId: response.paymentId.toString());
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print("Payment Error: ${response.code} - ${response.message}"); // 2 // undefined
+    print(
+        "Payment Error: ${response.code} - ${response.message}"); // 2 // undefined
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     print("External Wallet: ${response.walletName}");
   }
-
 
   Future<dynamic> updateWallte({required String paymentId}) async {
     dio.FormData formData = dio.FormData.fromMap({
@@ -118,11 +127,68 @@ void openCheckout() async {
       isLoading(false);
     }
   }
-    @override
-    void onReady() {}
 
-    @override
-    void onClose() {}
+  @override
+  void onReady() {}
+  Future<dynamic> tempRide({
+    required String rideId,
+  }) async {
+    dio.FormData formData = dio.FormData.fromMap({
+      'ride_id': rideId,
+    });
+    log('============= Form DAta $formData');
 
-    increment() => count.value++;
+    isLoading(true);
+    try {
+      var response = await dioClient
+          .post(
+        '${Config.baseUrl}ride.php',
+        options: dio.Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+        data: formData,
+      )
+          .then(
+        (respo) async {
+          log("================================${respo['data']}===============");
+
+          var message = respo['message'];
+          try {
+            if (respo['status'] == false) {
+              DioExceptions.showErrorMessage(Get.context!, message);
+              print('Message: $message');
+            } else {
+              DioExceptions.showMessage(Get.context!, message);
+
+              //  Get.toNamed(AppRoutes.CHECKOUT);
+            }
+          } catch (e) {
+            print('Error parsing JSON or accessing message: $e');
+          }
+        },
+      );
+    } on dio.DioException catch (e) {
+      print("status Code ${e.response?.statusCode}");
+      print('Error $e');
+      DioExceptions.showErrorMessage(
+          Get.context!,
+          DioExceptions.fromDioError(dioError: e, errorFrom: "ADD RIDE")
+              .errorMessage());
+      isLoading(false);
+    } catch (e) {
+      isLoading(false);
+      if (kDebugMode) {
+        print("RIDE ERROR $e");
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  @override
+  void onClose() {}
+
+  increment() => count.value++;
 }

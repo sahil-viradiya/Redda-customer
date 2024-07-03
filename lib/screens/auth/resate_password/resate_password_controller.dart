@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
@@ -18,10 +17,6 @@ class ResatePasswordController extends GetxController {
   TextEditingController passCon = TextEditingController();
   TextEditingController conPassCon = TextEditingController();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {}
@@ -45,7 +40,7 @@ class ResatePasswordController extends GetxController {
           // model = respo['data'].map<CreateAccountModel>((json){
           //   return CreateAccountModel.fromJson(json);
           // }).toList();
-          print('object=============${respo}');
+          print('object=============$respo');
           var message = respo['message'];
           try {
             if (respo['status'] == false) {

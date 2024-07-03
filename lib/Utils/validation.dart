@@ -77,14 +77,15 @@ class Validator {
     return null;
   }
 
-  static  String? validateMobile(String value) {
-    if (value.length != 10) {
-      return 'Mobile Number must be of 10 digit';
-    } else if (value.isEmpty) {
-      return "Please enter Contact Number";
-    }
-    return null;
+static String? validateMobile(String value) {
+  if (value.isEmpty) {
+    return "Please enter Contact Number";
+  } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+    return 'Mobile Number must be exactly 10 digits';
   }
+  return null;
+}
+
   static  String? validateMobileOtp(String value) {
     if (value.length != 4) {
       return 'OTP must be of 4 digit';

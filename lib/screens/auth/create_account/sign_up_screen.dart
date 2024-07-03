@@ -1,15 +1,11 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:redda_customer/Utils/api_client.dart';
 import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/Utils/validation.dart';
 import 'package:redda_customer/constant/app_color.dart';

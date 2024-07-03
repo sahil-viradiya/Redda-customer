@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/Drop%20Location/drop_address_details/drop_address_details_controller.dart';
 import 'package:redda_customer/screens/Drop%20Location/drop_screen/drop_screen_controller.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
@@ -18,7 +19,8 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
   @override
   Widget build(BuildContext context) {
     final dropScreenCon = Get.put(DropScreenController());
-
+    final DropAddressDetailsController dropAddScreenCon = Get.find();
+    final PickOrSendAnyController picOrSendAny = Get.find();
     final data = Get.arguments ?? {};
     // log("final location ${arguments}");
     return Scaffold(
@@ -118,7 +120,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                       ),
                       const Gap(10),
                       Text(
-                        "Deliver to Home ",
+                        "Deliver to ${dropAddScreenCon.rideDetailsModel.value.addressType} ",
                         style: Styles.boldBlack612,
                       ),
                       const Spacer(),
@@ -137,14 +139,14 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                     ],
                   ),
                   Text(
-                    "       ${data?['dropAdd'] ?? ""}",
+                    "       ${dropAddScreenCon.rideDetailsModel.value.reciverAddress}",
                     style: Styles.lable411,
                   ),
                   const Divider(
                     indent: 20,
                   ),
                   Text(
-                    "      ${data?['dropSend'] ?? ""} ${data?['dropMobile'] ?? ""}",
+                    "      ${dropAddScreenCon.rideDetailsModel.value.reciverName ?? ""} ${dropAddScreenCon.rideDetailsModel.value.reciverMobileNo ?? ""}",
                     style: Styles.lable411,
                   )
                 ],
@@ -160,7 +162,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                           style: Styles.lable614,
                         ),
                         Text(
-                          " ${controller.distance.value.toStringAsFixed(2)} km", //distance.toStringAsFixed(2)} km
+                          " ${dropAddScreenCon.tempRideMdel.value.totalDistance} km", //distance.toStringAsFixed(2)} km
                           style: Styles.boldBlack614,
                         ),
                         const Spacer(),
@@ -169,7 +171,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                           style: Styles.lable614,
                         ),
                         Text(
-                          " ${controller.estimatedTime.value}",
+                          " ${dropAddScreenCon.tempRideMdel.value.totalTime} mins",
                           style: Styles.boldBlack614,
                         )
                       ],
@@ -216,12 +218,12 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Estimated Pick up in 12 mins",
+                    "Estimated Pick up in ${dropAddScreenCon.tempRideMdel.value.totalTime} mins",
                     style: Styles.boldBlack614,
                   ),
                   const Gap(6),
                   Text(
-                    "7.0 kms | Delivery in 40-45 mins",
+                    "${dropAddScreenCon.tempRideMdel.value.totalDistance} kms | Delivery in ${dropAddScreenCon.tempRideMdel.value.totalTime} mins",
                     style: Styles.lable414,
                   ),
                   const Gap(6),
@@ -235,7 +237,6 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                       fun: () {
                                        Get.toNamed(AppRoutes.CHECKOUT);
 
-                        list.add([controller.addressStatus.value,controller.estimatedTime.value,controller.distance.value]);
                         // controller.ride();
                       },
                     );

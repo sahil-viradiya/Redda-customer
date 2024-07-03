@@ -12,7 +12,7 @@ import 'package:redda_customer/widget/custom_button.dart';
 import 'add_new_card_controller.dart';
 
 class AddNewCardScreen extends GetView<AddNewCardController> {
-  const AddNewCardScreen({Key? key}) : super(key: key);
+  const AddNewCardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +25,8 @@ class AddNewCardScreen extends GetView<AddNewCardController> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 0),
           child: Column(children: [
-            Divider(),
-            Gap(20),
+            const Divider(),
+            const Gap(20),
             Align(
               alignment: Alignment.topLeft,
               child: Text(

@@ -17,14 +17,11 @@ import 'package:redda_customer/constant/app_color.dart';
 import '../constant/app_image.dart';
 import '../constant/style.dart';
 import '../route/app_route.dart';
-import '../screens/Pick Up Location/address_details/address_details_controller.dart';
-import '../screens/Pick Up Location/address_details/address_details_screen.dart';
-import '../screens/address_details_screen/enter_new_address_details.dart';
 import 'auth_app_bar_widget.dart';
 import 'custom_button.dart';
 
 class SearchLocationOnMapForDropScreen extends StatefulWidget {
-  const SearchLocationOnMapForDropScreen({Key? key}) : super(key: key);
+  const SearchLocationOnMapForDropScreen({super.key});
 
   @override
   State<SearchLocationOnMapForDropScreen> createState() =>
@@ -117,8 +114,8 @@ class _SearchLocationOnMapForDropScreenState
             decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                const BoxShadow(
+              boxShadow: const [
+                BoxShadow(
                   blurRadius: 8,
                   spreadRadius: 4,
                   color: Colors.black12,
@@ -270,12 +267,12 @@ class _SearchLocationOnMapForDropScreenState
   }
 
   Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
-    GoogleMapsPlaces _places = GoogleMapsPlaces(
+    GoogleMapsPlaces places = GoogleMapsPlaces(
       apiKey: Config.apiKey!,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
     );
     PlacesDetailsResponse detail =
-        await _places.getDetailsByPlaceId(p.placeId.toString());
+        await places.getDetailsByPlaceId(p.placeId.toString());
     lat = detail.result.geometry!.location.lat;
     lng = detail.result.geometry!.location.lng;
     final GoogleMapController controller = await mapController.future;

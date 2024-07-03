@@ -3,6 +3,8 @@ import 'package:redda_customer/screens/Pick%20Up%20Location/location_sugetion.da
 
 
 class SearchPlaceScreen extends StatefulWidget {
+  const SearchPlaceScreen({super.key});
+
   @override
   _SearchPlaceScreenState createState() => _SearchPlaceScreenState();
 }
@@ -30,7 +32,7 @@ class _SearchPlaceScreenState extends State<SearchPlaceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Places'),
+        title: const Text('Search Places'),
       ),
       body: Column(
         children: [
@@ -38,7 +40,7 @@ class _SearchPlaceScreenState extends State<SearchPlaceScreen> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _controller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search for a place',
               ),
               onChanged: (value) {

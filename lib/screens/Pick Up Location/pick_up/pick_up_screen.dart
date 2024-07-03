@@ -10,7 +10,7 @@ import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'pick_up_controller.dart';
 
 class PickUpScreen extends GetView<PickUpController> {
-  const PickUpScreen({Key? key}) : super(key: key);
+  const PickUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

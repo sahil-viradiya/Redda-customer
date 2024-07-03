@@ -5,17 +5,13 @@ import 'package:redda_customer/Utils/validation.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
-import 'package:redda_customer/route/app_route.dart';
-import 'package:redda_customer/screens/address_details_screen/no_address_screen.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
-import '../auth/signIn/signIn_controller.dart';
-import '../address_details_screen/address_details_screen_controller.dart';
 import 'edit_profile_controller.dart';
 
 class EditProfile extends GetView<EditProfileController> {
-  EditProfile({super.key});
+  const EditProfile({super.key});
 
 
   @override
@@ -29,8 +25,8 @@ class EditProfile extends GetView<EditProfileController> {
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 0),
         child: Column(
           children: [
-            Divider(),
-            Gap(20),
+            const Divider(),
+            const Gap(20),
             Align(
               alignment: Alignment.topLeft,
               child: Text(

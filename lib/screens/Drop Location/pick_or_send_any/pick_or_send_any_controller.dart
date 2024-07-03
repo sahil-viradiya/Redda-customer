@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:get/get_rx/get_rx.dart';
-
 import '../../../Utils/constant.dart';
 import '../../../Utils/network_client.dart';
 import '../../../constant/api_key.dart';
@@ -59,7 +57,7 @@ class PickOrSendAnyController extends GetxController {
       'address_type': addressStatus.value,
       'item_details':"table"
     });
-    log('============= Form DAta ${list}');
+    log('============= Form DAta $list');
     isLoading(true);
     try {
       var response = await dioClient

@@ -89,7 +89,7 @@ DioExceptions.fromDioError(
   int errorStatusCode() => statusCode;
 
   void _prettyPrintError(
-      {required DioError dioError, required String? errorFrom}) {
+      {required DioException dioError, required String? errorFrom}) {
     debugPrint(
         '\x1B[31m${"********************************************************"}\x1B[0m');
     debugPrint('\x1B[31m${"🚨 ERROR exception from: $errorFrom"}\x1B[0m');

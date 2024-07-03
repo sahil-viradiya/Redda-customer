@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/Utils/pref.dart';
 import 'package:redda_customer/constant/api_key.dart';

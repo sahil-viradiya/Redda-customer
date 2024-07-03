@@ -33,7 +33,7 @@ class NoAddressScreen extends StatelessWidget {
               style: Styles.lable414,
               textAlign: TextAlign.center,
             ),
-            Gap(20),
+            const Gap(20),
 
             CustomButton(
               height: 40,
@@ -41,7 +41,7 @@ class NoAddressScreen extends StatelessWidget {
               width: double.infinity,
               text: "ADD NEW ADDRESS",
               fun: () {
-                Get.to(AddNewAddress());
+                Get.to(const AddNewAddress());
               },
             )
           ],

@@ -14,7 +14,6 @@ import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/search_location_on_map_for_drop_screen.dart';
 
 import '../../../widget/custom_button.dart';
-import '../../../widget/search_location_on_map_screen.dart';
 import 'set_drop_location_controller.dart';
 
 class SetDropLocationScreen extends GetView<SetDropLocationController> {

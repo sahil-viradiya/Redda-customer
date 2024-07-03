@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/style.dart';
-import 'package:redda_customer/screens/address_details_screen/address_details_screen_model.dart';
 import 'package:redda_customer/screens/address_details_screen/enter_new_address_details.dart';
-import 'package:redda_customer/screens/address_details_screen/set_delivery_location.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 

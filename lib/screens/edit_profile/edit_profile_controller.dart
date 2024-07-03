@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -7,9 +6,7 @@ import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/network_client.dart';
-import 'package:redda_customer/Utils/pref.dart';
 import 'package:redda_customer/constant/api_key.dart';
-import 'package:redda_customer/model/create_account_model.dart';
 import 'package:redda_customer/route/app_route.dart';
 
 import '../../../main.dart';
@@ -28,9 +25,9 @@ class EditProfileController extends GetxController {
 
   @override
   void onInit() {
-    nameCon.text = _signInController.model?.fullname ?? "";
-    mobileNo.text = _signInController.model?.mobileNo ?? "";
-    emailCon.text = _signInController.model?.email ?? "";
+    nameCon.text = _signInController.model.fullname ?? "";
+    mobileNo.text = _signInController.model.mobileNo ?? "";
+    emailCon.text = _signInController.model.email ?? "";
     super.onInit();
   }
 

@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:redda_customer/constant/api_key.dart';
-import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/model/nearby_place.dart';
 import 'package:redda_customer/screens/home/home_controller.dart';
 import 'package:redda_customer/widget/search_location_on_map_screen.dart';
@@ -60,7 +59,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
         homeController.status.value = "Please Enable Location Services";
       }
       setState(() {});
-      print("location:-${status}");
+      print("location:-$status");
 
       var accuracy = await Geolocator.getLocationAccuracy();
       bool isLocationServiceEnabled =
@@ -90,8 +89,8 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
                 needlePosition = LatLng(
                     lat!, lng!); // Initial position for the "needle" marker.
 
-                print('latititue${lat}');
-                print('longitude${lng}');
+                print('latititue$lat');
+                print('longitude$lng');
                 getNearByLocations();
                 getAddressFromLatLong(
                     latitude: lat!,
@@ -116,8 +115,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
   getNearByLocations() async {
     String url =
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" +
-            "&radius=100&key=${Config.apiKey}";
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" "&radius=100&key=${Config.apiKey}";
     print('url:$url');
     http.Response response = await http.get(Uri.parse(url));
     print(response.statusCode);
@@ -134,8 +132,8 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
       {required double latitude,
       required double longitude,
       required HomeController controller}) async {
-    print("latitude=============>:-${latitude}");
-    print("longitude==============>:-${longitude}");
+    print("latitude=============>:-$latitude");
+    print("longitude==============>:-$longitude");
     latlng.value = LatLng(latitude, longitude);
     //markerId.value = position.timestamp.toString();
     List<Placemark> placemarks =
@@ -254,7 +252,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
           longitude: result[2],
           controller: homeController);
       //Get.back(result: ['', result[1], result[2]]);
-      debugPrint("Selected " + result.toString());
+      debugPrint("Selected $result");
     }
   }
 

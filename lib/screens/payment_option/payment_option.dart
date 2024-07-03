@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
@@ -219,8 +217,8 @@ class PaymentOptionScreen extends GetView<PaymentOptionController> {
             decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                const BoxShadow(
+              boxShadow: const [
+                BoxShadow(
                   blurRadius: 8,
                   spreadRadius: 4,
                   color: Colors.black12,
@@ -244,7 +242,7 @@ class PaymentOptionScreen extends GetView<PaymentOptionController> {
                 ),
 
                 Text("7.0 kms | Delivery in 40-45 mins",style: Styles.lable414,),
-                Gap(12),
+                const Gap(12),
                 CustomButton(
                   width: Get.width,
                   height: 35,

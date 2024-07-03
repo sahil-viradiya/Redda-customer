@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -11,8 +10,6 @@ import 'package:redda_customer/route/app_route.dart';
 
 import 'Utils/api_client.dart';
 import 'Utils/constant.dart';
-import 'Utils/pref.dart';
-import 'constant/api_key.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

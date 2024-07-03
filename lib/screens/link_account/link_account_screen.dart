@@ -26,7 +26,7 @@ class LinkAccountScreen extends GetView<LinkAccountController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(),
+            const Divider(),
             Row(
               children: [
                 Expanded(
@@ -42,18 +42,18 @@ class LinkAccountScreen extends GetView<LinkAccountController> {
                 ),
               ],
             ),
-            Gap(8),
+            const Gap(8),
             Text(
               "If you don’t have an account, we will create for you.",
               style: Styles.lable414,
             ),
-            Gap(8),
-            CustomTextFormFieldWidget(),
-            Gap(8),
+            const Gap(8),
+            const CustomTextFormFieldWidget(),
+            const Gap(8),
             CustomButton(
               text: "Confirm and Proceed",
               fun: () {
-                Get.to(VerifyLinkAccount());
+                Get.to(const VerifyLinkAccount());
               },
               borderCircular: 7,
               width: double.infinity,

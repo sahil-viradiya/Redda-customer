@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -15,7 +14,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/constant/app_color.dart';
-import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/model/nearby_place.dart';
 import 'package:redda_customer/screens/Drop%20Location/pick_or_send_any/pick_or_send_any_controller.dart';
 import 'package:redda_customer/screens/home/home_controller.dart';
@@ -24,7 +22,7 @@ import 'package:http/http.dart' as http;
 
 
 class GetLocationPolyLineScreen extends StatefulWidget {
-   GetLocationPolyLineScreen({super.key,required this.dropLat,required this.dropLng,required this.pickLat,required this.pickLng});
+   const GetLocationPolyLineScreen({super.key,required this.dropLat,required this.dropLng,required this.pickLat,required this.pickLng});
    final  dropLat;
    final  dropLng;
    final  pickLat;
@@ -173,7 +171,7 @@ var icon;
         homeController.status.value = "Please Enable Location Services";
       }
       setState(() {});
-      print("location:-${status}");
+      print("location:-$status");
 
       var accuracy = await Geolocator.getLocationAccuracy();
       bool isLocationServiceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -217,8 +215,7 @@ var icon;
   }
 
   getNearByLocations() async {
-    String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" +
-        "&radius=100&key=${Config.apiKey}";
+    String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" "&radius=100&key=${Config.apiKey}";
     print('url:$url');
     http.Response response = await http.get(Uri.parse(url));
     print(response.statusCode);
@@ -233,8 +230,8 @@ var icon;
       {required double latitude,
         required double longitude,
         required HomeController controller}) async {
-    print("latitude=============>:-${latitude}");
-    print("longitude==============>:-${longitude}");
+    print("latitude=============>:-$latitude");
+    print("longitude==============>:-$longitude");
     latlng.value = LatLng(latitude, longitude);
     List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
     Placemark place = placemarks[0];
@@ -305,7 +302,7 @@ var icon;
     var result = await Get.to(() => const SearchLocationOnMapScreen());
     if (result != null) {
       getAddressFromLatLong(latitude: result[1], longitude: result[2], controller: homeController);
-      debugPrint("Selected " + result.toString());
+      debugPrint("Selected $result");
     }
   }
 

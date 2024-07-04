@@ -9,7 +9,9 @@ import '../../../constant/api_key.dart';
 import '../../../main.dart';
 import '../../../route/app_route.dart';
 import '../drop_screen/drop_screen_controller.dart';
+
 List list = [];
+
 class PickOrSendAnyController extends GetxController {
   final count = 0.obs;
   var dropAdd = ''.obs;
@@ -32,8 +34,8 @@ class PickOrSendAnyController extends GetxController {
     dropLand.value = arguments['dropLand'] ?? '';
     dropReviver.value = arguments['dropSend'] ?? '';
     dropMobile.value = arguments['dropMobile'] ?? '';
-    dropLat.value =double.parse(  arguments['dropLat'] ?? 0.0);
-    dropLng.value =double.parse( arguments['dropLng'] ?? 0.0);
+    dropLat.value = double.parse(arguments['dropLat'] ?? 0.0);
+    dropLng.value = double.parse(arguments['dropLng'] ?? 0.0);
     addressStatus.value = arguments['addresStatus'] ?? '';
   }
 
@@ -55,7 +57,7 @@ class PickOrSendAnyController extends GetxController {
       'receiver_name': dropReviver.value,
       'receiver_mobile_no': dropMobile.value,
       'address_type': addressStatus.value,
-      'item_details':"table"
+      'item_details': "table"
     });
     log('============= Form DAta $list');
     isLoading(true);
@@ -81,7 +83,7 @@ class PickOrSendAnyController extends GetxController {
               print('Message: $message');
             } else {
               DioExceptions.showMessage(Get.context!, message);
-               Get.toNamed(AppRoutes.CHECKOUT);
+              Get.toNamed(AppRoutes.CHECKOUT);
             }
           } catch (e) {
             print('Error parsing JSON or accessing message: $e');

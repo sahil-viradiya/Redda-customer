@@ -6,13 +6,14 @@ import 'package:redda_customer/screens/auth/signIn/signIn_Screen.dart';
 
 String? token;
 Future<String?> getToken() async {
-  token  = await SharedPref.readString(Config.kAuth);
+  token = await SharedPref.readString(Config.kAuth);
   print("TOKEN=========>> $token");
   return token;
 }
+
 String? userId;
 Future<String?> getUserId() async {
-  userId  = await SharedPref.readString(Config.userId);
+  userId = await SharedPref.readString(Config.userId);
   print("USER_ID=========>> $userId");
   return userId;
 }
@@ -21,5 +22,4 @@ void resate(BuildContext context) async {
   await SharedPref.saveString(Config.kAuth, '');
   // await SharedPref.saveString(Config.userId, '');
   Get.offAll(SignInScreen());
-
 }

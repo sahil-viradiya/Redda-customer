@@ -12,12 +12,9 @@ class PlacesService {
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
 
-
       return data['predictions'];
     } else {
       throw Exception('Failed to load place suggestions');
     }
   }
-
-
 }

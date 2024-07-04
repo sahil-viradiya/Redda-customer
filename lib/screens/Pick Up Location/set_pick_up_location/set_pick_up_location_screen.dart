@@ -135,8 +135,6 @@ class SetPickUpLocationLocation extends GetView<SetPickUpLocationController> {
                 Get.toNamed(AppRoutes.ADDRESSDETAILS, arguments: [
                   controller.selectedPlaceLat.value.toDouble(),
                   controller.selectedPlaceLng.value.toDouble(),
-
-
                 ]);
               },
             ),

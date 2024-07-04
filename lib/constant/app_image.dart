@@ -29,7 +29,4 @@ class AppImage {
   static String MASTER_CARD = "assets/images/png/master-card.png";
   static String VISA = "assets/images/png/visa.png";
   static String MOBIKWIK = "assets/images/png/mobikwik.png";
-
-
 }
-

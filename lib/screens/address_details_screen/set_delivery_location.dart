@@ -22,10 +22,11 @@ class SetDeliveryLocation extends StatelessWidget {
         "Select delivery Location",
       ),
       body: Stack(
-          alignment: Alignment.bottomCenter,
-
+        alignment: Alignment.bottomCenter,
         children: [
-          Container(height: Get.height,),
+          Container(
+            height: Get.height,
+          ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
             height: 120,
@@ -59,8 +60,10 @@ class SetDeliveryLocation extends StatelessWidget {
                     ),
                   ],
                 ),
-           
-                Text("varachha, Surat, Gujrat, India",style: Styles.lable414,),
+                Text(
+                  "varachha, Surat, Gujrat, India",
+                  style: Styles.lable414,
+                ),
                 const Gap(12),
                 CustomButton(
                   width: Get.width,

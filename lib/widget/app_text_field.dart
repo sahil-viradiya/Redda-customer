@@ -4,7 +4,6 @@ import 'package:redda_customer/constant/font-family.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 
-
 class CustomTextFormFieldWidget extends StatelessWidget {
   const CustomTextFormFieldWidget({
     super.key,
@@ -75,10 +74,14 @@ class CustomTextFormFieldWidget extends StatelessWidget {
     );
     return Column(
       children: [
-
         TextFormField(
           keyboardType: keyboardType ?? TextInputType.text,
-          style:  TextStyle(height: 1, color: black,fontFamily: FontFamily.primary1,fontSize: 14,fontWeight: FontWeight.w400),
+          style: TextStyle(
+              height: 1,
+              color: black,
+              fontFamily: FontFamily.primary1,
+              fontSize: 14,
+              fontWeight: FontWeight.w400),
           textCapitalization: isCapital == null
               ? TextCapitalization.none
               : TextCapitalization.words,
@@ -86,7 +89,6 @@ class CustomTextFormFieldWidget extends StatelessWidget {
           textInputAction: TextInputAction.next,
           onSaved: onSaved,
           enabled: enable,
-
           controller: controller,
           readOnly: readOnly ?? false,
           validator: validator,
@@ -107,10 +109,9 @@ class CustomTextFormFieldWidget extends StatelessWidget {
             prefixIcon: prefixIcon,
             errorText: errorText,
 
-
             prefixIconConstraints:
-            BoxConstraints.loose(const Size.fromWidth(80)),
-            isCollapsed: isCollapsed??false,
+                BoxConstraints.loose(const Size.fromWidth(80)),
+            isCollapsed: isCollapsed ?? false,
             suffixIcon: GestureDetector(
                 onTap: suffixTap, child: sufixIconWidget ?? Icon(icon)),
             suffixStyle: const TextStyle(color: Colors.black),
@@ -158,18 +159,18 @@ class CustomTextFormFieldWidget extends StatelessWidget {
 class CustomPasswordTextFormFieldWidget extends StatelessWidget {
   const CustomPasswordTextFormFieldWidget(
       {super.key,
-        this.validator,
-        this.controller,
-        this.onSaved,
-        this.hintText,
-        this.onchanged,
-        this.isEnable,
-        required this.obscureText,
-        this.icon,
-        this.lblTxt,
-        required this.suffixTap,
-        this.minLine,
-        this.maxLine});
+      this.validator,
+      this.controller,
+      this.onSaved,
+      this.hintText,
+      this.onchanged,
+      this.isEnable,
+      required this.obscureText,
+      this.icon,
+      this.lblTxt,
+      required this.suffixTap,
+      this.minLine,
+      this.maxLine});
 
   final String? Function(String?)? validator;
   final TextEditingController? controller;
@@ -304,9 +305,8 @@ class CustomTextFormFieldSearch extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-
           height: 45,
-          width:width?? MySize.size200!,
+          width: width ?? MySize.size200!,
           child: TextFormField(
             keyboardType: keyboardType ?? TextInputType.text,
             style: const TextStyle(height: 1, color: black),
@@ -337,7 +337,7 @@ class CustomTextFormFieldSearch extends StatelessWidget {
               prefixIcon: prefixIcon,
 
               prefixIconConstraints:
-              BoxConstraints.loose(const Size.fromWidth(80)),
+                  BoxConstraints.loose(const Size.fromWidth(80)),
               // isCollapsed: true,
               suffixIcon: GestureDetector(
                   onTap: suffixTap, child: sufixIconWidget ?? Icon(icon)),

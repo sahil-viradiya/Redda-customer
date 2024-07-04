@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -115,7 +114,8 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
   getNearByLocations() async {
     String url =
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" "&radius=100&key=${Config.apiKey}";
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng"
+        "&radius=100&key=${Config.apiKey}";
     print('url:$url');
     http.Response response = await http.get(Uri.parse(url));
     print(response.statusCode);
@@ -128,31 +128,59 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
   }
 
   //Future<void> getAddressFromLatLong(Position position) async {
-  Future<void> getAddressFromLatLong(
-      {required double latitude,
-      required double longitude,
-      required HomeController controller}) async {
-    print("latitude=============>:-$latitude");
-    print("longitude==============>:-$longitude");
-    latlng.value = LatLng(latitude, longitude);
-    //markerId.value = position.timestamp.toString();
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitude, longitude);
-    Placemark place = placemarks[0];
-    liveAddress.value = "";
-    liveAddress.value =
-        '${place.locality}, ${place.administrativeArea}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.name}, ${place.thoroughfare}, ${place.subThoroughfare}';
-    setState(() {
-      homeController.currentLocation.value = liveAddress.value;
-    });
-    print('liveAddress:- ${liveAddress.value}');
-    //if(liveAddress.isNotEmpty && liveAddress.value != ""){
-    // Get.back(result: ['', liveAddress.value]);
-    // }else{
-    //   print('Something wrong');
-    // }
-  }
 
+Future<void> getAddressFromLatLong({
+  required double latitude,
+  required double longitude,
+  required HomeController controller,
+  int retries = 3,  // Number of retries
+}) async {
+  print("latitude=============>:-$latitude");
+  print("longitude==============>:-$longitude");
+  latlng.value = LatLng(latitude, longitude);
+
+  final apiKey = Config.apiKey;  // Replace with your Google Maps API key
+  final url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey';
+
+  for (int attempt = 1; attempt <= retries; attempt++) {
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        if (jsonResponse['status'] == 'OK') {
+          final results = jsonResponse['results'];
+          if (results.isNotEmpty) {
+            final address = results[0]['formatted_address'];
+            liveAddress.value = address;
+            setState(() {
+              homeController.currentLocation.value = liveAddress.value;
+            });
+            print('liveAddress:- ${liveAddress.value}');
+            return;
+          } else {
+            print('No addresses found');
+            Fluttertoast.showToast(msg: "No address found for the provided coordinates");
+            return;
+          }
+        } else {
+          print('Geocoding failed: ${jsonResponse['status']}');
+          Fluttertoast.showToast(msg: "Geocoding failed: ${jsonResponse['status']}");
+        }
+      } else {
+        print('HTTP request failed with status: ${response.statusCode}');
+        Fluttertoast.showToast(msg: "HTTP request failed with status: ${response.statusCode}");
+      }
+    } catch (e) {
+      print('Attempt $attempt: Error in getAddressFromLatLong: $e');
+      if (attempt == retries) {
+        Fluttertoast.showToast(msg: "Error in getting address. Please try again later.");
+      } else {
+        await Future.delayed(const Duration(seconds: 2));  // Wait for 2 seconds before retrying
+      }
+    }
+  }
+}
   @override
   Widget build(BuildContext context) {
     return GoogleMap(

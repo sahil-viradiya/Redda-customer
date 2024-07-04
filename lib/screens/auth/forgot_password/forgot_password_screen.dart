@@ -75,13 +75,13 @@ class ForgotPasswordScreen extends StatelessWidget {
                     return CustomButton(
                         isLoading: _controller.isLoading.value,
                         text: 'Submit',
-                        fun:  _controller.isLoading.value!=true
-                            ?() {
+                        fun: _controller.isLoading.value != true
+                            ? () {
                                 if (_formKey.currentState!.validate()) {
                                   _controller.forgotPassword();
                                 }
                               }
-                            : (){});
+                            : () {});
                   }),
                   Gap(MySize.size24!),
                   InkWell(

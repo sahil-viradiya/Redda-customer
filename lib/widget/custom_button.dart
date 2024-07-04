@@ -5,7 +5,6 @@ import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 
-
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback fun;
@@ -20,28 +19,28 @@ class CustomButton extends StatelessWidget {
 
   CustomButton(
       {super.key,
-        required this.text,
-        required this.fun,
-        this.color,
-        this.height,
-        this.style,
-        this.width,
-        this.borderCircular,
-        this.textSize,
-        this.borderSide,
-        this.isLoading = false});
+      required this.text,
+      required this.fun,
+      this.color,
+      this.height,
+      this.style,
+      this.width,
+      this.borderCircular,
+      this.textSize,
+      this.borderSide,
+      this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
     return SizedBox(
         width: width ?? MySize.getScaledSizeWidth(158),
-        height: height ??  MySize.getScaledSizeHeight(54),
+        height: height ?? MySize.getScaledSizeHeight(54),
         child: ElevatedButton(
           onPressed: isLoading!
               ? () {
-            debugPrint("loading");
-          }
+                  debugPrint("loading");
+                }
               : fun,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -54,16 +53,16 @@ class CustomButton extends StatelessWidget {
           ),
           child: isLoading == true
               ? const Padding(
-            padding: EdgeInsets.all(6.0),
-            child: CircularProgressIndicator(
-              color: Colors.white,
-              strokeWidth: 4,
-            ),
-          )
+                  padding: EdgeInsets.all(6.0),
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 4,
+                  ),
+                )
               : Text(
-            text,
-            style: style ?? Styles.boldWhite716,
-          ),
+                  text,
+                  style: style ?? Styles.boldWhite716,
+                ),
         ));
   }
 }

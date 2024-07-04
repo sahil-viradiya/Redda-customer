@@ -55,7 +55,8 @@ class SetCurrentDropLocation extends StatelessWidget {
                       Get.toNamed(AppRoutes.DROPADDRESSDETAILS);
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 14,vertical: 8),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 8),
                       padding: const EdgeInsets.all(14),
                       decoration: ShapeDecoration.fromBoxDecoration(
                         BoxDecoration(
@@ -72,7 +73,12 @@ class SetCurrentDropLocation extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              SvgPicture.asset(AppImage.LOCATION,color: primary,height: 14,width: 10,),
+                              SvgPicture.asset(
+                                AppImage.LOCATION,
+                                color: primary,
+                                height: 14,
+                                width: 10,
+                              ),
                               const Gap(8),
                               Text(
                                 "Ahmedabad",
@@ -87,7 +93,6 @@ class SetCurrentDropLocation extends StatelessWidget {
                               style: Styles.lable414,
                             ),
                           ),
-
                         ],
                       ),
                     ),

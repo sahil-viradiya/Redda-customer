@@ -159,8 +159,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                             controller.selectedIndex.value = index;
                             controller.addressType.value = text[index];
                             print(
-                                "--------------------->${controller.addressType
-                                    .value}");
+                                "--------------------->${controller.addressType.value}");
                           },
                         );
                       }),
@@ -176,8 +175,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                   width: double.infinity,
                   height: 35,
                   borderCircular: 7,
-                  text:
-                  isEdit ? "Update Address" : "Add Address",
+                  text: isEdit ? "Update Address" : "Add Address",
                   fun: () {
                     //getToken();
                     if (isEdit == true) {

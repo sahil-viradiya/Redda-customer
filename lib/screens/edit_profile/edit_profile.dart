@@ -13,10 +13,10 @@ import 'edit_profile_controller.dart';
 class EditProfile extends GetView<EditProfileController> {
   const EditProfile({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: white,
+    return Scaffold(
+      backgroundColor: white,
       appBar: appbarSmall1(
         context,
         "Edit Profile",
@@ -84,9 +84,7 @@ class EditProfile extends GetView<EditProfileController> {
               hintRpadding: 17.76,
               lblTxt: '',
             ),
-
             Gap(MySize.size12!),
-
             Obx(() {
               return CustomButton(
                 isLoading: controller.isLoading.value,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -11,15 +10,14 @@ import '../../../constant/app_image.dart';
 import '../../../constant/style.dart';
 import '../../Pick Up Location/set_pick_up_location/set_pick_up_location_controller.dart';
 import 'drop_screen_controller.dart';
-var _con =Get.put(SetPickUpLocationController());
+
+var _con = Get.put(SetPickUpLocationController());
 
 class DropScreen extends GetView<DropScreenController> {
   const DropScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(
@@ -107,12 +105,11 @@ class DropScreen extends GetView<DropScreenController> {
             // Gap(8),
             GestureDetector(
               onTap: () {
-                if(controller.pickLoc.value.isNotEmpty){
-
-                Get.toNamed(AppRoutes.SETDROPLOCATION);
-                }else{
-                  DioExceptions.showMessage(Get.context!, "please Enter PickUp Location");
-
+                if (controller.pickLoc.value.isNotEmpty) {
+                  Get.toNamed(AppRoutes.SETDROPLOCATION);
+                } else {
+                  DioExceptions.showMessage(
+                      Get.context!, "please Enter PickUp Location");
                 }
               },
               child: _commonContainer(
@@ -163,7 +160,8 @@ class DropScreen extends GetView<DropScreenController> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                 // height: 50,
                 decoration: BoxDecoration(
                   color: white,

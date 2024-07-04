@@ -1,4 +1,4 @@
-package com.example.redda_customer
+package com.example.redda.customer
 
 import io.flutter.embedding.android.FlutterActivity
 

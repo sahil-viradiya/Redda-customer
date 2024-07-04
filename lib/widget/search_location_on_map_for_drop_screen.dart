@@ -157,11 +157,13 @@ class _SearchLocationOnMapForDropScreenState
                   height: 35,
                   borderCircular: 6,
                   text: "Confirm Location",
-                  fun: lat!=null? () async {
-                    await getAddress();
-                    Get.toNamed(AppRoutes.DROPADDRESSDETAILS,
-                        arguments: [lat.toString(), lng.toString()]);
-                  }:(){},
+                  fun: lat != null
+                      ? () async {
+                          await getAddress();
+                          Get.toNamed(AppRoutes.DROPADDRESSDETAILS,
+                              arguments: [lat.toString(), lng.toString()]);
+                        }
+                      : () {},
                 )
               ],
             ),

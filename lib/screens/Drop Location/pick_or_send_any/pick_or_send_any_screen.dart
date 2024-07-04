@@ -235,7 +235,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
                       borderCircular: 6,
                       text: "Checkout",
                       fun: () {
-                                       Get.toNamed(AppRoutes.CHECKOUT);
+                        Get.toNamed(AppRoutes.CHECKOUT);
 
                         // controller.ride();
                       },

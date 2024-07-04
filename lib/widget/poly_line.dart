@@ -20,19 +20,26 @@ import 'package:redda_customer/screens/home/home_controller.dart';
 import 'package:redda_customer/widget/search_location_on_map_screen.dart';
 import 'package:http/http.dart' as http;
 
-
 class GetLocationPolyLineScreen extends StatefulWidget {
-   const GetLocationPolyLineScreen({super.key,required this.dropLat,required this.dropLng,required this.pickLat,required this.pickLng});
-   final  dropLat;
-   final  dropLng;
-   final  pickLat;
-   final  pickLng;
+  const GetLocationPolyLineScreen(
+      {super.key,
+      required this.dropLat,
+      required this.dropLng,
+      required this.pickLat,
+      required this.pickLng});
+  final dropLat;
+  final dropLng;
+  final pickLat;
+  final pickLng;
 
   @override
-  State<GetLocationPolyLineScreen> createState() => _GetLocationPolyLineScreenState();
+  State<GetLocationPolyLineScreen> createState() =>
+      _GetLocationPolyLineScreenState();
 }
 
-  final PickOrSendAnyController pickupController = Get.put(PickOrSendAnyController());
+final PickOrSendAnyController pickupController =
+    Get.put(PickOrSendAnyController());
+
 class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
   Rx<NearByPlaces> nearByPlaces = NearByPlaces().obs;
   Completer<GoogleMapController> mapController = Completer();
@@ -46,7 +53,7 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
   Rx<LatLng> latlng = const LatLng(0, 0).obs;
   RxString markerId = ''.obs;
   RxString liveAddress = ''.obs;
-var icon;
+  var icon;
   // Static pickup and drop locations
   late LatLng dropLocation;
   late LatLng pickupLocation;
@@ -58,22 +65,30 @@ var icon;
     // getUserCurrentLocation(controller: homeController);
     log("latttttttttttddttttttttt ${widget.dropLat.runtimeType}");
     log("latttttttttttttttttttt ${widget.pickLng.runtimeType}");
-    pickupLocation = LatLng(widget.pickLat is double ? widget.pickLat : double.parse(widget.pickLat.toString()),
-        widget.pickLng is double ? widget.pickLng : double.parse(widget.pickLng.toString()));
-    dropLocation = LatLng(widget.dropLat is double ? widget.dropLat : double.parse(widget.dropLat.toString()),
-        widget.dropLng is double ? widget.dropLng : double.parse(widget.dropLng.toString()));
-     }
+    pickupLocation = LatLng(
+        widget.pickLat is double
+            ? widget.pickLat
+            : double.parse(widget.pickLat.toString()),
+        widget.pickLng is double
+            ? widget.pickLng
+            : double.parse(widget.pickLng.toString()));
+    dropLocation = LatLng(
+        widget.dropLat is double
+            ? widget.dropLat
+            : double.parse(widget.dropLat.toString()),
+        widget.dropLng is double
+            ? widget.dropLng
+            : double.parse(widget.dropLng.toString()));
+  }
+
   getIcons() async {
     var icon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(devicePixelRatio: 3),
         "assets/images/png/location-marker.png");
     setState(() {
       this.icon = icon;
-      
-
     });
     setMarkersAndPolyline();
-
   }
 
   void setMarkersAndPolyline() async {
@@ -81,7 +96,6 @@ var icon;
       markerId: const MarkerId('pickup'),
       position: dropLocation,
       icon: icon,
-
       infoWindow: const InfoWindow(title: 'Pickup Location'),
     ));
     markers.add(Marker(
@@ -97,7 +111,8 @@ var icon;
     Map<String, dynamic> data = jsonDecode(response.body);
 
     if (data['status'] == 'OK') {
-      List<LatLng> polylineCoordinates = decodePolyline(data['routes'][0]['overview_polyline']['points']);
+      List<LatLng> polylineCoordinates =
+          decodePolyline(data['routes'][0]['overview_polyline']['points']);
 
       polylines.add(Polyline(
         polylineId: const PolylineId('route'),
@@ -105,9 +120,7 @@ var icon;
         startCap: Cap.buttCap,
         color: primary,
         jointType: JointType.round,
-
         patterns: [PatternItem.dot, PatternItem.gap(10)],
-
         width: 5,
       ));
 
@@ -115,12 +128,20 @@ var icon;
       final GoogleMapController controller = await mapController.future;
       LatLngBounds bounds = LatLngBounds(
         southwest: LatLng(
-          (pickupLocation.latitude < dropLocation.latitude) ? pickupLocation.latitude : dropLocation.latitude,
-          (pickupLocation.longitude < dropLocation.longitude) ? pickupLocation.longitude : dropLocation.longitude,
+          (pickupLocation.latitude < dropLocation.latitude)
+              ? pickupLocation.latitude
+              : dropLocation.latitude,
+          (pickupLocation.longitude < dropLocation.longitude)
+              ? pickupLocation.longitude
+              : dropLocation.longitude,
         ),
         northeast: LatLng(
-          (pickupLocation.latitude > dropLocation.latitude) ? pickupLocation.latitude : dropLocation.latitude,
-          (pickupLocation.longitude > dropLocation.longitude) ? pickupLocation.longitude : dropLocation.longitude,
+          (pickupLocation.latitude > dropLocation.latitude)
+              ? pickupLocation.latitude
+              : dropLocation.latitude,
+          (pickupLocation.longitude > dropLocation.longitude)
+              ? pickupLocation.longitude
+              : dropLocation.longitude,
         ),
       );
       controller.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
@@ -174,14 +195,17 @@ var icon;
       print("location:-$status");
 
       var accuracy = await Geolocator.getLocationAccuracy();
-      bool isLocationServiceEnabled = await Geolocator.isLocationServiceEnabled();
+      bool isLocationServiceEnabled =
+          await Geolocator.isLocationServiceEnabled();
 
       print("Permission ${PermissionStatus.granted}");
 
       if (status == PermissionStatus.granted) {
         if (isLocationServiceEnabled) {
           try {
-            await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value) async {
+            await Geolocator.getCurrentPosition(
+                    desiredAccuracy: LocationAccuracy.high)
+                .then((value) async {
               final GoogleMapController controller = await mapController.future;
 
               setState(() {
@@ -197,7 +221,10 @@ var icon;
                 print('latitude: $lat');
                 print('longitude: $lng');
                 getNearByLocations();
-                getAddressFromLatLong(latitude: lat!, longitude: lng!, controller: homeController);
+                getAddressFromLatLong(
+                    latitude: lat!,
+                    longitude: lng!,
+                    controller: homeController);
               });
             });
           } catch (e) {
@@ -207,7 +234,8 @@ var icon;
           Fluttertoast.showToast(msg: "You need to allow location Service");
         }
       } else {
-        Fluttertoast.showToast(msg: "You need to allow location permission in order to continue");
+        Fluttertoast.showToast(
+            msg: "You need to allow location permission in order to continue");
       }
     } catch (e) {
       debugPrint("getUserCurrentLocation:-$e");
@@ -215,29 +243,33 @@ var icon;
   }
 
   getNearByLocations() async {
-    String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng" "&radius=100&key=${Config.apiKey}";
+    String url =
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng"
+        "&radius=100&key=${Config.apiKey}";
     print('url:$url');
     http.Response response = await http.get(Uri.parse(url));
     print(response.statusCode);
     if (response.statusCode == 200) {
       nearByPlaces.value = NearByPlaces.fromJson(jsonDecode(response.body));
     } else {
-      Fluttertoast.showToast(msg: "Something Went wrong in Get near by function");
+      Fluttertoast.showToast(
+          msg: "Something Went wrong in Get near by function");
     }
   }
 
   Future<void> getAddressFromLatLong(
       {required double latitude,
-        required double longitude,
-        required HomeController controller}) async {
+      required double longitude,
+      required HomeController controller}) async {
     print("latitude=============>:-$latitude");
     print("longitude==============>:-$longitude");
     latlng.value = LatLng(latitude, longitude);
-    List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
     Placemark place = placemarks[0];
     liveAddress.value = "";
     liveAddress.value =
-    '${place.locality}, ${place.administrativeArea}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.name}, ${place.thoroughfare}, ${place.subThoroughfare}';
+        '${place.locality}, ${place.administrativeArea}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.name}, ${place.thoroughfare}, ${place.subThoroughfare}';
     setState(() {
       homeController.currentLocation.value = liveAddress.value;
     });
@@ -246,7 +278,7 @@ var icon;
 
   @override
   Widget build(BuildContext context) {
-      return GoogleMap(
+    return GoogleMap(
       myLocationEnabled: true,
       myLocationButtonEnabled: true,
       compassEnabled: true,
@@ -261,12 +293,14 @@ var icon;
       onMapCreated: onMapCreated,
       onTap: _handleMapTap,
       gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-        Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer(),),
+        Factory<OneSequenceGestureRecognizer>(
+          () => EagerGestureRecognizer(),
+        ),
       },
       zoomControlsEnabled: false,
-      initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0), zoom: 17),
+      initialCameraPosition:
+          const CameraPosition(target: LatLng(0.0, 0.0), zoom: 17),
       markers: markers,
-
       polylines: polylines,
     );
   }
@@ -280,10 +314,9 @@ var icon;
       markers.clear();
       // Adding a new marker at the tapped point (if needed)
       markers.add(Marker(
-        markerId: const MarkerId('tappedLocation'),
-        position: tappedPoint,
-        icon: icon
-      ));
+          markerId: const MarkerId('tappedLocation'),
+          position: tappedPoint,
+          icon: icon));
       print('Lat: $lat');
       print('Lng: $lng');
       // Add a polyline from the user's current location to the tapped location
@@ -301,7 +334,10 @@ var icon;
   void selectLocationOnMap() async {
     var result = await Get.to(() => const SearchLocationOnMapScreen());
     if (result != null) {
-      getAddressFromLatLong(latitude: result[1], longitude: result[2], controller: homeController);
+      getAddressFromLatLong(
+          latitude: result[1],
+          longitude: result[2],
+          controller: homeController);
       debugPrint("Selected $result");
     }
   }
@@ -313,12 +349,13 @@ var icon;
   }
 }
 
-
 class DistanceCalculator {
   static const double averageSpeedKmPerHour = 20.0; // Average speed in km/h
 
-  static double calculateDistance(double startLat, double startLng, double endLat, double endLng) {
-    return Geolocator.distanceBetween(startLat, startLng, endLat, endLng) / 1000; // Distance in km
+  static double calculateDistance(
+      double startLat, double startLng, double endLat, double endLng) {
+    return Geolocator.distanceBetween(startLat, startLng, endLat, endLng) /
+        1000; // Distance in km
   }
 
   static String estimateTime(double distance) {

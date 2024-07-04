@@ -17,7 +17,6 @@ class ResatePasswordController extends GetxController {
   TextEditingController passCon = TextEditingController();
   TextEditingController conPassCon = TextEditingController();
 
-
   @override
   void onReady() {}
 

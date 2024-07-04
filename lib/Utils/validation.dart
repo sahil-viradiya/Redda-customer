@@ -1,5 +1,3 @@
-
-
 class Validator {
   static RegExp emailRegExp = RegExp(
     r'^[a-zA-Z0-9.!#$%&’+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$',
@@ -23,7 +21,6 @@ class Validator {
     return null;
   }
 
-
   static String? validatePassword(String value) {
     if (value.isEmpty) {
       return "Please enter Password";
@@ -38,18 +35,22 @@ class Validator {
       return "Please enter First Name";
     }
     return null;
-  } static String? senderName(String value) {
+  }
+
+  static String? senderName(String value) {
     if (value.isEmpty) {
       return "Please enter Name";
     }
     return null;
   }
+
   static String? validateUserName(String value) {
     if (value.isEmpty) {
       return "Please enter User Name";
     }
     return null;
   }
+
   static String? validateAddress(String value) {
     if (value.isEmpty) {
       return "Please enter Your Address";
@@ -62,12 +63,15 @@ class Validator {
       return "Please enter Last Name";
     }
     return null;
-  }static String? address(String value) {
+  }
+
+  static String? address(String value) {
     if (value.isEmpty) {
       return "Please enter Last Name";
     }
     return null;
   }
+
   static String? validateConfirmPassword(String value, String val) {
     if (value.isEmpty) {
       return "Please enter Password";
@@ -77,16 +81,16 @@ class Validator {
     return null;
   }
 
-static String? validateMobile(String value) {
-  if (value.isEmpty) {
-    return "Please enter Contact Number";
-  } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
-    return 'Mobile Number must be exactly 10 digits';
+  static String? validateMobile(String value) {
+    if (value.isEmpty) {
+      return "Please enter Contact Number";
+    } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+      return 'Mobile Number must be exactly 10 digits';
+    }
+    return null;
   }
-  return null;
-}
 
-  static  String? validateMobileOtp(String value) {
+  static String? validateMobileOtp(String value) {
     if (value.length != 4) {
       return 'OTP must be of 4 digit';
     } else if (value.isEmpty) {

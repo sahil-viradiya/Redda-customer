@@ -12,7 +12,6 @@ import 'package:redda_customer/route/app_route.dart';
 import '../../../main.dart';
 import '../auth/signIn/signIn_controller.dart';
 
-
 class EditProfileController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
@@ -34,30 +33,24 @@ class EditProfileController extends GetxController {
   @override
   void onReady() {}
 
-
-
   Future<dynamic> updateProfile() async {
     getToken();
     dio.FormData formData = dio.FormData.fromMap({
       'fullname': nameCon.text,
       'email': emailCon.text,
-      'mobile_no':mobileNo.text
+      'mobile_no': mobileNo.text
     });
     log('============= Form DAta ${formData.fields}');
     isLoading(true);
     try {
       var response = await dioClient
-          .post(
-        '${Config.baseUrl}update_customer_profile.php',
-        data: formData,
-        options: dio.Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          }
-        )
-      )
+          .post('${Config.baseUrl}update_customer_profile.php',
+              data: formData,
+              options: dio.Options(headers: {
+                'Authorization': 'Bearer $token',
+              }))
           .then(
-            (respo) async {
+        (respo) async {
           // var respo = jsonDecode(respo);
           log("================================${respo['data']}===============");
 
@@ -69,7 +62,7 @@ class EditProfileController extends GetxController {
             } else {
               DioExceptions.showMessage(Get.context!, message);
               // log("================================${ respo['data']['api_token']}===============");
-            await _signInController.getProfile();
+              await _signInController.getProfile();
               Get.toNamed(AppRoutes.HOMESCREEN);
 
               // await SharedPref.saveString(Config.status, model.userType);
@@ -96,12 +89,6 @@ class EditProfileController extends GetxController {
       isLoading(false);
     }
   }
-
-
-
-
-
-
 
   @override
   void onClose() {}

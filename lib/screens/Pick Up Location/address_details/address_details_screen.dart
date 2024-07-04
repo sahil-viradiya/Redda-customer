@@ -20,9 +20,10 @@ class AddressDetailsScreen extends GetView<AddressDetailsController> {
       Get.put(AddressDetailsController());
 
   @override
-  Widget build(BuildContext context) { final List<dynamic>? arguments = Get.arguments;
-  double latitude = double.parse(arguments?[0]?.toString() ?? '0.0');
-  double longitude = double.parse(arguments?[1]?.toString() ?? '0.0');
+  Widget build(BuildContext context) {
+    final List<dynamic>? arguments = Get.arguments;
+    double latitude = double.parse(arguments?[0]?.toString() ?? '0.0');
+    double longitude = double.parse(arguments?[1]?.toString() ?? '0.0');
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(

@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,7 +29,7 @@ class SignUpScreen extends StatelessWidget {
     MySize().init(context);
 
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         return false;
       },
       child: Scaffold(
@@ -41,8 +40,8 @@ class SignUpScreen extends StatelessWidget {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: MySize.getScaledSizeWidth(25)),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MySize.getScaledSizeWidth(25)),
               child: Column(
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -218,7 +217,8 @@ class SignUpScreen extends StatelessWidget {
                   Gap(MySize.size4!),
                   CustomPasswordTextFormFieldWidget(
                     onchanged: (val) {
-                      _controller.createAccountModel?.confirmPassword = val ?? "";
+                      _controller.createAccountModel?.confirmPassword =
+                          val ?? "";
                     },
                     validator: ((value) {
                       return Validator.validateConfirmPassword(
@@ -238,7 +238,8 @@ class SignUpScreen extends StatelessWidget {
                         () => Checkbox(
                           activeColor: primary,
                           visualDensity: const VisualDensity(horizontal: -4),
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                           side: const BorderSide(color: primary),
                           value: _controller.checkTC.value,
                           onChanged: (bool? value) {

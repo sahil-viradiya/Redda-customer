@@ -17,13 +17,11 @@ class ForgotPasswordController extends GetxController {
   TextEditingController emailCon = TextEditingController();
   TextEditingController otpCon = TextEditingController();
 
-
   @override
   void onReady() {}
 
   Future<dynamic> forgotPassword() async {
     await getToken();
-
 
     isLoading(true);
     try {
@@ -76,20 +74,19 @@ class ForgotPasswordController extends GetxController {
     }
   }
 
-
   Future<dynamic> verifyForgotOtp() async {
     await getUserId();
 
     isLoading(true);
     try {
       dio.FormData formData = dio.FormData.fromMap({
-        'user_id':userId,
+        'user_id': userId,
         'otp': otpCon.text.trim(),
       });
       var response = await dioClient
           .post('${Config.baseUrl}verify_forgot_otp.php', data: formData)
           .then(
-            (respo) async {
+        (respo) async {
           // var respo = jsonDecode(respo);
 
           // model = respo['data'].map<CreateAccountModel>((json){
@@ -130,20 +127,18 @@ class ForgotPasswordController extends GetxController {
     }
   }
 
-
   Future<dynamic> resendOtp() async {
     await getUserId();
 
     isResendOtpLoading(true);
     try {
       dio.FormData formData = dio.FormData.fromMap({
-        'user_id':userId,
-
+        'user_id': userId,
       });
       var response = await dioClient
           .post('${Config.baseUrl}resend_forgot_otp.php', data: formData)
           .then(
-            (respo) async {
+        (respo) async {
           // var respo = jsonDecode(respo);
 
           // model = respo['data'].map<CreateAccountModel>((json){
@@ -183,6 +178,7 @@ class ForgotPasswordController extends GetxController {
       isResendOtpLoading(false);
     }
   }
+
   @override
   void onClose() {}
 

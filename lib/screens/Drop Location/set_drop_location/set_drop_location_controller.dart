@@ -17,7 +17,6 @@ class SetDropLocationController extends GetxController {
   var selectedDropLng = '0'.obs;
   RxList<dynamic> suggestions = <dynamic>[].obs;
 
-
   @override
   void onReady() {}
 
@@ -39,7 +38,7 @@ class SetDropLocationController extends GetxController {
     try {
       var response = await dioClient.get(
           "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=${placesService.apiKey}");
-      selectedDropLat .value =
+      selectedDropLat.value =
           response['result']['geometry']['location']['lat'].toString();
       selectedDropLng.value =
           response['result']['geometry']['location']['lng'].toString();
@@ -64,5 +63,4 @@ class SetDropLocationController extends GetxController {
       // isLoading(false);
     }
   }
-
 }

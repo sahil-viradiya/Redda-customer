@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redda_customer/screens/Pick%20Up%20Location/location_sugetion.dart';
 
-
 class SearchPlaceScreen extends StatefulWidget {
   const SearchPlaceScreen({super.key});
 
@@ -22,7 +21,8 @@ class _SearchPlaceScreenState extends State<SearchPlaceScreen> {
       return;
     }
 
-    final suggestions = await _placesService.getPlaceSuggestions(_controller.text);
+    final suggestions =
+        await _placesService.getPlaceSuggestions(_controller.text);
     setState(() {
       _suggestions = suggestions;
     });
@@ -66,5 +66,3 @@ class _SearchPlaceScreenState extends State<SearchPlaceScreen> {
     );
   }
 }
-
-

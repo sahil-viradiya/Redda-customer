@@ -24,7 +24,8 @@ class SearchLocationOnMapScreen extends StatefulWidget {
   const SearchLocationOnMapScreen({super.key});
 
   @override
-  State<SearchLocationOnMapScreen> createState() => _SearchLocationOnMapScreenState();
+  State<SearchLocationOnMapScreen> createState() =>
+      _SearchLocationOnMapScreenState();
 }
 
 class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
@@ -33,8 +34,8 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
   Set<Marker> markers = {};
   double? lat, lng;
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
-  String address='';
-  String cityName='';
+  String address = '';
+  String cityName = '';
   @override
   void initState() {
     super.initState();
@@ -54,13 +55,14 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
                 CameraPosition(
                     target: LatLng(value.latitude, value.longitude),
                     zoom: 17)));
-            markers.add(Marker(markerId: const MarkerId("newLocation"), position: LatLng(value.latitude, value.longitude)));
-          address =   address;
+            markers.add(Marker(
+                markerId: const MarkerId("newLocation"),
+                position: LatLng(value.latitude, value.longitude)));
+            address = address;
             lat = value.latitude;
             lng = value.longitude;
           });
           await getAddress();
-
         });
       } else {
         Fluttertoast.showToast(msg: "You need to allow location Service");
@@ -82,7 +84,6 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
       key: homeScaffoldKey,
       body: Stack(
         alignment: Alignment.bottomCenter,
-
         children: [
           GoogleMap(
             compassEnabled: false,
@@ -130,7 +131,6 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
                     Expanded(
                       child: Text(
                         cityName.isNotEmpty ? cityName : "Fetching...",
-
                         style: Styles.boldBlack612,
                       ),
                     ),
@@ -145,17 +145,20 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
                     ),
                   ],
                 ),
-
-                Text(address.toString(),style: Styles.lable414,),
+                Text(
+                  address.toString(),
+                  style: Styles.lable414,
+                ),
                 const Gap(12),
                 CustomButton(
                   width: Get.width,
                   height: 35,
                   borderCircular: 6,
                   text: "Confirm Location",
-                  fun: ()  async{
-                     await getAddress();
-                    Get.toNamed( AppRoutes.ADDRESSDETAILS,arguments: [lat,lng]);
+                  fun: () async {
+                    await getAddress();
+                    Get.toNamed(AppRoutes.ADDRESSDETAILS,
+                        arguments: [lat, lng]);
                   },
                 )
               ],
@@ -167,7 +170,6 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
             child: Padding(
               padding: const EdgeInsets.only(top: 60, right: 10),
               child: SizedBox(
-                
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(0),
@@ -184,7 +186,7 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
               ),
             ),
           ),
-          
+
           // Align(
           //   alignment: Alignment.bottomCenter,
           //   child: Padding(
@@ -238,7 +240,6 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
 
   Future<void> _handlePressButton() async {
     Prediction? p = await PlacesAutocomplete.show(
-
       context: context,
       apiKey: Config.apiKey!,
       onError: onError,
@@ -247,7 +248,6 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
       types: [""],
       strictbounds: false,
       decoration: InputDecoration(
-
         hintText: 'Search',
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
@@ -290,20 +290,18 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
     );
   }
 
-   getAddress() async {
+  getAddress() async {
     GeoData fetchGeocoder = await Geocoder2.getDataFromCoordinates(
         latitude: lat!, longitude: lng!, googleMapApiKey: Config.apiKey!);
     setState(() {
-       address = fetchGeocoder.address;
-       cityName = extractCity(fetchGeocoder.address);
-       print("==========add========${fetchGeocoder.address}");
-
-
-
+      address = fetchGeocoder.address;
+      cityName = extractCity(fetchGeocoder.address);
+      print("==========add========${fetchGeocoder.address}");
     });
     // Get.back(result: [fetchGeocoder.address]);
     // Get.back(result: [fetchGeocoder.address, lat.toString(), lng.toString()]);
   }
+
   String extractCity(String fullAddress) {
     List<String> addressParts = fullAddress.split(',');
     if (addressParts.length >= 2) {
@@ -311,5 +309,4 @@ class _SearchLocationOnMapScreenState extends State<SearchLocationOnMapScreen> {
     }
     return "Unknown";
   }
-
 }

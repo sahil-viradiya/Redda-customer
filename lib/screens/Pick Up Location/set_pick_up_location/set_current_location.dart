@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,11 +22,10 @@ class SetCurrentLocation extends GetView<SetPickUpLocationController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Divider(),
-           Padding(
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14.0),
             child: GestureDetector(
-              onTap: () {
-              },
+              onTap: () {},
               child: const CustomTextFormFieldSearch(
                 enable: false,
                 prefixIcon: Padding(
@@ -40,7 +38,6 @@ class SetCurrentLocation extends GetView<SetPickUpLocationController> {
               ),
             ),
           ),
-
         ],
       ),
     );

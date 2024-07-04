@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-GetAddressModel getAddressModelFromMap(String str) => GetAddressModel.fromMap(json.decode(str));
+GetAddressModel getAddressModelFromMap(String str) =>
+    GetAddressModel.fromMap(json.decode(str));
 
 String getAddressModelToMap(GetAddressModel data) => json.encode(data.toMap());
 
@@ -20,16 +21,19 @@ class GetAddressModel {
   });
 
   factory GetAddressModel.fromMap(Map<String, dynamic> json) => GetAddressModel(
-    status: json["status"],
-    message: json["message"],
-    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromMap(x))),
-  );
+        status: json["status"],
+        message: json["message"],
+        data: json["data"] == null
+            ? []
+            : List<Datum>.from(json["data"]!.map((x) => Datum.fromMap(x))),
+      );
 
   Map<String, dynamic> toMap() => {
-    "status": status,
-    "message": message,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toMap())),
-  };
+        "status": status,
+        "message": message,
+        "data":
+            data == null ? [] : List<dynamic>.from(data!.map((x) => x.toMap())),
+      };
 }
 
 class Datum {
@@ -52,22 +56,22 @@ class Datum {
   });
 
   factory Datum.fromMap(Map<String, dynamic> json) => Datum(
-    id: json["id"],
-    name: json["name"],
-    house: json["house"],
-    area: json["area"],
-    direction: json["direction"],
-    mobileNo: json["mobile_no"],
-    addressType: json["address_type"],
-  );
+        id: json["id"],
+        name: json["name"],
+        house: json["house"],
+        area: json["area"],
+        direction: json["direction"],
+        mobileNo: json["mobile_no"],
+        addressType: json["address_type"],
+      );
 
   Map<String, dynamic> toMap() => {
-    "id": id,
-    "name": name,
-    "house": house,
-    "area": area,
-    "direction": direction,
-    "mobile_no": mobileNo,
-    "address_type": addressType,
-  };
+        "id": id,
+        "name": name,
+        "house": house,
+        "area": area,
+        "direction": direction,
+        "mobile_no": mobileNo,
+        "address_type": addressType,
+      };
 }

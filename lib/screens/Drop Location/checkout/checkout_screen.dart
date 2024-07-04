@@ -239,7 +239,8 @@ class CheckoutScreen extends GetView<CheckoutController> {
                   width: Get.width,
                   height: 35,
                   borderCircular: 6,
-                  text: "Make Payment | \$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
+                  text:
+                      "Make Payment | \$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
                   fun: () {
                     Get.toNamed(AppRoutes.PAYMENT);
                   },

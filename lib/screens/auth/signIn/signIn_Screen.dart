@@ -141,10 +141,10 @@ class SignInScreen extends GetView<SignInController> {
                           children: [
                             Checkbox(
                               activeColor: primary,
-                              visualDensity: const VisualDensity(
-                                  horizontal: -4),
+                              visualDensity:
+                                  const VisualDensity(horizontal: -4),
                               materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
+                                  MaterialTapTargetSize.shrinkWrap,
                               side: const BorderSide(color: primary),
                               // value: boolValue,
                               onChanged: (bool? value) {},

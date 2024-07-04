@@ -133,8 +133,8 @@ class AddNewCardScreen extends GetView<AddNewCardController> {
               },
               borderCircular: 7,
               width: double.infinity,
-
-            height: 40,)
+              height: 40,
+            )
           ]),
         ));
   }

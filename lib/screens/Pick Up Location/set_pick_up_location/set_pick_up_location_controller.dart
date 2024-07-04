@@ -38,7 +38,6 @@ class SetPickUpLocationController extends GetxController {
     update();
   }
 
-
   @override
   void onReady() {}
 
@@ -46,10 +45,10 @@ class SetPickUpLocationController extends GetxController {
     try {
       var response = await dioClient.get(
           "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=${placesService.apiKey}");
-      selectedPlaceLat.value =
-          double.parse(response['result']['geometry']['location']['lat'].toString());
-      selectedPlaceLng.value =
-          double.parse(response['result']['geometry']['location']['lng'].toString());
+      selectedPlaceLat.value = double.parse(
+          response['result']['geometry']['location']['lat'].toString());
+      selectedPlaceLng.value = double.parse(
+          response['result']['geometry']['location']['lng'].toString());
       log("lat long=====>   ${selectedPlaceLat.value.toDouble()}");
       // final String url =
       //     'https://maps.googleapis.com/maps/api/place/autocomplete/json?place_id=$placeId&key=$apiKey';

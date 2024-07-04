@@ -24,7 +24,7 @@ class DropAddressDetailsController extends GetxController {
   RxDouble dropLng = 0.0.obs;
   RxBool isLoading = false.obs;
   Rx<TempRideMdel> tempRideMdel = TempRideMdel().obs;
-  Rx<RideDetailsModel > rideDetailsModel = RideDetailsModel().obs;
+  Rx<RideDetailsModel> rideDetailsModel = RideDetailsModel().obs;
   @override
   void onInit() {
     dropLat.value = double.parse(arguments?[0]);
@@ -68,22 +68,22 @@ class DropAddressDetailsController extends GetxController {
       'item_details': itemDetais,
     });
     log('============= Form DAta $formData');
- rideDetailsModel.value = RideDetailsModel(
-  pickLat: pickLat,
-  pickLng: pickLng,
-  pickUpAddress: pickUpAddress,
-  senderLandMark: senderLandMark,
-  senderName: senderName,
-  senderMobileNo:senderMobileNo,
-  dropLat:dropLat,
-  dropLng: dropLng,
-  reciverAddress: reciverAddress,
-  reciverLandmark:  reciverLandmark,
-  reciverName: reciverName,
-  reciverMobileNo: reciverMobileNo,
-  addressType: addressType,
-);
- log('============= Form DAta ${rideDetailsModel.value.addressType}');
+    rideDetailsModel.value = RideDetailsModel(
+      pickLat: pickLat,
+      pickLng: pickLng,
+      pickUpAddress: pickUpAddress,
+      senderLandMark: senderLandMark,
+      senderName: senderName,
+      senderMobileNo: senderMobileNo,
+      dropLat: dropLat,
+      dropLng: dropLng,
+      reciverAddress: reciverAddress,
+      reciverLandmark: reciverLandmark,
+      reciverName: reciverName,
+      reciverMobileNo: reciverMobileNo,
+      addressType: addressType,
+    );
+    log('============= Form DAta ${rideDetailsModel.value.addressType}');
     isLoading(true);
     try {
       var response = await dioClient
@@ -108,7 +108,7 @@ class DropAddressDetailsController extends GetxController {
             } else {
               DioExceptions.showMessage(Get.context!, message);
               tempRideMdel.value = TempRideMdel.fromJson(respo['data']);
-          log("================================${tempRideMdel.value.totalCharges}===============");
+              log("================================${tempRideMdel.value.totalCharges}===============");
 
               //  Get.toNamed(AppRoutes.CHECKOUT);
             }

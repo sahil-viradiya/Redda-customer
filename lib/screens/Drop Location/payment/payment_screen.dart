@@ -52,7 +52,7 @@ class PaymentScreen extends GetView<PaymentController> {
                             ),
                             const Gap(10),
                             Text(
-                              "Pick up from ",//${dropAddScreenCon.rideDetailsModel.value.pickUpAddress}",
+                              "Pick up from ", //${dropAddScreenCon.rideDetailsModel.value.pickUpAddress}",
                               style: Styles.boldBlack612,
                             ),
                           ],
@@ -305,9 +305,12 @@ class PaymentScreen extends GetView<PaymentController> {
                   width: Get.width,
                   height: 35,
                   borderCircular: 6,
-                  text: "Make Payment | \$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
+                  text:
+                      "Make Payment | \$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
                   fun: () {
-         controller.openCheckout(rs:dropAddScreenCon.tempRideMdel.value.totalCharges.toString() );
+                    controller.openCheckout(
+                        rs: dropAddScreenCon.tempRideMdel.value.totalCharges
+                            .toString());
                   },
                 )
               ],

@@ -22,7 +22,6 @@ class PaymentOptionScreen extends GetView<PaymentOptionController> {
       ),
       body: Stack(
         alignment: Alignment.bottomCenter,
-
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -80,7 +79,6 @@ class PaymentOptionScreen extends GetView<PaymentOptionController> {
                 ),
                 const Gap(8),
                 const Gap(8),
-
                 Text(
                   "Wallet",
                   style: Styles.boldBlack616,
@@ -191,7 +189,6 @@ class PaymentOptionScreen extends GetView<PaymentOptionController> {
                           ),
                           const Spacer(),
                           TextButton(
-
                             onPressed: () {},
                             style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
@@ -230,18 +227,18 @@ class PaymentOptionScreen extends GetView<PaymentOptionController> {
               children: [
                 Row(
                   children: [
-
                     Expanded(
                       child: Text(
                         "Estimated Pick up in 12 mins",
                         style: Styles.boldBlack612,
                       ),
                     ),
-
                   ],
                 ),
-
-                Text("7.0 kms | Delivery in 40-45 mins",style: Styles.lable414,),
+                Text(
+                  "7.0 kms | Delivery in 40-45 mins",
+                  style: Styles.lable414,
+                ),
                 const Gap(12),
                 CustomButton(
                   width: Get.width,
@@ -255,7 +252,6 @@ class PaymentOptionScreen extends GetView<PaymentOptionController> {
               ],
             ),
           ),
-
         ],
       ),
     );

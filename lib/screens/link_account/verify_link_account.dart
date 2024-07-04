@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/style.dart';
-import 'package:redda_customer/pages/wallet/wallet_view.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/otp_widget.dart';
@@ -61,7 +59,7 @@ class VerifyLinkAccount extends StatelessWidget {
             CustomButton(
               text: "Verify and Link Account",
               fun: () {
-                Get.to(const Wallet());
+                // Get.to(const Wallet());
               },
               borderCircular: 7,
               width: double.infinity,

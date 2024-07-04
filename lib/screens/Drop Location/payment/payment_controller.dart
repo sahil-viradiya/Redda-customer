@@ -9,7 +9,7 @@ import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/main.dart';
-import 'package:redda_customer/screens/Drop%20Location/drop_address_details/drop_address_details_controller.dart';
+import 'package:redda_customer/screens/wallet/wallet_controller.dart';
 
 class PaymentController extends GetxController {
   final count = 0.obs;
@@ -18,7 +18,7 @@ class PaymentController extends GetxController {
   RxBool isLoading = false.obs;
 
   final _amountController = TextEditingController(text: '125');
-  final DropAddressDetailsController dropAddScreenCon = Get.find();
+  final WalletController walletController = Get.find();
 
   // Method to change the selected radio value
   void changeRadio(int value) {
@@ -57,7 +57,8 @@ class PaymentController extends GetxController {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     print("Payment Success: ${response.paymentId}-----${response.data}");
     if (response.paymentId != null) {
-      tempRide(rideId: dropAddScreenCon.tempRideMdel.value.rideId.toString());
+walletController.addWalletBalance(transactionId: response.paymentId.toString());
+      // tempRide(rideId: dropAddScreenCon.tempRideMdel.value.rideId.toString());
     }
     // updateWallte(paymentId: response.paymentId.toString());
   }

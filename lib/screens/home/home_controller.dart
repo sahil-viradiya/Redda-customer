@@ -17,7 +17,8 @@ class HomeController extends GetxController {
   void rebuildLocationWidget() {
     locationWidgetKey.value = UniqueKey(); // Assign a new key to force rebuild
   }
-  final SignInController _signInController =SignInController();
+
+  final SignInController _signInController = SignInController();
 
   @override
   void onInit() {
@@ -32,6 +33,4 @@ class HomeController extends GetxController {
   void onClose() {}
 
   increment() => count.value++;
-
-
 }

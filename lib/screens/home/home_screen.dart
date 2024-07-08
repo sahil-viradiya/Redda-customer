@@ -20,12 +20,13 @@ import '../auth/signIn/signIn_controller.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
-  final SignInController _signInController = Get.put(SignInController());
+  // final SignInController _signInController = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(HomeController());
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -237,10 +238,9 @@ class HomeScreen extends GetView<HomeController> {
                               borderRadius: BorderRadius.circular(15),
                               border: Border.all(color: primary),
                             ),
-                            child: Obx(
-                              () => GetLocationScreen(
+                            child:  GetLocationScreen(
                                   key: controller.locationWidgetKey.value),
-                            ),
+                            
                           ),
                           ElevatedButton(
                             onPressed: controller.rebuildLocationWidget,
@@ -301,10 +301,10 @@ class HomeScreen extends GetView<HomeController> {
                               'Hello',
                               style: Styles.boldBlack716,
                             ),
-                            Text(
-                              _signInController.model.fullname ?? "",
-                              style: Styles.lable414,
-                            ),
+                            Obx(() => Text(
+                                  name.value ,
+                                  style: Styles.lable414,
+                                )),
                           ],
                         ),
                         const Spacer(),

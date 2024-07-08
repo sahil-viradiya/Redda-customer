@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,7 @@ import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/home/home_controller.dart';
 
 import '../../../main.dart';
 import '../auth/signIn/signIn_controller.dart';
@@ -63,6 +65,8 @@ class EditProfileController extends GetxController {
               DioExceptions.showMessage(Get.context!, message);
               // log("================================${ respo['data']['api_token']}===============");
               await _signInController.getProfile();
+              _signInController.loadUserData();
+              name.value = _signInController.model.fullname ?? "";
               Get.toNamed(AppRoutes.HOMESCREEN);
 
               // await SharedPref.saveString(Config.status, model.userType);

@@ -32,12 +32,13 @@ class SignInController extends GetxController {
   @override
   void onReady() {}
 
-  Future<void> loadUserData() async {
+  Future<dynamic> loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userData = prefs.getString('userData');
     if (userData != null) {
       model = CreateAccountModel.fromJson(jsonDecode(userData));
       // Update your UI if needed
+      return model.fullname;
     }
   }
 

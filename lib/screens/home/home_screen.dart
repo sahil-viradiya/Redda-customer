@@ -242,10 +242,10 @@ class HomeScreen extends GetView<HomeController> {
                                   key: controller.locationWidgetKey.value),
                             
                           ),
-                          ElevatedButton(
-                            onPressed: controller.rebuildLocationWidget,
-                            child: const Text('Rebuild GetLocationScreen'),
-                          ),
+                          // ElevatedButton(
+                          //   onPressed: controller.rebuildLocationWidget,
+                          //   child: const Text('Rebuild GetLocationScreen'),
+                          // ),
                         ],
                       ),
                     ),

@@ -131,64 +131,7 @@ walletController.addWalletBalance(transactionId: response.paymentId.toString());
 
   @override
   void onReady() {}
-  Future<dynamic> tempRide({
-    required String rideId,
-  }) async {
-    dio.FormData formData = dio.FormData.fromMap({
-      'ride_id': rideId,
-    });
-    log('============= Form DAta $formData');
-
-    isLoading(true);
-    try {
-      var response = await dioClient
-          .post(
-        '${Config.baseUrl}ride.php',
-        options: dio.Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        ),
-        data: formData,
-      )
-          .then(
-        (respo) async {
-          log("================================${respo['data']}===============");
-
-          var message = respo['message'];
-          try {
-            if (respo['status'] == false) {
-              DioExceptions.showErrorMessage(Get.context!, message);
-              print('Message: $message');
-            } else {
-              DioExceptions.showMessage(Get.context!, message);
-
-              //  Get.toNamed(AppRoutes.CHECKOUT);
-            }
-          } catch (e) {
-            print('Error parsing JSON or accessing message: $e');
-          }
-        },
-      );
-    } on dio.DioException catch (e) {
-      print("status Code ${e.response?.statusCode}");
-      print('Error $e');
-      DioExceptions.showErrorMessage(
-          Get.context!,
-          DioExceptions.fromDioError(dioError: e, errorFrom: "ADD RIDE")
-              .errorMessage());
-      isLoading(false);
-    } catch (e) {
-      isLoading(false);
-      if (kDebugMode) {
-        print("RIDE ERROR $e");
-      }
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  @override
+   @override
   void onClose() {}
 
   increment() => count.value++;

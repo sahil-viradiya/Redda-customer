@@ -18,6 +18,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
   @override
   Widget build(BuildContext context) {
     final DropAddressDetailsController dropAddScreenCon = Get.find();
+    final CheckoutController controller = Get.put(CheckoutController());
 
     return Scaffold(
       backgroundColor: white,
@@ -239,10 +240,11 @@ class CheckoutScreen extends GetView<CheckoutController> {
                   width: Get.width,
                   height: 35,
                   borderCircular: 6,
-                  text:
-                      "Make Payment | \$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
+                  text: "Ride Create",
+                      // "Make Payment | \$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
                   fun: () {
-                    Get.toNamed(AppRoutes.PAYMENT);
+                    // Get.toNamed(AppRoutes.PAYMENT);
+                    controller.creatRide(rideId: dropAddScreenCon.tempRideMdel.value.rideId.toString());
                   },
                 )
               ],

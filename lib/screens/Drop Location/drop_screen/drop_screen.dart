@@ -24,31 +24,35 @@ class DropScreen extends GetView<DropScreenController> {
           context,
           "Pick up or send Anything",
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Divider(),
-            const Gap(16),
-            Container(
-              margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-              decoration: BoxDecoration(
-                color: white,
-                border: Border.all(color: primary),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Gap(10),
-                      SvgPicture.asset(
-                        AppImage.PACKAGE,
-                        color: primary,
+        body: GetBuilder<DropScreenController>(
+          init: DropScreenController(),
+          initState: (_) {},
+          builder: (_) {
+            return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Divider(),
+                    const Gap(16),
+                    Container(
+                      margin: const EdgeInsets.only(top: 0, left: 14, right: 14),
+                      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                      decoration: BoxDecoration(
+                        color: white,
+                        border: Border.all(color: primary),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      const Gap(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Gap(10),
+                              SvgPicture.asset(
+                                AppImage.PACKAGE,
+                                color: primary,
+                              ),
+                           const Gap(10),
                       Expanded(
                         child: Text(
                           "Pick up from ${controller.pickLoc.value}",
@@ -199,7 +203,9 @@ class DropScreen extends GetView<DropScreenController> {
               ),
             )
           ],
-        ));
+        )  ; 
+          },
+        ) );
   }
 
   _commonContainer(

@@ -22,127 +22,135 @@ class SetDropLocationScreen extends GetView<SetDropLocationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
-      appBar: appbarSmall1(
-        context,
-        "Set Drop Location",
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 0, left: 14, right: 14),
-        child: Column(
-          children: [
-            const Divider(),
-            CustomTextFormFieldSearch(
-              controller: controller.locationController,
-              // readOnly: true,
-              enable: true,
+        backgroundColor: white,
+        appBar: appbarSmall1(
+          context,
+          "Set Drop Location",
+        ),
+        body: GetBuilder<SetDropLocationController>(
+          init: SetDropLocationController(),
+          initState: (_) {},
+          builder: (_) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 0, left: 14, right: 14),
+              child: Column(
+                children: [
+                  const Divider(),
+                  CustomTextFormFieldSearch(
+                    controller: controller.locationController,
+                    // readOnly: true,
+                    enable: true,
 
-              hintLpadding: 10,
-              width: double.infinity,
-              hintText: "Search for building, area, or street",
-              onchanged: (p0) {
-                controller.onSearchChanged();
-              },
-            ),
-
-            // const Gap(10),
-            GestureDetector(
-                onTap: () {
-                  Get.to(() => const SearchLocationOnMapForDropScreen());
-                },
-                child: _commonContainer(
-                    txt: "Use current Location",
-                    svgName: AppImage.LOCATION2,
-                    style: Styles.boldBlue614,
-                    color: white)),
-            const Gap(10),
-
-            Expanded(
-                child: Obx(
-              () => AnimationList(
-                children: List.generate(controller.suggestions.length, (index) {
-                  var address = controller.suggestions[index];
-                  return GestureDetector(
-                    onTap: () {
-                      log("selected location index ${controller.suggestions[index]['place_id']}");
-                      controller.getLatLong(
-                          controller.suggestions[index]['place_id']);
-                      controller.locationController.text =
-                          controller.suggestions[index]['description'];
-                      controller.suggestions.clear();
+                    hintLpadding: 10,
+                    width: double.infinity,
+                    hintText: "Search for building, area, or street",
+                    onchanged: (p0) {
+                      controller.onSearchChanged();
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                      child: Column(
-                        children: [
-                          const Gap(4),
-                          Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: primary),
-                              borderRadius: BorderRadius.circular(7),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                  ),
+
+                  // const Gap(10),
+                  GestureDetector(
+                      onTap: () {
+                        Get.to(() => const SearchLocationOnMapForDropScreen());
+                      },
+                      child: _commonContainer(
+                          txt: "Use current Location",
+                          svgName: AppImage.LOCATION2,
+                          style: Styles.boldBlue614,
+                          color: white)),
+                  const Gap(10),
+
+                  Expanded(
+                      child: Obx(
+                    () => AnimationList(
+                      children:
+                          List.generate(controller.suggestions.length, (index) {
+                        var address = controller.suggestions[index];
+                        return GestureDetector(
+                          onTap: () {
+                            log("selected location index ${controller.suggestions[index]['place_id']}");
+                            controller.getLatLong(
+                                controller.suggestions[index]['place_id']);
+                            controller.locationController.text =
+                                controller.suggestions[index]['description'];
+                            controller.suggestions.clear();
+                          },
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 0.0),
+                            child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 18.0, vertical: 18),
-                                  child: SvgPicture.asset(
-                                    AppImage.LOCATION,
-                                    height: 14,
-                                    width: 14,
-                                    color: primary,
+                                const Gap(4),
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: primary),
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18.0, vertical: 18),
+                                        child: SvgPicture.asset(
+                                          AppImage.LOCATION,
+                                          height: 14,
+                                          width: 14,
+                                          color: primary,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 18,
+                                            left: 0,
+                                            bottom: 18,
+                                            top: 18,
+                                          ),
+                                          child: Text(
+                                            controller.suggestions[index]
+                                                ['description'],
+                                            style: Styles.boldBlack612,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: 18,
-                                      left: 0,
-                                      bottom: 18,
-                                      top: 18,
-                                    ),
-                                    child: Text(
-                                      controller.suggestions[index]
-                                          ['description'],
-                                      style: Styles.boldBlack612,
-                                    ),
-                                  ),
-                                ),
+                                const Gap(8),
                               ],
                             ),
                           ),
-                          const Gap(8),
-                        ],
-                      ),
+                        );
+                      }),
                     ),
-                  );
-                }),
+                  )),
+
+                  CustomButton(
+                    width: Get.width,
+                    // height: 35,
+                    borderCircular: 6,
+                    text: "Confirm Location",
+                    fun: () async {
+                      Get.toNamed(AppRoutes.DROPADDRESSDETAILS, arguments: [
+                        controller.selectedDropLat.toString(),
+                        controller.selectedDropLng.toString()
+                      ]);
+
+                      // await getAddress();
+                      // Get.toNamed(AppRoutes.ADDRESSDETAILS,arguments: [controller.selectedPlaceLat.value,controller.selectedPlaceLng.value]);
+                    },
+                  ),
+                  const Gap(30),
+                ],
               ),
-            )),
-
-            CustomButton(
-              width: Get.width,
-              // height: 35,
-              borderCircular: 6,
-              text: "Confirm Location",
-              fun: () async {
-                Get.toNamed(AppRoutes.DROPADDRESSDETAILS, arguments: [
-                  controller.selectedDropLat.toString(),
-                  controller.selectedDropLng.toString()
-                ]);
-
-                // await getAddress();
-                // Get.toNamed(AppRoutes.ADDRESSDETAILS,arguments: [controller.selectedPlaceLat.value,controller.selectedPlaceLng.value]);
-              },
-            ),
-            const Gap(30),
-          ],
-        ),
-      ),
-    );
+            );
+          },
+        ));
   }
 
   _commonContainer(

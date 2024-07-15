@@ -19,6 +19,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
   @override
   Widget build(BuildContext context) {
     final dropScreenCon = Get.put(DropScreenController());
+    final controller = Get.put(PickOrSendAnyController());
     final DropAddressDetailsController dropAddScreenCon = Get.find();
     final PickOrSendAnyController picOrSendAny = Get.find();
     final data = Get.arguments ?? {};

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/screens/Drop%20Location/drop_address_details/drop_address_details_controller.dart';
 import 'package:redda_customer/screens/Drop%20Location/payment/payment_controller.dart';
+import 'package:redda_customer/screens/wallet/wallet_controller.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import '../../../constant/app_image.dart';
@@ -17,7 +18,9 @@ class PaymentScreen extends GetView<PaymentController> {
   @override
   Widget build(BuildContext context) {
     final DropAddressDetailsController dropAddScreenCon = Get.find();
+        Get.put(WalletController());
 
+Get.put(PaymentController());
     return Scaffold(
       backgroundColor: white,
       appBar: appbarSmall1(

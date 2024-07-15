@@ -236,17 +236,20 @@ class CheckoutScreen extends GetView<CheckoutController> {
                 ),
                 const Gap(6),
                 const Gap(6),
-                CustomButton(
-                  width: Get.width,
-                  height: 35,
-                  borderCircular: 6,
-                  text: "Ride Create",
-                      // "Make Payment | \$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
-                  fun: () {
-                    // Get.toNamed(AppRoutes.PAYMENT);
-                    controller.creatRide(rideId: dropAddScreenCon.tempRideMdel.value.rideId.toString());
-                  },
-                )
+                Obx(() => CustomButton(
+                      isLoading: controller.isLoading.value,
+                      width: Get.width,
+                      height: 35,
+                      borderCircular: 6,
+                      text: "Ride Create",
+                      // "Make Payment | $${dropAddScreenCon.tempRideMdel.value.totalCharges}",
+                      fun: () {
+                        // Get.toNamed(AppRoutes.PAYMENT);
+                        controller.creatRide(
+                            rideId: dropAddScreenCon.tempRideMdel.value.rideId
+                                .toString());
+                      },
+                    ))
               ],
             ),
           ),

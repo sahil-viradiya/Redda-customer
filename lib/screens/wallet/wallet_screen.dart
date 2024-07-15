@@ -150,7 +150,7 @@ class WalletScreen extends GetView<WalletController> {
           right: 12,
           bottom: 12,
           child: InkWell(
-            onTap: () => _deliver(context, controller),
+            onTap: () => payNowDailog(context: context,controller: controller),
             child: Container(
               height: MySize.size50,
               decoration: const BoxDecoration(
@@ -222,7 +222,12 @@ Widget transcationWallet(context, TranscationHistoryModel model) {
 void _deliver(BuildContext context, WalletController controller) {
   final PaymentController paymentController = Get.put(PaymentController());
 
-  showDialog(
+ }
+
+ payNowDailog({required BuildContext context,required WalletController controller}) {
+  final PaymentController paymentController = Get.put(PaymentController());
+
+  return  showDialog(
     context: context,
     builder: (BuildContext context) {
       return Dialog(
@@ -301,4 +306,5 @@ void _deliver(BuildContext context, WalletController controller) {
       );
     },
   );
+
 }

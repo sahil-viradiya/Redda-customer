@@ -9,10 +9,13 @@ import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/main.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/wallet/wallet_controller.dart';
+import 'package:redda_customer/screens/wallet/wallet_screen.dart';
 
 class CheckoutController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
+  final WalletController _controller = Get.put(WalletController());
   @override
   void onReady() {}
   Future<dynamic> creatRide({
@@ -42,6 +45,8 @@ class CheckoutController extends GetxController {
           var message = respo['message'];
           try {
             if (respo['status'] == false) {
+              //todo
+              payNowDailog(context: Get.context!, controller: _controller);
               DioExceptions.showErrorMessage(Get.context!, message);
               print('Message: $message');
             } else {

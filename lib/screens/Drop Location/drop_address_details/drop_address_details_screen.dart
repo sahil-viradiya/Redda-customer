@@ -18,16 +18,21 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
   DropAddressDetailsScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-
+    
   @override
   Widget build(BuildContext context) {
+    final List<dynamic>? arguments = Get.arguments;
+
+   double latitude = double.parse(arguments?[0]?.toString() ?? '0.0');
+    double longitude = double.parse(arguments?[1]?.toString() ?? '0.0');
+
     List text = ["Home", "Work", "Other"];
     Get.put(DropAddressDetailsController());
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(
           context,
-          "${controller.dropLng.value} Enter Address Details",
+          "Enter Address Details",
         ),
         body: Form(
           key: _formKey,
@@ -46,7 +51,7 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(color: primary),
                       ),
-                      child: const GetLocationScreen(),
+                      child:  GetLocationScreen(lat: latitude, lng: longitude,),
                     ),
                     //=============Address================
                     const Gap(18),

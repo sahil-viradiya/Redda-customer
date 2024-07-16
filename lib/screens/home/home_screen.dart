@@ -238,9 +238,11 @@ class HomeScreen extends GetView<HomeController> {
                               borderRadius: BorderRadius.circular(15),
                               border: Border.all(color: primary),
                             ),
-                            child:  GetLocationScreen(
-                                  key: controller.locationWidgetKey.value),
-                            
+                            child: Obx(() => GetLocationScreen(
+                                  key: controller.locationWidgetKey.value,
+                                  lat: controller.currerntLat.value,
+                                  lng: controller.currerntLng.value,
+                                )),
                           ),
                           // ElevatedButton(
                           //   onPressed: controller.rebuildLocationWidget,
@@ -302,7 +304,7 @@ class HomeScreen extends GetView<HomeController> {
                               style: Styles.boldBlack716,
                             ),
                             Obx(() => Text(
-                                  name.value ,
+                                  name.value,
                                   style: Styles.lable414,
                                 )),
                           ],

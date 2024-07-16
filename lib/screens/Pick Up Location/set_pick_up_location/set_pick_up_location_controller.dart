@@ -49,7 +49,7 @@ class SetPickUpLocationController extends GetxController {
           response['result']['geometry']['location']['lat'].toString());
       selectedPlaceLng.value = double.parse(
           response['result']['geometry']['location']['lng'].toString());
-      log("lat long=====>   ${selectedPlaceLat.value.toDouble()}");
+      log("lat long=selected====>   ${selectedPlaceLat.value.toDouble()}");
       // final String url =
       //     'https://maps.googleapis.com/maps/api/place/autocomplete/json?place_id=$placeId&key=$apiKey';
       // final response = await http.get(Uri.parse(url));

@@ -17,7 +17,9 @@ import 'package:redda_customer/widget/search_location_on_map_screen.dart';
 import 'package:http/http.dart' as http;
 
 class GetLocationScreen extends StatefulWidget {
-  const GetLocationScreen({super.key});
+  const GetLocationScreen({required this.lat,required this.lng,super.key});
+  final double lat;
+  final double lng;
 
   @override
   State<GetLocationScreen> createState() => _GetLocationScreenState();
@@ -34,8 +36,8 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
   //RxDouble? lng=0.0.obs;
   String? address, city;
-  LatLng needlePosition =
-      const LatLng(0.0, 0.0); // Initial position for the "needle" marker.
+  // LatLng needlePosition =
+  //     LatLng(lat); // Initial position for the "needle" marker.
   Rx<LatLng> latlng = const LatLng(0, 0).obs;
   RxString markerId = ''.obs;
   RxString liveAddress = ''.obs;
@@ -44,7 +46,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getUserCurrentLocation(controller: homeController);
+    // getUserCurrentLocation(controller: homeController);
     setState(() {});
   }
 
@@ -85,8 +87,8 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
                 lat = value.latitude;
                 lng = value.longitude;
 
-                needlePosition = LatLng(
-                    lat!, lng!); // Initial position for the "needle" marker.
+                // needlePosition = LatLng(
+                //     lat!, lng!); // Initial position for the "needle" marker.
 
                 print('latititue$lat');
                 print('longitude$lng');
@@ -213,14 +215,14 @@ Future<void> getAddressFromLatLong({
       zoomControlsEnabled: false,
 
       initialCameraPosition:
-          const CameraPosition(target: LatLng(0.0, 0.0), zoom: 17),
+           CameraPosition(target: LatLng(widget.lat, widget.lng), zoom: 17),
 
       /// if you uncomment below marker and comment the current markers then user cant be seelcted location on map
       //markers: markers,
       markers: <Marker>{
         Marker(
           markerId: const MarkerId('needleNew'),
-          position: needlePosition, // Use the updated position here.
+          position: LatLng(widget.lat, widget.lng), // Use the updated position here.
           icon:
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
         ),
@@ -266,7 +268,7 @@ Future<void> getAddressFromLatLong({
       // Update the marker's position to the tapped point.
       lat = tappedPoint.latitude;
       lng = tappedPoint.longitude;
-      needlePosition = tappedPoint;
+      // needlePosition = tappedPoint;
       print('Lat:$lat');
       print('Lng:$lng');
     });

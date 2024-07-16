@@ -44,7 +44,7 @@ class AddressDetailsScreen extends GetView<AddressDetailsController> {
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: primary),
                   ),
-                  child: const GetLocationScreen(),
+                  child:  GetLocationScreen(lat: latitude,lng: longitude,),
                 ),
                 //=============Address================
                 const Gap(18),

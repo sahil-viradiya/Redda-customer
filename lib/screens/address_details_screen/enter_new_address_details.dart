@@ -38,7 +38,7 @@ class EnterNewAddressDetails extends GetView<AddressController> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: primary),
                 ),
-                child: const GetLocationScreen(),
+                child: const GetLocationScreen(lat: 0.0, lng: 0.0,),
               ),
               //=============Address================
               const Gap(18),

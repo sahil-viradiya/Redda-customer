@@ -44,10 +44,9 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // getUserCurrentLocation(controller: homeController);
-    setState(() {});
+    // setState(() {});
   }
 
   getUserCurrentLocation({required HomeController controller}) async {
@@ -186,8 +185,8 @@ Future<void> getAddressFromLatLong({
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-      myLocationEnabled: true,
-      myLocationButtonEnabled: true,
+      // myLocationEnabled: true,
+      // myLocationButtonEnabled: true,
       compassEnabled: true,
       mapToolbarEnabled: true,
       buildingsEnabled: true,
@@ -202,15 +201,15 @@ Future<void> getAddressFromLatLong({
       tiltGesturesEnabled: true,
       // Enable tilt gestures if needed
       /// If you comment this below line your
-      onMapCreated: onMapCreated,
+      // onMapCreated: onMapCreated,
 
-      onTap: _handleMapTap,
+      // onTap: _handleMapTap,
       // Listen for map taps.
-      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-        Factory<OneSequenceGestureRecognizer>(
-          () => EagerGestureRecognizer(),
-        ),
-      },
+      // gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+      //   Factory<OneSequenceGestureRecognizer>(
+      //     () => EagerGestureRecognizer(),
+      //   ),
+      // },
 
       zoomControlsEnabled: false,
 

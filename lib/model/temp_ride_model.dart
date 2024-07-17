@@ -3,7 +3,7 @@ class TempRideMdel {
   String? totalDistance;
   String? totalTime;
   int? unitCharge;
-  int? totalCharges;
+  num? totalCharges;
 
   TempRideMdel(
       {this.rideId,

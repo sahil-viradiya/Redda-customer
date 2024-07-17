@@ -130,7 +130,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
 
                         const Spacer(),
                         Text(
-                          "\$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
+                          "\$${dropAddScreenCon.tempRideMdel.value.totalCharges?.toStringAsFixed(2)}",
                           style: Styles.noramalBlack416,
                         ),
                       ],
@@ -147,7 +147,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
 
                         const Spacer(),
                         Text(
-                          "\$${dropAddScreenCon.tempRideMdel.value.totalCharges}",
+                          "\$${dropAddScreenCon.tempRideMdel.value.totalCharges?.toStringAsFixed(2)}",
                           style: Styles.noramalBlack416,
                         ),
                       ],

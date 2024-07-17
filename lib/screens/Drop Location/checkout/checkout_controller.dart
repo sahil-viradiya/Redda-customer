@@ -9,6 +9,7 @@ import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/main.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/screens/ride-location/rider_location_screen.dart';
 import 'package:redda_customer/screens/wallet/wallet_controller.dart';
 import 'package:redda_customer/screens/wallet/wallet_screen.dart';
 
@@ -51,11 +52,12 @@ class CheckoutController extends GetxController {
               print('Message: $message');
             } else {
               DioExceptions.showMessage(Get.context!, message);
-              Get.offNamedUntil(
-                AppRoutes.HOMESCREEN,
-                (Route<dynamic> route) => route.isFirst,
-              );
+              // Get.offNamedUntil(
+              //   AppRoutes.HOMESCREEN,
+              //   (Route<dynamic> route) => route.isFirst,
+              // );
               //  Get.toNamed(AppRoutes.CHECKOUT);
+              Get.to(()=> const RiderLocationScreen());
             }
           } catch (e) {
             print('Error parsing JSON or accessing message: $e');

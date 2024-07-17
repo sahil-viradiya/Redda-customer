@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/constant/app_color.dart';
 
 class DioExceptions {
@@ -79,6 +81,7 @@ class DioExceptions {
       case 400:
         return 'Bad request';
       case 401:
+      resate(Get.context!);
         return 'Unauthorized';
       case 403:
         return 'Forbidden';

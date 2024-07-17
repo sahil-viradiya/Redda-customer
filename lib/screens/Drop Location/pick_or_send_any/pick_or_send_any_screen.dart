@@ -180,7 +180,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
-                height: 230,
+                height: Get.height/3.5,
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                 decoration: BoxDecoration(
@@ -203,11 +203,11 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
             const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-              height: 125,
-              decoration: BoxDecoration(
+              // height: 125,
+              decoration: const BoxDecoration(
                 color: white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                boxShadow: [
                   BoxShadow(
                     blurRadius: 8,
                     spreadRadius: 4,

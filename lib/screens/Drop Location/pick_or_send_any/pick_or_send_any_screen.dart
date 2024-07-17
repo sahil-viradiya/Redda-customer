@@ -180,7 +180,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
-                height: Get.height/3.5,
+                height: Get.height/4,
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                 decoration: BoxDecoration(

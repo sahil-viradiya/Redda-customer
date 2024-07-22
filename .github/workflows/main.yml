@@ -41,7 +41,7 @@ jobs:
         run: flutter pub get
 
       - name: Run tests
-        run: flutter test
+        run: flutter lib
 
   test-on-macos:
     runs-on: macos-latest

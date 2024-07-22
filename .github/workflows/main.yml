@@ -1,4 +1,4 @@
-name: Redda customer CI
+name: Redda Customer CI
 
 on:
   push:
@@ -23,6 +23,12 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Run code analysis
+        run: flutter analyze
+
+      - name: Check outdated packages
+        run: flutter pub outdated
+
       - name: Run tests
         run: flutter test
 
@@ -40,8 +46,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Run code analysis
+        run: flutter analyze
+
+      - name: Check outdated packages
+        run: flutter pub outdated
+
       - name: Run tests
-        run: flutter lib
+        run: flutter test
 
   test-on-macos:
     runs-on: macos-latest
@@ -56,6 +68,12 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Run code analysis
+        run: flutter analyze
+
+      - name: Check outdated packages
+        run: flutter pub outdated
 
       - name: Run tests
         run: flutter test

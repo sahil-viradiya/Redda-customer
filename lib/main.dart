@@ -11,7 +11,7 @@ import 'package:redda_customer/route/app_route.dart';
 
 import 'Utils/api_client.dart';
 import 'Utils/constant.dart';
-import 'notification/notification_handler.dart';
+import 'services/notification/notification_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

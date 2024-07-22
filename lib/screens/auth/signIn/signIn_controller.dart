@@ -11,6 +11,7 @@ import 'package:redda_customer/Utils/pref.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/model/create_account_model.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/services/platform.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../main.dart';
@@ -22,6 +23,7 @@ class SignInController extends GetxController {
 
   TextEditingController emailCon = TextEditingController();
   TextEditingController passCon = TextEditingController();
+   var deviceType = ''.obs;
 
   @override
   void onInit() {
@@ -31,6 +33,8 @@ class SignInController extends GetxController {
 
   @override
   void onReady() {}
+    final DeviceInfoService _deviceInfoService = DeviceInfoService();
+
 
   Future<dynamic> loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -41,16 +45,21 @@ class SignInController extends GetxController {
       return model.fullname;
     }
   }
-
+Future<void> getDeviceType(BuildContext context) async {
+    String type = await _deviceInfoService.getDeviceType(context);
+    deviceType.value = type;
+  }
   Future<void> _saveUserData(CreateAccountModel model) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('userData', jsonEncode(model.toJson()));
   }
 
-  Future<dynamic> signIn() async {
+  Future<dynamic> signIn({required String deviceToken,required String deviceType}) async {
     dio.FormData formData = dio.FormData.fromMap({
       'email': emailCon.text,
       'password': passCon.text,
+       'device_token':deviceToken,
+      'device_type': deviceType,
     });
     log('============= Form DAta ${formData.fields}');
     isLoading(true);

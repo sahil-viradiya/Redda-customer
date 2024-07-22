@@ -9,6 +9,7 @@ import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
+import 'package:redda_customer/services/notification/notification_handler.dart';
 import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/screens/auth/signIn/signIn_controller.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
@@ -19,13 +20,15 @@ class SignInScreen extends GetView<SignInController> {
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  final SignInController controller = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
+      controller.getDeviceType(context);
+
     MySize().init(
       context,
     );
-    final SignInController controller = Get.put(SignInController());
 
     return WillPopScope(
       onWillPop: () async {
@@ -182,7 +185,8 @@ class SignInScreen extends GetView<SignInController> {
                           fun: () {
                             if (_formKey.currentState!.validate()) {
                               debugPrint("TOKEN____________$token");
-                              controller.signIn();
+                              controller.signIn( deviceToken: fmcToken,
+                                      deviceType: controller.deviceType.value);
                               // Get.toNamed(AppRoutes.HOMESCREEN);
                             }
                             // Navigator.push(

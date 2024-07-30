@@ -59,7 +59,7 @@ class PickOrSendAnyController extends GetxController {
       'address_type': addressStatus.value,
       'item_details': "table"
     });
-    log('============= Form DAta $list');
+    log('============= Form DAta ${formData.fields}');
     isLoading(true);
     try {
       var response = await dioClient

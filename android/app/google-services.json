@@ -57,6 +57,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108110314500:android:33656b5687e50af8270951",
+        "android_client_info": {
+          "package_name": "com.example.redda.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108110314500-s92hn9lnkudq5k709uqums0hgeo5puoj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK03Iu-GMxdAOf8KtNhuZ6HEzKcpkNeY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108110314500-s92hn9lnkudq5k709uqums0hgeo5puoj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

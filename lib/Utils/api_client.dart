@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:redda_customer/Utils/error_handler.dart';
+import 'auth_interceptor.dart';
+import 'logging_interceptor.dart';
 
-const _defaultConnectTimeout = Duration.millisecondsPerMinute;
-const _defaultReceiveTimeout = Duration.millisecondsPerMinute;
+const int _defaultConnectTimeout = 5000;
+const int _defaultReceiveTimeout = 5000;
 
 class DioClient {
   final String baseUrl;
@@ -22,23 +24,27 @@ class DioClient {
     _dio = dio;
     _dio
       ..options.baseUrl = baseUrl
-      ..options.connectTimeout =
-          const Duration(milliseconds: _defaultConnectTimeout)
-      ..options.receiveTimeout =
-          const Duration(milliseconds: _defaultReceiveTimeout)
-      ..httpClientAdapter
+      ..options.connectTimeout = const Duration(milliseconds: _defaultConnectTimeout)
+      ..options.receiveTimeout = const Duration(milliseconds: _defaultReceiveTimeout)
       ..options.headers = {'Content-Type': 'application/json; charset=UTF-8'};
+
+    // Add the interceptors
+    _dio.interceptors.add(AuthInterceptor());
+    _dio.interceptors.add(LoggingInterceptor());
+
     if (interceptors?.isNotEmpty ?? false) {
       _dio.interceptors.addAll(interceptors!);
     }
+    
     if (kDebugMode) {
       _dio.interceptors.add(LogInterceptor(
-          responseBody: true,
-          error: true,
-          requestHeader: false,
-          responseHeader: false,
-          request: false,
-          requestBody: false));
+        responseBody: true,
+        error: true,
+        requestHeader: false,
+        responseHeader: false,
+        request: false,
+        requestBody: false,
+      ));
     }
   }
 
@@ -58,12 +64,8 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
       return response.data;
-    } on SocketException catch (e) {
-      throw SocketException(e.toString());
-    } on FormatException catch (_) {
-      throw const FormatException("Unable to process the data");
-    } catch (e) {
-      rethrow;
+    } catch (error) {
+      throw ErrorHandler.handleException(error);
     }
   }
 
@@ -89,15 +91,8 @@ class DioClient {
       );
       log('Status Code====>>   ${response.statusCode}');
       return response.data;
-    } on FormatException catch (_) {
-      throw const FormatException("Unable to process the data");
-    } catch (e) {
-      rethrow;
+    } catch (error) {
+      throw ErrorHandler.handleException(error);
     }
   }
 }
-
-
-
-
-

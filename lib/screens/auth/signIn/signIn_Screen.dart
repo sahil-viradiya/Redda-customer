@@ -1,12 +1,9 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/validation.dart';
 import 'package:redda_customer/constant/app_color.dart';
-import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/services/notification/notification_handler.dart';
@@ -20,6 +17,7 @@ class SignInScreen extends GetView<SignInController> {
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  @override
   final SignInController controller = Get.put(SignInController());
 
   @override

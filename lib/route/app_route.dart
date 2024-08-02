@@ -140,7 +140,7 @@ class AppRoutes {
     ),
     GetPage(
       name: HOMESCREEN,
-      page: () => HomeScreen(),
+      page: () => const HomeScreen(),
     ),
     GetPage(
       name: PICKUPSCREEN,

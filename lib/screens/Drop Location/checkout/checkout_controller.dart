@@ -2,13 +2,11 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/main.dart';
-import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/screens/ride-location/rider_location_screen.dart';
 import 'package:redda_customer/screens/wallet/wallet_controller.dart';
 import 'package:redda_customer/screens/wallet/wallet_screen.dart';

@@ -1,3 +1,4 @@
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,8 +16,8 @@ import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/screens/Pick%20Up%20Location/seach_location.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/location.dart';
+import 'package:redda_customer/widget/search_drop_down_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../auth/signIn/signIn_controller.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -26,6 +27,30 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> roles = [
+      {"name": "Super Admin", "desc": "Having full access rights", "role": 1},
+      {
+        "name": "Admin",
+        "desc": "Having full access rights of a Organization",
+        "role": 2
+      },
+      {
+        "name": "Manager",
+        "desc": "Having Magenent access rights of a Organization",
+        "role": 3
+      },
+      {
+        "name": "Technician",
+        "desc": "Having Technician Support access rights",
+        "role": 4
+      },
+      {
+        "name": "Customer Support",
+        "desc": "Having Customer Support access rights",
+        "role": 5
+      },
+      {"name": "User", "desc": "Having End User access rights", "role": 6},
+    ];
     final controller = Get.put(HomeController());
     return WillPopScope(
       onWillPop: () async {
@@ -110,6 +135,24 @@ class HomeScreen extends GetView<HomeController> {
                       () => Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // CustomDropdownSearchField(
+                          //     displayItemFn: (dynamic item) {
+                          //       if (item == null) {
+                          //         return const Text(
+                          //           '',
+                          //           style: TextStyle(fontSize: 16),
+                          //         );
+                          //       }
+                          //       return Text(
+                          //         item['name'] ?? '',
+                          //         style: const TextStyle(fontSize: 16),
+                          //       );
+                          //     },
+                          //     labelText: "labelText",
+                          //     findFn: (val) async {
+                          //       return roles;
+                          //     },
+                          //     initialItems: roles),
                           const Gap(10),
                           //=========================Slider==============
 

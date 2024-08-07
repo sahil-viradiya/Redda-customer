@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,7 @@ import 'package:redda_customer/screens/Drop%20Location/drop_screen/drop_screen_c
 import 'package:redda_customer/widget/app_text_field.dart';
 import 'package:redda_customer/widget/auth_app_bar_widget.dart';
 import 'package:redda_customer/widget/custom_button.dart';
+import 'package:redda_customer/widget/search_drop_down_widget.dart';
 
 import '../../../widget/location.dart';
 import 'drop_address_details_controller.dart';
@@ -65,14 +68,15 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                     ),
                     Gap(MySize.size4!),
 
-                    CustomTextFormFieldWidget(
-                      keyboardType: TextInputType.name,
-                      validator: ((value) {
-                        return Validator.validateAddress(value!);
-                      }),
-                      controller: controller.dropAddCon,
-                      hintRpadding: 17.76,
-                    ),
+                    AddressSearchWidget(
+                        controller: controller,
+                        searchController: controller.dropAddCon,
+                        onAddressSelected: (value) {
+                          log("selected val $value");
+                          FocusScope.of(context).unfocus();
+                        },
+                      ),
+
                     Gap(MySize.size12!),
                     //=============Landmark================
                     Align(

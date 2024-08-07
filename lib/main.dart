@@ -8,17 +8,20 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/services/internate_services/dependency_injection.dart';
+import 'package:redda_customer/services/location_services.dart';
 
 import 'Utils/api_client.dart';
 import 'Utils/constant.dart';
 import 'services/notification/notification_handler.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+  await Firebase.initializeApp();
 
-  );
   FirebaseMessagingHandler();
+  DependencyInjection.init();
+
   String? token = await getToken();
   String? userID = await getUserId();
 
@@ -26,7 +29,7 @@ void main() async {
   runApp(MyApp(token));
 
   Future.delayed(const Duration(milliseconds: 500), () {
-    checkLocationPermission();
+    // checkLocationPermission();
   });
 }
 
@@ -68,6 +71,8 @@ class MyApp extends StatelessWidget {
   String _getInitialRoute() {
     log("message=========${token.toString()} ");
     if (token != null && token!.isNotEmpty) {
+      Get.put(LocationController());
+
       return AppRoutes.HOMESCREEN; // Home route
     } else {
       return AppRoutes.LOGIN; // Login route
@@ -75,78 +80,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future<void> checkLocationPermission() async {
-  LocationPermission permission;
-
-  // Check if location services are enabled
-  bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Show a message to the user indicating that location services are not enabled
-    LocationPermission permission;
-
-    // Check if location services are enabled
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Show a message to the user indicating that location services are not enabled
-      Future.delayed(Duration.zero, () async {
-        await Get.defaultDialog(
-          title: 'Location Service Disabled',
-          middleText: 'Please enable location services to proceed.',
-          onConfirm: () async {
-            // Open location settings for the user to enable location services
-            await Geolocator.openLocationSettings();
-            Get.back();
-          },
-          textConfirm: 'Enable',
-        );
-      });
-      return;
-    }
-
-    // Check for location permissions
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, show a message to the user
-        await Get.defaultDialog(
-          title: 'Location Permission Denied',
-          middleText: 'Please grant location permissions to proceed.',
-          onConfirm: () async {
-            // Open app settings for the user to enable location permissions
-            await Geolocator.openAppSettings();
-            Get.back();
-          },
-          textConfirm: 'Enable',
-        );
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, show a message to the user
-      await Get.defaultDialog(
-        title: 'Location Permission Denied',
-        middleText:
-            'Please enable location permissions from settings to proceed.',
-        onConfirm: () async {
-          // Open app settings for the user to enable location permissions
-          await Geolocator.openAppSettings();
-          Get.back();
-        },
-        textConfirm: 'Enable',
-      );
-      return;
-    }
-
-    // Permissions are granted, proceed with accessing the location
-  }
-}
-
-Future<bool> isLocationServiceEnabled() async {
-  bool serviceEnabled;
-
-  // Check if location services are enabled
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  return serviceEnabled;
-}

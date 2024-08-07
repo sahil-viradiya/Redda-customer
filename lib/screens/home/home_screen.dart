@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,9 +13,9 @@ import 'package:redda_customer/constant/my_size.dart';
 import 'package:redda_customer/constant/style.dart';
 import 'package:redda_customer/route/app_route.dart';
 import 'package:redda_customer/screens/Pick%20Up%20Location/seach_location.dart';
+import 'package:redda_customer/services/location_services.dart';
 import 'package:redda_customer/widget/custom_button.dart';
 import 'package:redda_customer/widget/location.dart';
-import 'package:redda_customer/widget/search_drop_down_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'home_controller.dart';
 
@@ -52,6 +51,9 @@ class HomeScreen extends GetView<HomeController> {
       {"name": "User", "desc": "Having End User access rights", "role": 6},
     ];
     final controller = Get.put(HomeController());
+    final LocationController locationController =
+        Get.find<LocationController>();
+
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -80,7 +82,7 @@ class HomeScreen extends GetView<HomeController> {
                         return SizedBox(
                           width: MySize.safeWidth! / 2,
                           child: Text(
-                            controller.currentLocation.value,
+                            locationController.currentLocation.value,
                             overflow: TextOverflow.ellipsis,
                             style: Styles.boldDarkGrey60012,
                           ),
@@ -283,8 +285,8 @@ class HomeScreen extends GetView<HomeController> {
                             ),
                             child: Obx(() => GetLocationScreen(
                                   key: controller.locationWidgetKey.value,
-                                  lat: controller.currerntLat.value,
-                                  lng: controller.currerntLng.value,
+                                  lat: locationController.currerntLat.value,
+                                  lng: locationController.currerntLng.value,
                                 )),
                           ),
                           // ElevatedButton(

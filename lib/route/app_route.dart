@@ -21,6 +21,7 @@ import 'package:redda_customer/screens/auth/signIn/signIn_Screen.dart';
 import 'package:redda_customer/screens/home/home_screen.dart';
 import 'package:redda_customer/screens/link_account/link_account_screen.dart';
 import 'package:redda_customer/screens/payment_option/payment_option.dart';
+import 'package:redda_customer/services/internate_services/no_internate_screen.dart';
 
 import '../screens/Drop Location/checkout/checkout_screen.dart';
 import '../screens/Drop Location/drop_address_details/drop_address_details_screen.dart';
@@ -29,6 +30,7 @@ import '../screens/Drop Location/set_drop_location/set_drop_location_screen.dart
 
 class AppRoutes {
   static const String SPLASHSCREEN = '/splash_screen';
+  static const String NoInterNate = '/no_internate';
 
   static const String LOGIN = '/login_screen';
   static const String FORGOTPASSWORD = '/forgot_password';
@@ -55,108 +57,112 @@ class AppRoutes {
   static const String PAYMENTOPTION = '/payment_option';
   static const String ADDNEWCARD = '/add_new_card';
   static const String LINKACCOUNTSCREEN = '/link_account_screen';
-  static const String WALLETSCREEN= '/wallet_screen';
+  static const String WALLETSCREEN = '/wallet_screen';
 
   static List<GetPage> get pages => [
-    GetPage(
-      name: initialRoute,
-      page: () => SignInScreen(),
-    ),
-    GetPage(
-      name: WALLETSCREEN,
-      page: () => const WalletScreen(),
-    ),
-    GetPage(
-      name: LINKACCOUNTSCREEN,
-      page: () => const LinkAccountScreen(),
-    ),
-    GetPage(
-      name: PAYMENTOPTION,
-      page: () => const PaymentOptionScreen(),
-    ),
-    GetPage(
-      name: ADDNEWCARD,
-      page: () => const AddNewCardScreen(),
-    ),
-    GetPage(
-      name: EDIT_PROFILE,
-      page: () => const EditProfile(),
-    ),
-    GetPage(
-      name: NO_ADDRESS,
-      page: () => const NoAddressScreen(),
-    ),
-    GetPage(
-      name: ADD_ADDRESS,
-      page: () => const AddNewAddress(),
-    ),
-    GetPage(
-      name: PICKUPORSENDANYTHING,
-      page: () => const PickOrSendAnyScreen(),
-    ),
-    GetPage(
-      name: PAYMENT,
-      page: () => const PaymentScreen(),
-    ),
-    GetPage(
-      name: CHECKOUT,
-      page: () => const CheckoutScreen(),
-    ),
-    GetPage(
-      name: DROPADDRESSDETAILS,
-      page: () => DropAddressDetailsScreen(),
-    ),
-    GetPage(
-      name: SETCURRENTDROPTLOCATION,
-      page: () => const SetCurrentDropLocation(),
-    ),
-    GetPage(
-      name: SETDROPLOCATION,
-      page: () => const SetDropLocationScreen(),
-    ),
-    GetPage(
-      name: DROPSCREEN,
-      page: () => const DropScreen(),
-    ),
-    GetPage(
-      name: FORGOTPASSWORD,
-      page: () => ForgotPasswordScreen(),
-    ),
-    GetPage(
-      name: FORGOTOTP,
-      page: () => ForgotOtpScreen(),
-    ),
-    GetPage(
-      name: RESATEPASSWORD,
-      page: () => ResetPasswordScreen(),
-    ),
-    GetPage(
-      name: SIGNUPSCREEN,
-      page: () => SignUpScreen(),
-    ),
-    GetPage(
-      name: OTPSCREEN,
-      page: () => OtpScreen(),
-    ),
-    GetPage(
-      name: HOMESCREEN,
-      page: () => const HomeScreen(),
-    ),
-    GetPage(
-      name: PICKUPSCREEN,
-      page: () => const PickUpScreen(),
-    ),
-    GetPage(
-      name: SETPICKUPLOCATION,
-      page: () => const SetPickUpLocationLocation(),
-    ),
-    GetPage(
-      name: SETCURRENTLOCATION,
-      page: () => const SetCurrentLocation(),
-    ),
-    GetPage(
-      name: ADDRESSDETAILS,
-      page: () => AddressDetailsScreen(),
-    ),
-  ];
+        GetPage(
+          name: initialRoute,
+          page: () => SignInScreen(),
+        ),
+        GetPage(
+          name: NoInterNate,
+          page: () => const NoInternateScreen(),
+        ),
+        GetPage(
+          name: WALLETSCREEN,
+          page: () => const WalletScreen(),
+        ),
+        GetPage(
+          name: LINKACCOUNTSCREEN,
+          page: () => const LinkAccountScreen(),
+        ),
+        GetPage(
+          name: PAYMENTOPTION,
+          page: () => const PaymentOptionScreen(),
+        ),
+        GetPage(
+          name: ADDNEWCARD,
+          page: () => const AddNewCardScreen(),
+        ),
+        GetPage(
+          name: EDIT_PROFILE,
+          page: () => const EditProfile(),
+        ),
+        GetPage(
+          name: NO_ADDRESS,
+          page: () => const NoAddressScreen(),
+        ),
+        GetPage(
+          name: ADD_ADDRESS,
+          page: () => const AddNewAddress(),
+        ),
+        GetPage(
+          name: PICKUPORSENDANYTHING,
+          page: () => const PickOrSendAnyScreen(),
+        ),
+        GetPage(
+          name: PAYMENT,
+          page: () => const PaymentScreen(),
+        ),
+        GetPage(
+          name: CHECKOUT,
+          page: () => const CheckoutScreen(),
+        ),
+        GetPage(
+          name: DROPADDRESSDETAILS,
+          page: () => DropAddressDetailsScreen(),
+        ),
+        GetPage(
+          name: SETCURRENTDROPTLOCATION,
+          page: () => const SetCurrentDropLocation(),
+        ),
+        GetPage(
+          name: SETDROPLOCATION,
+          page: () => const SetDropLocationScreen(),
+        ),
+        GetPage(
+          name: DROPSCREEN,
+          page: () => const DropScreen(),
+        ),
+        GetPage(
+          name: FORGOTPASSWORD,
+          page: () => ForgotPasswordScreen(),
+        ),
+        GetPage(
+          name: FORGOTOTP,
+          page: () => ForgotOtpScreen(),
+        ),
+        GetPage(
+          name: RESATEPASSWORD,
+          page: () => ResetPasswordScreen(),
+        ),
+        GetPage(
+          name: SIGNUPSCREEN,
+          page: () => SignUpScreen(),
+        ),
+        GetPage(
+          name: OTPSCREEN,
+          page: () => OtpScreen(),
+        ),
+        GetPage(
+          name: HOMESCREEN,
+          page: () => const HomeScreen(),
+        ),
+        GetPage(
+          name: PICKUPSCREEN,
+          page: () => const PickUpScreen(),
+        ),
+        GetPage(
+          name: SETPICKUPLOCATION,
+          page: () => const SetPickUpLocationLocation(),
+        ),
+        GetPage(
+          name: SETCURRENTLOCATION,
+          page: () => const SetCurrentLocation(),
+        ),
+        GetPage(
+          name: ADDRESSDETAILS,
+          page: () => AddressDetailsScreen(),
+        ),
+      ];
 }

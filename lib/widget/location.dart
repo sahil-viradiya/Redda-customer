@@ -15,7 +15,7 @@ import 'package:redda_customer/widget/search_location_on_map_screen.dart';
 import 'package:http/http.dart' as http;
 
 class GetLocationScreen extends StatefulWidget {
-  const GetLocationScreen({required this.lat,required this.lng,super.key});
+  const GetLocationScreen({required this.lat, required this.lng, super.key});
   final double lat;
   final double lng;
 
@@ -128,62 +128,69 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
 
   //Future<void> getAddressFromLatLong(Position position) async {
 
-Future<void> getAddressFromLatLong({
-  required double latitude,
-  required double longitude,
-  required HomeController controller,
-  int retries = 3,  // Number of retries
-}) async {
-  print("latitude=============>:-$latitude");
-  print("longitude==============>:-$longitude");
-  latlng.value = LatLng(latitude, longitude);
+  Future<void> getAddressFromLatLong({
+    required double latitude,
+    required double longitude,
+    required HomeController controller,
+    int retries = 3, // Number of retries
+  }) async {
+    print("latitude=============>:-$latitude");
+    print("longitude==============>:-$longitude");
+    latlng.value = LatLng(latitude, longitude);
 
-  final apiKey = Config.apiKey;  // Replace with your Google Maps API key
-  final url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey';
+    final apiKey = Config.apiKey; // Replace with your Google Maps API key
+    final url =
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey';
 
-  for (int attempt = 1; attempt <= retries; attempt++) {
-    try {
-      final response = await http.get(Uri.parse(url));
+    for (int attempt = 1; attempt <= retries; attempt++) {
+      try {
+        final response = await http.get(Uri.parse(url));
 
-      if (response.statusCode == 200) {
-        final jsonResponse = jsonDecode(response.body);
-        if (jsonResponse['status'] == 'OK') {
-          final results = jsonResponse['results'];
-          if (results.isNotEmpty) {
-            final address = results[0]['formatted_address'];
-            liveAddress.value = address;
-            setState(() {
-              homeController.currentLocation.value = liveAddress.value;
-            });
-            print('liveAddress:- ${liveAddress.value}');
-            return;
+        if (response.statusCode == 200) {
+          final jsonResponse = jsonDecode(response.body);
+          if (jsonResponse['status'] == 'OK') {
+            final results = jsonResponse['results'];
+            if (results.isNotEmpty) {
+              final address = results[0]['formatted_address'];
+              liveAddress.value = address;
+              setState(() {
+                homeController.currentLocation.value = liveAddress.value;
+              });
+              print('liveAddress:- ${liveAddress.value}');
+              return;
+            } else {
+              print('No addresses found');
+              Fluttertoast.showToast(
+                  msg: "No address found for the provided coordinates");
+              return;
+            }
           } else {
-            print('No addresses found');
-            Fluttertoast.showToast(msg: "No address found for the provided coordinates");
-            return;
+            print('Geocoding failed: ${jsonResponse['status']}');
+            Fluttertoast.showToast(
+                msg: "Geocoding failed: ${jsonResponse['status']}");
           }
         } else {
-          print('Geocoding failed: ${jsonResponse['status']}');
-          Fluttertoast.showToast(msg: "Geocoding failed: ${jsonResponse['status']}");
+          print('HTTP request failed with status: ${response.statusCode}');
+          Fluttertoast.showToast(
+              msg: "HTTP request failed with status: ${response.statusCode}");
         }
-      } else {
-        print('HTTP request failed with status: ${response.statusCode}');
-        Fluttertoast.showToast(msg: "HTTP request failed with status: ${response.statusCode}");
-      }
-    } catch (e) {
-      print('Attempt $attempt: Error in getAddressFromLatLong: $e');
-      if (attempt == retries) {
-        Fluttertoast.showToast(msg: "Error in getting address. Please try again later.");
-      } else {
-        await Future.delayed(const Duration(seconds: 2));  // Wait for 2 seconds before retrying
+      } catch (e) {
+        print('Attempt $attempt: Error in getAddressFromLatLong: $e');
+        if (attempt == retries) {
+          Fluttertoast.showToast(
+              msg: "Error in getting address. Please try again later.");
+        } else {
+          await Future.delayed(
+              const Duration(seconds: 2)); // Wait for 2 seconds before retrying
+        }
       }
     }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-      // myLocationEnabled: true,
+      myLocationEnabled: true,
       // myLocationButtonEnabled: true,
       compassEnabled: true,
       mapToolbarEnabled: true,
@@ -212,14 +219,15 @@ Future<void> getAddressFromLatLong({
       zoomControlsEnabled: false,
 
       initialCameraPosition:
-           CameraPosition(target: LatLng(widget.lat, widget.lng), zoom: 17),
+          CameraPosition(target: LatLng(widget.lat, widget.lng), zoom: 17),
 
       /// if you uncomment below marker and comment the current markers then user cant be seelcted location on map
       //markers: markers,
       markers: <Marker>{
         Marker(
           markerId: const MarkerId('needleNew'),
-          position: LatLng(widget.lat, widget.lng), // Use the updated position here.
+          position:
+              LatLng(widget.lat, widget.lng), // Use the updated position here.
           icon:
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
         ),

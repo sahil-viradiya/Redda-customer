@@ -15,12 +15,13 @@ class AddressDetailsController extends GetxController {
   RxBool isLoading = false.obs;
   var latCon = ''.obs;
   var longCon = ''.obs;
+  RxBool saveAddressValue = false.obs;
 
   TextEditingController sendersName = TextEditingController();
   TextEditingController sendersMobileNo = TextEditingController();
   TextEditingController landCon = TextEditingController();
   TextEditingController addressCon = TextEditingController();
-  final TextEditingController myController = TextEditingController();
+  final TextEditingController searchCon = TextEditingController();
 
   @override
   void onReady() {
@@ -51,6 +52,10 @@ class AddressDetailsController extends GetxController {
   void selectAddress(FetchAddressModel address) {
     searchQuery.value = address.address;
     sendersMobileNo.text = address.senderMobile;
+    sendersName.text = address.senderName;
+    searchCon.text = address.address;
+    // addressCon.text = address.address;
+    landCon.text = address.landmark;
     log("selected address ${address.senderMobile}");
     isListVisible.value = false; // Hide the list when an address is selected
   }
@@ -76,6 +81,8 @@ class AddressDetailsController extends GetxController {
           }).toList();
 
           addresses = model;
+
+          log("NEW == >> ${model[0].address}");
         }
       } else {
         print('Failed to load data: ${response.statusCode}');
@@ -100,14 +107,49 @@ class AddressDetailsController extends GetxController {
     @override
     void onClose() {}
   }
-}
 
-class TestItem {
-  String label;
-  dynamic value;
-  TestItem({required this.label, this.value});
+  Future<dynamic> saveAddress() async {
+    try {
+      var response =
+          await dioClient.post('${Config.baseUrl}add_customer_address.php',
+              data: dio.FormData.fromMap({
+                "address": searchCon.text,
+                "landmark": landCon.text,
+                "sender_name": sendersName.text,
+                "sender_mobile": sendersMobileNo.text,
+              }));
 
-  factory TestItem.fromJson(Map<String, dynamic> json) {
-    return TestItem(label: json['label'], value: json['value']);
+      var responseData = response;
+
+      if (responseData != null && responseData['data'] != null) {
+        var message = responseData['message'];
+        if (responseData['status'] == false) {
+          DioExceptions.showErrorMessage(Get.context!, message);
+          return []; // Return an empty list if the status is false
+        } else {
+          DioExceptions.showMessage(Get.context!, message);
+        }
+      } else {
+        print('Failed to load data: ${response.statusCode}');
+        return [];
+      }
+    } on DioException catch (e) {
+      print("Status Code: ${e.response?.statusCode}");
+      print('Error: $e');
+      DioExceptions.showErrorMessage(
+        Get.context!,
+        DioExceptions.fromDioError(dioError: e, errorFrom: "FETCH ADDRESS")
+            .errorMessage(),
+      );
+      return []; // Return an empty list if an exception occurs
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error: $e");
+      }
+      return []; // Return an empty list for any other exception
+    }
+
+    @override
+    void onClose() {}
   }
 }

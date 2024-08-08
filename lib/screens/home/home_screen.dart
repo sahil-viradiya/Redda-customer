@@ -2,11 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:redda_customer/Utils/constant.dart';
-import 'package:redda_customer/Utils/network_client.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/constant/app_image.dart';
 import 'package:redda_customer/constant/my_size.dart';
@@ -51,8 +48,7 @@ class HomeScreen extends GetView<HomeController> {
       {"name": "User", "desc": "Having End User access rights", "role": 6},
     ];
     final controller = Get.put(HomeController());
-    final LocationController locationController =
-        Get.find<LocationController>();
+    final LocationController locationController = Get.put(LocationController());
 
     return WillPopScope(
       onWillPop: () async {
@@ -248,23 +244,24 @@ class HomeScreen extends GetView<HomeController> {
                                   borderCircular: 7,
                                   text: "Set pick up & drop location",
                                   fun: () async {
-                                    print(
-                                        "is Permission==>> ${controller.status.value}");
-                                    if (controller.status.value ==
-                                        'Status.granted') {
-                                      Get.toNamed(AppRoutes.PICKUPSCREEN);
-                                    } else {
-                                      var status = await Permission
-                                          .locationWhenInUse
-                                          .request();
-                                      controller.rebuildLocationWidget();
+                                    // print(
+                                    //     "is Permission==>> ${controller.status.value}");
+                                    // if (controller.status.value ==
+                                    //     'Status.granted') {
+                                    //   Get.toNamed(AppRoutes.PICKUPSCREEN);
+                                    // } else {
+                                    //   var status = await Permission
+                                    //       .locationWhenInUse
+                                    //       .request();
+                                    //   locationController
+                                    //       .rebuildLocationWidget();
 
-                                      bool isLocationServiceEnabled =
-                                          await Geolocator
-                                              .isLocationServiceEnabled();
-                                      DioExceptions.showMessage(
-                                          context, controller.status.value);
-                                    }
+                                    //   bool isLocationServiceEnabled =
+                                    //       await Geolocator
+                                    //           .isLocationServiceEnabled();
+                                    //   DioExceptions.showMessage(
+                                    //       context, controller.status.value);
+                                    // }
                                   },
                                 ),
                               ],
@@ -284,7 +281,8 @@ class HomeScreen extends GetView<HomeController> {
                               border: Border.all(color: primary),
                             ),
                             child: Obx(() => GetLocationScreen(
-                                  key: controller.locationWidgetKey.value,
+                                  key: locationController
+                                      .locationWidgetKey.value,
                                   lat: locationController.currerntLat.value,
                                   lng: locationController.currerntLng.value,
                                 )),

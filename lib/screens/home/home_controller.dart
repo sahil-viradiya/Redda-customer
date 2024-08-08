@@ -27,11 +27,11 @@ class HomeController extends GetxController {
   RxDouble currerntLat = 0.0.obs;
   RxDouble currerntLng = 0.0.obs;
   final CarouselController slideController = CarouselController();
-  Rx<Key> locationWidgetKey = UniqueKey().obs; // Key to rebuild the widget
+  // Rx<Key> locationWidgetKey = UniqueKey().obs; // Key to rebuild the widget
 
-  void rebuildLocationWidget() {
-    locationWidgetKey.value = UniqueKey(); // Assign a new key to force rebuild
-  }
+  // void rebuildLocationWidget() {
+  //   locationWidgetKey.value = UniqueKey(); // Assign a new key to force rebuild
+  // }
 
   final SignInController signInController = Get.put(SignInController());
 
@@ -78,7 +78,7 @@ class HomeController extends GetxController {
           currerntLat.value = position.latitude;
           currerntLng.value = position.longitude;
           update();
-          rebuildLocationWidget();
+          // rebuildLocationWidget();
           refresh();
           List<Placemark> placemarks = await placemarkFromCoordinates(
               position.latitude, position.longitude);
@@ -123,7 +123,7 @@ class HomeController extends GetxController {
                     msg:
                         "HTTP request failed with status: ${response.statusCode}");
               }
-              rebuildLocationWidget();
+              // rebuildLocationWidget();
               print("currentLocation:-$currentLocation");
               update();
             } catch (e) {

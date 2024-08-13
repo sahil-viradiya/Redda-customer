@@ -21,16 +21,16 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
   DropAddressDetailsScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-    
+
   @override
   Widget build(BuildContext context) {
-    final List<dynamic>? arguments = Get.arguments;
+    Get.put(DropAddressDetailsController());
+    // final List<dynamic>? arguments = Get.arguments;
 
-   double latitude = double.parse(arguments?[0]?.toString() ?? '0.0');
-    double longitude = double.parse(arguments?[1]?.toString() ?? '0.0');
+    // double latitude = double.parse(arguments?[0]?.toString() ?? '0.0');
+    // double longitude = double.parse(arguments?[1]?.toString() ?? '0.0');
 
     List text = ["Home", "Work", "Other"];
-    Get.put(DropAddressDetailsController());
     return Scaffold(
         backgroundColor: white,
         appBar: appbarSmall1(
@@ -54,7 +54,10 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(color: primary),
                       ),
-                      child:  GetLocationScreen(lat: latitude, lng: longitude,),
+                      child: GetLocationScreen(
+                        lat: controller.dropLat.value,
+                        lng: controller.dropLng.value,
+                      ),
                     ),
                     //=============Address================
                     const Gap(18),
@@ -69,13 +72,13 @@ class DropAddressDetailsScreen extends GetView<DropAddressDetailsController> {
                     Gap(MySize.size4!),
 
                     AddressSearchWidget(
-                        controller: controller,
-                        searchController: controller.dropAddCon,
-                        onAddressSelected: (value) {
-                          log("selected val $value");
-                          FocusScope.of(context).unfocus();
-                        },
-                      ),
+                      controller: controller,
+                      searchController: controller.dropAddCon,
+                      onAddressSelected: (value) {
+                        log("selected val $value");
+                        FocusScope.of(context).unfocus();
+                      },
+                    ),
 
                     Gap(MySize.size12!),
                     //=============Landmark================

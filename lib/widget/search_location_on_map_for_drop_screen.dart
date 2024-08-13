@@ -160,8 +160,10 @@ class _SearchLocationOnMapForDropScreenState
                   fun: lat != null
                       ? () async {
                           await getAddress();
-                          Get.toNamed(AppRoutes.DROPADDRESSDETAILS,
-                              arguments: [lat.toString(), lng.toString()]);
+                          Get.toNamed(
+                            AppRoutes.DROPADDRESSDETAILS,
+                            arguments: [lat.toString(), lng.toString()],
+                          );
                         }
                       : () {},
                 )

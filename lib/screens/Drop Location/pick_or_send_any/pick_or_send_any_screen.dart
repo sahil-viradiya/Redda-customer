@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -23,6 +25,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
     final DropAddressDetailsController dropAddScreenCon = Get.find();
     final PickOrSendAnyController picOrSendAny = Get.find();
     final data = Get.arguments ?? {};
+    log("----pick ${dropScreenCon.pickLng.value}");
     // log("final location ${arguments}");
     return Scaffold(
         backgroundColor: white,
@@ -180,7 +183,7 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
-                height: Get.height/4,
+                height: Get.height / 4,
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                 decoration: BoxDecoration(
@@ -206,7 +209,9 @@ class PickOrSendAnyScreen extends GetView<PickOrSendAnyController> {
               // height: 125,
               decoration: const BoxDecoration(
                 color: white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 8,

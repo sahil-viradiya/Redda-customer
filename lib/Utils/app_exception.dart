@@ -26,6 +26,8 @@ class BadRequestException extends AppException {
 class UnauthorizedException extends AppException {
   UnauthorizedException([String? message, String? url])
       : super(message, 'Unauthorized: ', url);
+      
+
 }
 
 class InvalidInputException extends AppException {

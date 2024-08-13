@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/main.dart';
 import 'package:redda_customer/screens/Pick%20Up%20Location/location_sugetion.dart';
 import 'package:redda_customer/widget/search_location_on_map_screen.dart';
@@ -44,7 +45,7 @@ class SetPickUpLocationController extends GetxController {
   Future<dynamic> getLatLong(String placeId) async {
     try {
       var response = await dioClient.get(
-          "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=${placesService.apiKey}");
+          "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=${Config.apiKey}");
       selectedPlaceLat.value = double.parse(
           response['result']['geometry']['location']['lat'].toString());
       selectedPlaceLng.value = double.parse(

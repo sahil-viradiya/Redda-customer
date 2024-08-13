@@ -109,7 +109,7 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
         "https://maps.googleapis.com/maps/api/directions/json?origin=${pickupLocation.latitude},${pickupLocation.longitude}&destination=${dropLocation.latitude},${dropLocation.longitude}&key=${Config.apiKey}";
     http.Response response = await http.get(Uri.parse(url));
     Map<String, dynamic> data = jsonDecode(response.body);
-
+    log("faildddd===$data");
     if (data['status'] == 'OK') {
       List<LatLng> polylineCoordinates =
           decodePolyline(data['routes'][0]['overview_polyline']['points']);

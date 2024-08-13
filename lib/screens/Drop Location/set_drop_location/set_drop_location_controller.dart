@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/screens/Pick%20Up%20Location/location_sugetion.dart';
 
 import '../../../Utils/network_client.dart';
@@ -37,7 +38,7 @@ class SetDropLocationController extends GetxController {
   Future<dynamic> getLatLong(String placeId) async {
     try {
       var response = await dioClient.get(
-          "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=${placesService.apiKey}");
+          "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=${Config.apiKey}");
       selectedDropLat.value =
           response['result']['geometry']['location']['lat'].toString();
       selectedDropLng.value =

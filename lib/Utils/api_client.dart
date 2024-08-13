@@ -23,8 +23,10 @@ class DioClient {
     _dio = dio;
     _dio
       ..options.baseUrl = baseUrl
-      ..options.connectTimeout = const Duration(milliseconds: _defaultConnectTimeout)
-      ..options.receiveTimeout = const Duration(milliseconds: _defaultReceiveTimeout)
+      ..options.connectTimeout =
+          const Duration(milliseconds: _defaultConnectTimeout)
+      ..options.receiveTimeout =
+          const Duration(milliseconds: _defaultReceiveTimeout)
       ..options.headers = {'Content-Type': 'application/json; charset=UTF-8'};
 
     // Add the interceptors
@@ -34,7 +36,7 @@ class DioClient {
     if (interceptors?.isNotEmpty ?? false) {
       _dio.interceptors.addAll(interceptors!);
     }
-    
+
     if (kDebugMode) {
       _dio.interceptors.add(LogInterceptor(
         responseBody: true,
@@ -63,8 +65,10 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
       return response.data;
-    } catch (error) {
-      throw ErrorHandler.handleException(error);
+    } on FormatException catch (_) {
+      throw const FormatException("Unable to process the data");
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -90,8 +94,13 @@ class DioClient {
       );
       log('Status Code====>>   ${response.statusCode}');
       return response.data;
-    } catch (error) {
-      throw ErrorHandler.handleException(error);
+    } on FormatException catch (_) {
+      throw const FormatException("Unable to process the data");
+    } catch (e) {
+      rethrow;
     }
+    // catch (error) {
+    //   throw ErrorHandler.handleException(error);
+    // }
   }
 }

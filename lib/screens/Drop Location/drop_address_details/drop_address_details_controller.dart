@@ -166,9 +166,9 @@ class DropAddressDetailsController extends GetxController {
       reciverMobileNo: reciverMobileNo,
       addressType: addressType,
     );
-    log('============= Form DAta ${rideDetailsModel.value.addressType}');
     isLoading(true);
     try {
+      log("req param===${formData.fields}");
       var response = await dioClient
           .post(
         '${Config.baseUrl}temp_ride.php',

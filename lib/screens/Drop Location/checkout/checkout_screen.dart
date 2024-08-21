@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:redda_customer/Utils/constant.dart';
 import 'package:redda_customer/constant/app_color.dart';
 import 'package:redda_customer/screens/Drop%20Location/drop_address_details/drop_address_details_controller.dart';
 import 'package:redda_customer/widget/app_text_field.dart';
@@ -184,7 +185,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
 
                         Expanded(
                           child: Text(
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  ",
+                            "$pPolicy",
                             style: Styles.noramalBlack416,
                           ),
                         ),

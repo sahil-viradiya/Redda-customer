@@ -18,6 +18,8 @@ const Color greyShade = Color(0xFF909090);
 const Color white = Color(0xFFFFFFFF);
 const Color green = Color(0xFF6DB143);
 const Color primaryShade = Color(0xFFF0F2FF);
+const Color greenolive = Color(0xFFC1D73A);
+
 
 const Color red = Color(0xFFFF4B4B);
 const Color pink = Color(0xFFF08484);

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:redda_customer/screens/order_history/order_history_binding.dart';
+import 'package:redda_customer/screens/order_history/order_history_screen.dart';
 import 'package:redda_customer/screens/wallet/wallet_screen.dart';
 import 'package:redda_customer/screens/Drop%20Location/drop_screen/drop_screen.dart';
 import 'package:redda_customer/screens/Drop%20Location/payment/payment_screen.dart';
@@ -58,6 +60,8 @@ class AppRoutes {
   static const String ADDNEWCARD = '/add_new_card';
   static const String LINKACCOUNTSCREEN = '/link_account_screen';
   static const String WALLETSCREEN = '/wallet_screen';
+  static const String order_history_screen = '/order_history_screen';
+
 
   static List<GetPage> get pages => [
         GetPage(
@@ -67,6 +71,11 @@ class AppRoutes {
         GetPage(
           name: NoInterNate,
           page: () => const NoInternateScreen(),
+        ),
+        GetPage(
+          name: order_history_screen,
+          page: () => const OrderHistoryScreen(),
+          binding: OrderHistoryBinding()
         ),
         GetPage(
           name: WALLETSCREEN,

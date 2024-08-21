@@ -42,6 +42,7 @@ class CheckoutController extends GetxController {
           log("================================${respo['data']}===============");
 
           var message = respo['message'];
+          var data = respo['data'];
           try {
             if (respo['status'] == false) {
               //todo
@@ -55,7 +56,7 @@ class CheckoutController extends GetxController {
               //   (Route<dynamic> route) => route.isFirst,
               // );
               //  Get.toNamed(AppRoutes.CHECKOUT);
-              Get.to(()=> const RiderLocationScreen());
+              Get.to(()=> const RiderLocationScreen(),arguments: [double.tryParse(data['dropOffLat'].toString()),double.tryParse(data['dropOffLong'].toString()),]);
             }
           } catch (e) {
             print('Error parsing JSON or accessing message: $e');

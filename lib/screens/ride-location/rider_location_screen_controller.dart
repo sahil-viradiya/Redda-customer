@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -41,6 +42,8 @@ class RiderLocationScreenController extends GetxController {
 
   @override
   void onReady() {
+    var data = Get.arguments;
+    destinations = [LatLng(data[0], data[1])];
     getCurrentLocation();
     WidgetsBinding.instance
         .addPostFrameCallback((_) async => await initializeMap());
@@ -221,7 +224,9 @@ class RiderLocationScreenController extends GetxController {
 
 
     @override
-    void onClose() {}
+    void onClose() {
+      log("close");
+    }
 
     increment() => count.value++;
   }

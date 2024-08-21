@@ -368,22 +368,14 @@ class HomeScreen extends GetView<HomeController> {
                   Get.toNamed(AppRoutes.ADD_ADDRESS);
                   //Get.toNamed(AppRoutes.NO_ADDRESS);
                 }),
-            // _commonListtile(
-            //     context: context,
-            //     icon: AppImage.WALLET,
-            //     title: 'Payment & Refunds',
-            //     fun: () async {
-            //       Navigator.pop(context);
-            //       Get.toNamed(AppRoutes.PAYMENTOPTION);
-
-            //       // showErrorMessage(
-            //       //   context: context,
-            //       //   message: 'Your account has been deleted.',
-            //       //   backgroundColor: green,
-            //       // );
-            //       // resate(context);
-            //       // delet(context);
-            //     }),
+            _commonListtile(
+                context: context,
+                icon: AppImage.WALLET,
+                title: 'Orders',
+                fun: () async {
+                  Navigator.pop(context);
+                  Get.toNamed(AppRoutes.order_history_screen);
+                }),
             _commonListtile(
                 context: context,
                 icon: AppImage.WALLET,

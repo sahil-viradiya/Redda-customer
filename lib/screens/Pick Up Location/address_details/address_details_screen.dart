@@ -176,9 +176,7 @@ class AddressDetailsScreen extends GetView<AddressDetailsController> {
                             if (controller.saveAddressValue.value) {
                               controller.saveAddress();
                             }
-                            Get.offNamedUntil('/drop_screen',
-                                (Route<dynamic> route) => route.isFirst,
-                                arguments: {
+                            Get.toNamed('/drop_screen',arguments: {
                                   'address': controller.searchCon.text,
                                   'landmark': controller.landCon.text,
                                   'senderName': controller.sendersName.text,

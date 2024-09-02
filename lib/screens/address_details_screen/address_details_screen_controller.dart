@@ -141,7 +141,7 @@ class AddressController extends GetxController {
   }
 
   Future<GetAddressModel?> getAddress() async {
-    await getToken();
+     getToken();
     isLoading(true);
 
     log("get address===================$token");

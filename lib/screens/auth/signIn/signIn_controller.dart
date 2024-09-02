@@ -81,9 +81,8 @@ Future<void> getDeviceType(BuildContext context) async {
               print('Message: $message');
             } else {
               DioExceptions.showMessage(Get.context!, message);
-              // log("================================${ respo['data']['api_token']}===============");
-              await SharedPref.saveString(
-                  Config.kAuth, respo['data']['api_token'].toString());
+              log("================================${ respo['data']['api_token']}===============");
+               saveApiToken(respo);
               // await SharedPref.saveString(Config.status, model.userType);
               getProfile();
             }
@@ -110,9 +109,14 @@ Future<void> getDeviceType(BuildContext context) async {
     }
   }
 
-  Future<dynamic> getProfile() async {
-    await getToken();
+  void saveApiToken(Map<String, dynamic> respo) async {
+  String token = respo['data']['api_token'].toString();
+  await SharedPref.setToken(token);
+}
 
+  Future<dynamic> getProfile() async {
+getToken();
+log("token sett ${token}");
     isLoading(true);
     try {
       var response = await dioClient

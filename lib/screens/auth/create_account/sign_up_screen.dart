@@ -169,7 +169,7 @@ class SignUpScreen extends StatelessWidget {
                     // controller: _controller.mobileNo,
                     onchanged: (val) {
                       _controller.createAccountModel?.mobileNo = val ?? "";
-                      debugPrint(_controller.createAccountModel?.fullName);
+                      debugPrint(_controller.createAccountModel?.mobileNo);
                     },
                     keyboardType: TextInputType.number,
                     validator: ((value) {
@@ -266,7 +266,8 @@ class SignUpScreen extends StatelessWidget {
                             DioExceptions.showErrorMessage(
                                 context, "Please Check terms and conditions");
                           } else {
-                            _controller.signUp(context: context);
+                            // _controller.signUp(context: context);
+                           _controller. verifyNumber();
                           }
                         }
                         debugPrint(_controller.createAccountModel?.password);

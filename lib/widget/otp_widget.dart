@@ -13,7 +13,7 @@ class OTPWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Pinput(
       //controller: controller.smsCode,
-      length: 4,
+      length: 6,
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       validator: validator,
@@ -23,7 +23,7 @@ class OTPWidget extends StatelessWidget {
       keyboardType: TextInputType.number,
       listenForMultipleSmsOnAndroid: true,
       pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-      animationDuration: Durations.long1,
+      animationDuration: Durations.medium1,
       androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
       controller: controller,
       animationCurve: Curves.bounceOut,
@@ -41,6 +41,8 @@ class OTPWidget extends StatelessWidget {
           ),
         ),
       ),
+      enableIMEPersonalizedLearning: true,
+      enableSuggestions: true,
       focusedPinTheme: PinTheme(
         height: 60.0,
         width: 60.0,

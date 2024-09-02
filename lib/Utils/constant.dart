@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:redda_customer/Utils/pref.dart';
@@ -5,12 +8,14 @@ import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/screens/auth/signIn/signIn_Screen.dart';
 
 String? token;
-Future<String?> getToken() async {
-  token = await SharedPref.readString(Config.kAuth);
-  print("TOKEN=========>> $token");
-  return token;
+void getToken() async {
+ token = await SharedPref.getToken();
+  if (token != null) {
+    print("Fetched token: $token");
+  } else {
+    print("Token is not available.");
+  }
 }
-
 String? userId;
 Future<String?> getUserId() async {
   userId = await SharedPref.readString(Config.userId);
@@ -19,7 +24,7 @@ Future<String?> getUserId() async {
 }
 
 void resate(BuildContext context) async {
-  await SharedPref.saveString(Config.kAuth, '');
+  await SharedPref.setToken('');
   // await SharedPref.saveString(Config.userId, '');
   Get.offAll(SignInScreen());
 }

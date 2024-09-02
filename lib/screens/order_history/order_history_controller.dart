@@ -21,7 +21,7 @@ class OrderHistoryController extends GetxController {
   }
 
  Future<void> orderHistory() async {
-  await getToken();
+getToken();
   if (token == null) {
     if (kDebugMode) {
       print("Token is null");

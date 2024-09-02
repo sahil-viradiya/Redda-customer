@@ -23,11 +23,11 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final arguments = Get.arguments;
+    // final arguments = Get.arguments;
 
-    // Extract the 'userId' from the arguments
-    final userId = arguments['userId'];
-    log(" id --  $userId");
+    // // Extract the 'userId' from the arguments
+    // final userId = arguments['userId'];
+    // log(" id --  $userId");
 
     MySize().init(context);
     return WillPopScope(
@@ -75,7 +75,9 @@ class OtpScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          _controller.resendOtp();
+                        },
                         child: Text(
                           'Resend?',
                           style: Styles.normalBlue612U,
@@ -91,7 +93,8 @@ class OtpScreen extends StatelessWidget {
                         fun: () {
                           // Get.toNamed(AppRoutes.RESATEPASSWORD);
                           if (_formKey.currentState!.validate()) {
-                            _controller.verifyOtp(userId: userId.toString());
+                            _controller.verifyOtp();
+                            // _controller.verifyOtp(userId: userId.toString());
                           }
                           // Navigator.push(
                           //   context,

@@ -22,11 +22,11 @@ Future<void> main() async {
   FirebaseMessagingHandler();
   DependencyInjection.init();
 
-  String? token = await getToken();
+getToken();
   String? userID = await getUserId();
 
   // Run the app with the retrieved token
-  runApp(MyApp(token));
+  runApp(const MyApp());
 
   Future.delayed(const Duration(milliseconds: 500), () {
     // checkLocationPermission();
@@ -37,9 +37,9 @@ final dio = Dio();
 final dioClient = DioClient('https://ride.notionprojects.tech/api/rider/', dio);
 
 class MyApp extends StatelessWidget {
-  final String? token;
+ 
 
-  const MyApp(this.token, {super.key});
+  const MyApp( {super.key});
 
   @override
   Widget build(BuildContext context) {

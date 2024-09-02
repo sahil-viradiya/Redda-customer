@@ -8,7 +8,7 @@ class AuthInterceptor extends Interceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     // Add the authentication token to the headers
-    final token = await getToken();
+
 
     if (token != null) {
       options.headers['Authorization'] = 'Bearer $token';

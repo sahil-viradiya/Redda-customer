@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart' as dio;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:redda_customer/Utils/pref.dart';
 import 'package:redda_customer/constant/api_key.dart';
 import 'package:redda_customer/model/create_account_model.dart';
 import 'package:redda_customer/route/app_route.dart';
+import 'package:redda_customer/services/firebase_services/auth_services.dart';
 
 import '../../../main.dart';
 
@@ -19,7 +21,6 @@ class SignUpController extends GetxController {
   BuildContext? context;
   CreateAccountModel model = CreateAccountModel();
   PostCreateModel? createAccountModel;
-
   TextEditingController fullName = TextEditingController();
   TextEditingController userName = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -93,6 +94,48 @@ class SignUpController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  void verifyNumber() async {
+    isLoading.value = true;
+
+    const phoneCode = '+91'; // Example country code
+    final mobileNo = createAccountModel!
+        .mobileNo; // Assuming mobileNoController is your TextEditingController
+void savePostCreateModel(PostCreateModel model) async {
+  await SharedPref.saveObject('postCreateModel', model.toJson());
+  print("PostCreateModel saved successfully.");
+}
+    AuthService().verifyPhoneNumber(
+      phoneCode: phoneCode,
+      mobileNumber: mobileNo,
+      codeSent: (String verificationId, int? resendToken) {
+        log("Navigate to OTP screen after code sent.");
+       savePostCreateModel(createAccountModel!);
+          Get.toNamed(AppRoutes.OTPSCREEN, arguments: verificationId);
+        isLoading.value = false;
+
+        // Handle navigation or UI update after code is sent
+      },
+      onVerificationCompleted: (PhoneAuthCredential credential) {
+        log("Auto verification completed.");
+      
+
+        // Handle what happens when verification is completed automatically
+      },
+      onVerificationFailed: (String errorMessage) {
+        log("Show error message to user: $errorMessage");
+        isLoading.value = false;
+
+        // Show error message to the user or handle failure
+      },
+      onCodeAutoRetrievalTimeout: (String verificationId) {
+        log("Auto retrieval timeout. Please enter the code manually.");
+        isLoading.value = false;
+
+        // Handle auto-retrieval timeout
+      },
+    );
   }
 
   @override

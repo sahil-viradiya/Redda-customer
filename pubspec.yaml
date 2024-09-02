@@ -69,6 +69,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   location: ^7.0.0
   dropdown_plus_plus: ^0.1.1+1
+  firebase_auth:
   textfield_search: ^0.11.1
   intl: ^0.19.0
 dev_dependencies:

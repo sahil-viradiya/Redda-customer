@@ -17,12 +17,13 @@ class RiderLocationScreenController extends GetxController {
   final count = 0.obs;
   final locationController = loc.Location();
 
-   RxDouble currentLat = 0.0.obs;
+  RxDouble currentLat = 0.0.obs;
   RxDouble currentLng = 0.0.obs;
 
   RxDouble pickupLat = 0.0.obs;
   RxDouble pickupLng = 0.0.obs;
-
+  RxDouble dropLat = 0.0.obs;
+  RxDouble dropLng = 0.0.obs;
   LatLng? currentPosition;
   Map<PolylineId, Polyline> polylines = {};
   RxList<Marker> markers = RxList<Marker>();
@@ -35,15 +36,15 @@ class RiderLocationScreenController extends GetxController {
   Timer? _animationTimer;
   int _animationIndex = 0;
 
-   List<LatLng> destinations = [
-    const LatLng(23.025233605892193, 72.50720234028906),
-    // Add more destinations here
-  ];
+  List<LatLng> destinations = [];
 
   @override
   void onReady() {
     var data = Get.arguments;
     destinations = [LatLng(data[0], data[1])];
+    log("destination== $destinations");
+    dropLat.value = data[0];
+    dropLng.value = data[1];
     getCurrentLocation();
     WidgetsBinding.instance
         .addPostFrameCallback((_) async => await initializeMap());
@@ -55,7 +56,7 @@ class RiderLocationScreenController extends GetxController {
     startMarkerAnimation();
   }
 
-   // Get current location
+  // Get current location
   Future getCurrentLocation() async {
     try {
       bool serviceEnabled;
@@ -88,10 +89,8 @@ class RiderLocationScreenController extends GetxController {
       throw Exception("Get Current Location Exception:- $error");
     }
   }
-  
-  
-  
- Future<void> fetchLocationUpdates() async {
+
+  Future<void> fetchLocationUpdates() async {
     bool serviceEnabled;
     LocationPermission permissionGranted;
 
@@ -146,23 +145,22 @@ class RiderLocationScreenController extends GetxController {
       }
     }
   }
- 
- Future<void> generatePolyLineFromPoints(
+
+  Future<void> generatePolyLineFromPoints(
       List<LatLng> polylineCoordinates) async {
     const id = PolylineId('polyline');
     const id2 = PolylineId('polyline2');
 
- 
-  //  final  polyline2 =   Polyline(
-  //           polylineId: id2,
-  //           visible: true,
-  //           width: 2,
-  //           //latlng is List<LatLng>
-  //           patterns: [PatternItem.dash(30), PatternItem.gap(10)],
-  //           points: MapsCurvedLines.getPointsOnCurve(LatLng(currentLat.value,currentLng.value),LatLng(23.051301906461998, 72.51890182451041)), // Invoke lib to get curved line points
-  //           color: Colors.blue,
-  //       );
-   final  polyline1 = Polyline(
+    //  final  polyline2 =   Polyline(
+    //           polylineId: id2,
+    //           visible: true,
+    //           width: 2,
+    //           //latlng is List<LatLng>
+    //           patterns: [PatternItem.dash(30), PatternItem.gap(10)],
+    //           points: MapsCurvedLines.getPointsOnCurve(LatLng(currentLat.value,currentLng.value),LatLng(23.051301906461998, 72.51890182451041)), // Invoke lib to get curved line points
+    //           color: Colors.blue,
+    //       );
+    final polyline1 = Polyline(
       geodesic: true,
       consumeTapEvents: true,
       jointType: JointType.bevel,
@@ -172,23 +170,18 @@ class RiderLocationScreenController extends GetxController {
       startCap: Cap.roundCap,
       endCap: Cap.squareCap,
       color: primary,
-      points:  polylineCoordinates,
+      points: polylineCoordinates,
       width: 2,
     );
-
 
     polylines[id] = polyline1;
     // polylines[id2] = polyline2;
 
-   
-
     refresh();
     update();
   }
- 
- 
- 
-   void updateMarkers() {
+
+  void updateMarkers() {
     markers.clear();
     markers.add(Marker(
       markerId: const MarkerId("source Location"),
@@ -196,13 +189,12 @@ class RiderLocationScreenController extends GetxController {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
       position: LatLng(currentLat.value, currentLng.value),
     ));
-    markers.add(const Marker(
-      markerId: MarkerId("destination Location"),
+    markers.add(Marker(
+      markerId: const MarkerId("destination Location"),
       icon: BitmapDescriptor.defaultMarker,
-      position: LatLng(23.025233605892193, 72.50720234028906),
+      position: LatLng(dropLat.value, dropLng.value),
     ));
   }
-
 
   void startMarkerAnimation() {
     if (polylines.isNotEmpty) {
@@ -222,11 +214,10 @@ class RiderLocationScreenController extends GetxController {
     }
   }
 
-
-    @override
-    void onClose() {
-      log("close");
-    }
-
-    increment() => count.value++;
+  @override
+  void onClose() {
+    log("close");
   }
+
+  increment() => count.value++;
+}

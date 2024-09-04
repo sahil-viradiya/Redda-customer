@@ -54,7 +54,7 @@ class OtpScreen extends StatelessWidget {
                   ),
                   Gap(MySize.size20!),
                   Text(
-                    'A One-time password will be sent to your email.',
+                    'A One-time password will be sent to your phone.',
                     style: Styles.noramalBlack411,
                     textAlign: TextAlign.center,
                   ),

@@ -130,7 +130,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
 
                         const Spacer(),
                         Text(
-                          "\$${dropAddScreenCon.tempRideMdel.value.totalCharges?.toStringAsFixed(2)}",
+                          "₹${dropAddScreenCon.tempRideMdel.value.totalCharges?.toStringAsFixed(2)}",
                           style: Styles.noramalBlack416,
                         ),
                       ],
@@ -147,7 +147,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
 
                         const Spacer(),
                         Text(
-                          "\$${dropAddScreenCon.tempRideMdel.value.totalCharges?.toStringAsFixed(2)}",
+                          "₹${dropAddScreenCon.tempRideMdel.value.totalCharges?.toStringAsFixed(2)}",
                           style: Styles.noramalBlack416,
                         ),
                       ],
@@ -241,7 +241,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                       width: Get.width,
                       height: 35,
                       borderCircular: 6,
-                      text: "Ride Create",
+                      text: "Book Ride",
                       // "Make Payment | $${dropAddScreenCon.tempRideMdel.value.totalCharges}",
                       fun: () {
                         // Get.toNamed(AppRoutes.PAYMENT);

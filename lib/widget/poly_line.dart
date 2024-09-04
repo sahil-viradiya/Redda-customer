@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +26,10 @@ class GetLocationPolyLineScreen extends StatefulWidget {
       required this.dropLng,
       required this.pickLat,
       required this.pickLng});
-  final dropLat;
-  final dropLng;
-  final pickLat;
-  final pickLng;
+  final double dropLat;
+  final double dropLng;
+  final double pickLat;
+  final double pickLng;
 
   @override
   State<GetLocationPolyLineScreen> createState() =>

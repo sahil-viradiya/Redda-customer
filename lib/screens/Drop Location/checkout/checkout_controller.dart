@@ -48,15 +48,15 @@ class CheckoutController extends GetxController {
               //todo
               payNowDailog(context: Get.context!, controller: _controller);
               DioExceptions.showErrorMessage(Get.context!, message);
-              print('Message: $message');
             } else {
               DioExceptions.showMessage(Get.context!, message);
-              // Get.offNamedUntil(
-              //   AppRoutes.HOMESCREEN,
-              //   (Route<dynamic> route) => route.isFirst,
-              // );
-              //  Get.toNamed(AppRoutes.CHECKOUT);
-              Get.to(()=> const RiderLocationScreen(),arguments: [double.tryParse(data['dropOffLat'].toString()),double.tryParse(data['dropOffLong'].toString()),]);
+              log("response ===== $data");
+              Get.to(() => const RiderLocationScreen(), arguments: [
+                double.tryParse(data['pickUpLat'].toString()),
+                double.tryParse(data['pickUpLong'].toString()),
+                double.tryParse(data['dropOffLat'].toString()),
+                double.tryParse(data['dropOffLong'].toString()),
+              ]);
             }
           } catch (e) {
             print('Error parsing JSON or accessing message: $e');

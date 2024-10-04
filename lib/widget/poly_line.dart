@@ -62,8 +62,8 @@ class _GetLocationPolyLineScreenState extends State<GetLocationPolyLineScreen> {
     super.initState();
     getIcons();
     // getUserCurrentLocation(controller: homeController);
-    log("latttttttttttddttttttttt ${widget.dropLat.runtimeType}");
-    log("latttttttttttttttttttt ${widget.pickLng.runtimeType}");
+    log("latttttttttttddttttttttt ${widget.dropLat}");
+    log("latttttttttttttttttttt ${widget.pickLng}");
     pickupLocation = LatLng(
         widget.pickLat is double
             ? widget.pickLat

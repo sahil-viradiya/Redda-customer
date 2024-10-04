@@ -136,7 +136,7 @@ class WalletScreen extends GetView<WalletController> {
                   ),
                   Gap(MySize.size5!),
                   Text(
-                    "\$ ${controller.walletBalanceModel.value.customerWallet ?? 0.0}",
+                    "₹ ${controller.walletBalanceModel.value.customerWallet ?? 0.0}",
                     style: Styles.white720,
                   ),
                   Gap(MySize.size35!),
@@ -150,7 +150,7 @@ class WalletScreen extends GetView<WalletController> {
           right: 12,
           bottom: 12,
           child: InkWell(
-            onTap: () => payNowDailog(context: context,controller: controller),
+            onTap: () => payNowDailog(context: context, controller: controller),
             child: Container(
               height: MySize.size50,
               decoration: const BoxDecoration(
@@ -206,7 +206,7 @@ Widget transcationWallet(context, TranscationHistoryModel model) {
           ],
         ),
         Text(
-          "+ \$${model.amount}",
+          "+ ₹${model.amount}",
           style: TextStyle(
             color: green,
             fontSize: 12,
@@ -221,13 +221,13 @@ Widget transcationWallet(context, TranscationHistoryModel model) {
 
 void _deliver(BuildContext context, WalletController controller) {
   final PaymentController paymentController = Get.put(PaymentController());
+}
 
- }
-
- payNowDailog({required BuildContext context,required WalletController controller}) {
+payNowDailog(
+    {required BuildContext context, required WalletController controller}) {
   final PaymentController paymentController = Get.put(PaymentController());
 
-  return  showDialog(
+  return showDialog(
     context: context,
     builder: (BuildContext context) {
       return Dialog(
@@ -306,5 +306,4 @@ void _deliver(BuildContext context, WalletController controller) {
       );
     },
   );
-
 }

@@ -107,13 +107,13 @@ Widget transcation(
 
   return GestureDetector(
     onTap: () {
-      Get.to(
-        () => RiderLocationScreen(
-          pickupLat: double.tryParse(model.pickUpLatitude.toString()),
-          pickupLng: double.tryParse(model.pickUpLongitude.toString()),
-        ),
-        arguments: [double.tryParse(model.dropOffLatitude.toString()),double.tryParse(model.dropOffLongitude.toString()),]
-      );
+      Get.to(() => const RiderLocationScreen(), arguments: [
+        double.tryParse(model.pickUpLatitude.toString()),
+        double.tryParse(model.pickUpLongitude.toString()),
+        double.tryParse(model.dropOffLatitude.toString()),
+        double.tryParse(model.dropOffLongitude.toString()),
+    
+      ]);
     },
     child: Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

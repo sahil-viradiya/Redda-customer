@@ -20,8 +20,6 @@ class RiderLocationScreenController extends GetxController {
   RxDouble currentLat = 0.0.obs;
   RxDouble currentLng = 0.0.obs;
 
-  RxDouble pickupLat = 0.0.obs;
-  RxDouble pickupLng = 0.0.obs;
   RxDouble dropLat = 0.0.obs;
   RxDouble dropLng = 0.0.obs;
   LatLng? currentPosition;
@@ -41,17 +39,20 @@ class RiderLocationScreenController extends GetxController {
   @override
   void onReady() {
     var data = Get.arguments;
-    destinations = [LatLng(data[0], data[1])];
+    destinations = [LatLng(data[2], data[3])];
     log("destination== $destinations");
-    dropLat.value = data[0];
-    dropLng.value = data[1];
-    getCurrentLocation();
+
+    currentLat.value = data[0];
+    currentLng.value = data[1];
+    dropLat.value = data[2];
+    dropLng.value = data[3];
+    // getCurrentLocation();
     WidgetsBinding.instance
         .addPostFrameCallback((_) async => await initializeMap());
   }
 
   Future<void> initializeMap() async {
-    await fetchLocationUpdates();
+    // await fetchLocationUpdates();
     await fetchPolylinePoints();
     startMarkerAnimation();
   }
@@ -185,12 +186,14 @@ class RiderLocationScreenController extends GetxController {
     markers.clear();
     markers.add(Marker(
       markerId: const MarkerId("source Location"),
+      infoWindow: const InfoWindow(title: "Pickup Location"),
       visible: true,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
       position: LatLng(currentLat.value, currentLng.value),
     ));
     markers.add(Marker(
       markerId: const MarkerId("destination Location"),
+      infoWindow: const InfoWindow(title: "Drop Location"),
       icon: BitmapDescriptor.defaultMarker,
       position: LatLng(dropLat.value, dropLng.value),
     ));
@@ -204,7 +207,7 @@ class RiderLocationScreenController extends GetxController {
           _movingMarker = _movingMarker.copyWith(
             positionParam: nextPoint,
           );
-          markers.add(_movingMarker);
+          // markers.add(_movingMarker);
           update();
           _animationIndex++;
         } else {

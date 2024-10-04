@@ -14,18 +14,8 @@ const double CAMERA_BEARING = 30;
 class RiderLocationScreen extends GetView<RiderLocationScreenController> {
   const RiderLocationScreen(
       {super.key,
-      this.driverLat,
-      this.driverLng,
-      this.dropLat,
-      this.dropLng,
-      this.pickupLat,
-      this.pickupLng});
-  final double? pickupLat;
-  final double? pickupLng;
-  final double? dropLat;
-  final double? dropLng;
-  final double? driverLat;
-  final double? driverLng;
+     });
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +28,21 @@ class RiderLocationScreen extends GetView<RiderLocationScreenController> {
         return false;
       },
       child: Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+          floatingActionButton: FloatingActionButton(
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+            backgroundColor: primary,
+            tooltip: "Go to Home",
+            onPressed: () {
+              Get.offAllNamed(AppRoutes.HOMESCREEN);
+            },
+            child: const Icon(
+              Icons.home,
+              color: white,
+            ),
+          ),
           backgroundColor: white,
           body: Obx(
             () => controller.currentLat.value == 0.0
@@ -48,7 +53,7 @@ class RiderLocationScreen extends GetView<RiderLocationScreenController> {
                 : GoogleMap(
                     // myLocationButtonEnabled: true,
                     mapType: MapType.normal,
-                    myLocationEnabled: true,
+                    myLocationEnabled: false,
                     rotateGesturesEnabled: true,
                     buildingsEnabled: true,
                     fortyFiveDegreeImageryEnabled: true,
@@ -65,7 +70,7 @@ class RiderLocationScreen extends GetView<RiderLocationScreenController> {
 
                       target: LatLng(
                         controller.currentLat.value,
-                        controller.currentLng.value,
+                        controller.currentLng.value,  
                       ),
                     ),
 
